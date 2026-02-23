@@ -1,40 +1,42 @@
+
+
 .jobpost-page-title {
-    background-color: #ffffff;
+    /* background-color: #FAFCFF; */
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
 }
 
 .jobpost-form-header {
     text-align: center;
-    padding: 130px 0 30px;
+    padding: 110px 0 60px;
 }
 
 .jobpost-form-header h1 {
-    font-size: 36px;
-    color: #0d2344;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 32px;
+    color: #0F2A4A;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
 .jobpost-form-header p {
-    color: #828282;
+    color: #8C95A1;
     font-size: 14px;
 }
 
 .jobpost-form-container {
-    background: #fff;
-    border: 1px solid #e4dede;
-    border-radius: 20px;
-    padding: 60px;
-    max-width: 950px;
-    margin: 0 auto 100px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 12px;
+    padding: 40px 60px 20px 60px; 
+    max-width: 1000px;
+    margin: 0 auto 20px; 
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 .jobpost-form-row {
     display: flex;
     align-items: center; 
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .jobpost-top-align {
@@ -42,214 +44,478 @@
 }
 
 .jobpost-label {
-    width: 200px;
-    min-width: 200px;
+    width: 40px;
+    min-width: 160px;
     font-size: 14px;
-    color: #828282;
+    color: #8C95A1;
+    font-weight: 400;
 }
 
-/* Glow Effect */
 .jobpost-input,
-.jobpost-textarea,
-.jobpost-dropdown-trigger {
+.jobpost-select,
+.jobpost-textarea {
+    flex: 1;
     width: 100%;
-    padding: 12px;
-    border: 1px solid #EAEAEA;
-    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
     font-size: 14px;
-    outline: none;
     color: #333333;
-    transition: all 0.2s ease-in-out;
-    background-color: #fff;
-    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.jobpost-select {
+    color: #A0AAB5; 
+}
+
+.jobpost-select option {
+    color: #333333; 
+}
+
+.jobpost-input::placeholder,
+.jobpost-textarea::placeholder {
+    color: #A0AAB5;
 }
 
 .jobpost-input:focus,
-.jobpost-textarea:focus,
-.jobpost-dropdown.jobpost-is-active .jobpost-dropdown-trigger {
-    border-color: #1E88E5;
-    box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.2);
+.jobpost-select:focus,
+.jobpost-textarea:focus {
+    border-color: #2D9CDB;
 }
 
-.jobpost-dropdown {
+.jobpost-select {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.jobpost-inline-group {
+    flex: 1;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 110px;
+    padding: 0 16px; 
+    height: 44px; 
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.jobpost-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    font-size: 14px;
+    color: #A0AAB5; 
+    cursor: pointer;
+    margin: 0;
+    font-weight: 400;
+    justify-self: start; 
+}
+
+.jobpost-checkbox-label input[type="checkbox"] {
+    width: 20px;  
+    height: 20px; 
+    margin: 0; 
+    cursor: pointer;
+}
+
+.jobpost-radio-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 150px; 
+    border: 1px solid #E5E7EB; 
+    border-radius: 6px;
+    padding: 0 16px;
+    height: 44px; 
+}
+
+.jobpost-radio-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    font-size: 14px;
+    color: #8C95A1;
+    cursor: pointer;
+}
+
+.jobpost-radio-label input[type="radio"] {
+    accent-color: #666;
+    width: 20px;
+    height: 20px;
+}
+
+.jobpost-skills-titile {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; 
+}
+
+.skills-input {
+    width: 100%;
+    box-sizing: border-box; 
+    border: 1px solid #E5E7EB;
+    border-radius: 6px 6px 0 0;
+    padding: 12px 16px;
+    outline: none;
+}
+
+.jobpost-tags-area {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.jobpost-tag {
+    background-color: #6B7280;
+    color: #FFFFFF;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.jobpost-tag button {
+    background: none;
+    border: none;
+    color: #FFF;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.jobpost-input-icon-titile {
     flex: 1;
     position: relative;
-}
-
-.jobpost-dropdown-trigger {
-    cursor: pointer;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
+.jobpost-plus-icon {
+    position: absolute;
+    right: 16px;
+    font-size: 20px;
+    color: #A0AAB5;
+    cursor: pointer;
+}
+
+.jobpost-textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.jobpost-actions {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 0;
+    margin-bottom: 60px;
+    width: 100%;
+}
+
+.jobpost-btn-cancel,
+.jobpost-btn-preview {
+    padding: 12px 40px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 160px;
+}
+
+.jobpost-btn-cancel {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    color: #333333;
+}
+
+.jobpost-btn-cancel:hover {
+    background: #F9FAFB;
+}
+
+.jobpost-btn-preview {
+    background: #2D9CDB;
+    border: none;
+    color: #FFFFFF;
+}
+
+.jobpost-btn-preview:hover {
+    background: #2582EB;
+}
+.jobpost-form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start; 
+}
+
+.jobpost-label {
+  flex: 0 0 150px; 
+  font-weight: bold;
+}
+
+.highlights-container {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  flex: 1; 
+}
+
+.jobpost-input-icon-titile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.jobpost-input {
+  flex: 1; /* Input takes all space except for the plus icon */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* .jobpost-plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+} */
+
+/* Main row container */
+.jobpost-form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start; /* Keeps label at the top */
+}
+
+/* Label alignment */
+.jobpost-label {
+  flex: 0 0 150px; 
+  font-weight: 600;
+}
+
+/* Flex container for the list of inputs */
+.responsibilities-list {
+  display: flex;
+  flex-direction: column; /* Stacks inputs vertically */
+  gap: 12px;
+  flex: 1; /* Takes up the rest of the row width */
+}
+
+/* Individual input row with the icon */
+.jobpost-input-icon-titile{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jobpost-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* .jobpost-plus-icon {
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: bold;
+} */
+
+/* --- Dropdown Container Logic --- */
+.jobpost-dropdown {
+    flex: 1;
+    position: relative;
+    width: 100%;
+}
+
+/* --- Trigger Style (The part that looks like an input) --- */
+.jobpost-dropdown-trigger {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #A0AAB5;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+
+}
+/* --- Optimized Row Alignment --- */
+.jobpost-form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    /* This centers the label vertically with single-line inputs */
+    align-items: center; 
+}
+
+/* Specific class for multi-line areas (Highlights, Responsibilities, Textarea) */
+/* Apply this class in your JSX to rows that have multiple inputs */
+.jobpost-form-row.jobpost-top-align {
+    align-items: flex-start; 
+}
+
+.jobpost-label {
+    /* Fixed width to keep all boxes starting at the same vertical line */
+    flex: 0 0 160px; 
+    font-size: 14px;
+    color: #8C95A1;
+    font-weight: 600;
+
+}
+
+/* Adjusting the Top Align label so it isn't "too high" against multi-inputs */
+.jobpost-top-align .jobpost-label {
+    padding-top: 10px; 
+}
+
+/* --- Ensure Box Consistency --- */
+.jobpost-input,
+.jobpost-dropdown-trigger,
+.jobpost-inline-group,
+.jobpost-radio-container {
+    flex: 1;
+    height: 44px; /* Force identical height for all standard rows */
+    box-sizing: border-box;
+}
+
+.jobpost-textarea {
+    flex: 1;
+    min-height: 140px;
+    padding: 12px 16px;
+}
+
+/* Glow Effect when Dropdown is Open */
+.jobpost-dropdown.jobpost-is-active .jobpost-dropdown-trigger {
+    border-color: #2D9CDB;
+    box-shadow: 0 0 0 4px rgba(45, 156, 219, 0.2);
+}
+
+.jobpost-arrow {
+    font-size: 14px;
+    color: #A0AAB5;
+    transition: transform 0.3s ease;
+}
+
+.jobpost-is-active .jobpost-arrow {
+    transform: rotate(180deg);
+}
+
+/* --- The Floating Panel --- */
 .jobpost-dropdown-panel {
-    display: none;
+    display: none; /* Hidden by default */
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    background: #fff;
-    border: 1px solid #EAEAEA;
-    border-radius: 12px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
     padding: 20px;
-    z-index: 100;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     margin-top: 5px;
+    box-sizing: border-box;
 }
 
 .jobpost-is-active .jobpost-dropdown-panel {
     display: block;
 }
 
+/* --- Options Grid (3 Columns) --- */
 .jobpost-options-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 12px;
     max-height: 250px;
     overflow-y: auto;
-    align-items: start;
+    padding-right: 5px;
 }
 
-
-
-.jobpost-checkbox-group {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px 40px; 
-    padding: 12px 20px;
-    border: 1px solid #EAEAEA;
-    border-radius: 8px;
+/* Scrollbar Styling for Dropdown */
+.jobpost-options-grid::-webkit-scrollbar {
+    width: 5px;
 }
 
-.jobpost-checkbox-label {
+.jobpost-options-grid::-webkit-scrollbar-thumb {
+    background: #E5E7EB;
+    border-radius: 10px;
+}
+
+/* --- Individual Items & Select All --- */
+.jobpost-select-all {
+    display: block;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 14px;
+    color: #0F2A4A;
+}
+
+.jobpost-option-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #828282;
-    font-size: 14px;
+    font-size: 13px;
+    color: #4B5563;
     cursor: pointer;
-    white-space: nowrap;
+    transition: color 0.2s;
 }
 
-.jobpost-checkbox-label input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    margin: 0;
+.jobpost-option-item:hover {
+    color: #2D9CDB;
+}
+
+.jobpost-option-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
     accent-color: #2D9CDB;
-}
-
-
-.jobpost-boxed-container {
-    flex: 1;
-    border: 1px solid #EAEAEA;
-    border-radius: 8px;
-    padding: 10px 15px;
-}
-
-.jobpost-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.jobpost-grid-2-rows {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px 20px;
-}
-
-.jobpost-grid-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.jobpost-grid-item span {
-    min-width: 50px;
-    color: #828282;
-    font-size: 14px;
-}
-
-.jobpost-textarea {
-    min-height: 180px;
-    resize: none;
-}
-
-
-.jobpost-actions {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.jobpost-btn-cancel,
-.jobpost-btn-post {
-    padding: 15px 70px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 20px;
     cursor: pointer;
-    transition: all 0.3s;
 }
 
-.jobpost-btn-cancel {
-    border: 1px solid #EAEAEA;
-    background: #fff;
-    color: #333;
+/* --- Specific Label Fix for Dropdown Rows --- */
+.jobpost-top-align .jobpost-label {
+    padding-top: 12px;
 }
-
-.jobpost-btn-post {
-    background: #1E88E5;
-    color: #fff;
-    border: none;
-}
-
-.jobpost-btn-post:hover {
-    background: #1565C0;
-}
-
-.jobpost-arrow {
-  font-size: 16px;
-  color: #666;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.jobpost-arrow:hover {
-  color: #2563eb;
-  transform: translateX(3px);
-}
-
-.jobpost-manual-exp-container {
-  grid-column: 3; 
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding-left: 5px;
-}
-
-.jobpost-manual-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #666;
-  white-space: nowrap;
-}
-
-.jobpost-manual-input {
-  width: 80%;
-  padding: 6px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 13px;
-  outline: none;
-}
-
-.jobpost-manual-input:focus {
-  border-color: #007bff;
-}
-
-
-

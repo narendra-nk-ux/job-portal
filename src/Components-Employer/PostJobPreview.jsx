@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PostAJob from '../assets/PostAjob.png';
 import ClockIcon from '../assets/opportunity_time.png';
-import experience from '../assets/opportunity_bag.png'
-import place from '../assets/opportunity_location.png'
-import twitter from '../assets/socials-x.png'
-import linkedin from '../assets/socials-linkedin.png'
-import facebook from '../assets/socials-facebook.png'
+import experienceIcon from '../assets/opportunity_bag.png';
+import placeIcon from '../assets/opportunity_location.png';
+import twitterIcon from '../assets/socials-x.png';
+import linkedinIcon from '../assets/socials-linkedin.png';
+import facebookIcon from '../assets/socials-facebook.png';
 import './PostJobPreview.css';
 import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
 
-export const PostJobPreview = () => {
+const PostJobPreview = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-
   const [step, setStep] = useState('preview');
 
   if (!state) {
@@ -25,6 +24,11 @@ export const PostJobPreview = () => {
       </div>
     );
   }
+
+  // Helper to extract true values from checkbox objects (workType, shift)
+  const getSelectedLabels = (obj) => {
+    return Object.keys(obj || {}).filter(key => obj[key]).map(key => key.charAt(0).toUpperCase() + key.slice(1));
+  };
 
   const handleFinalPost = () => {
     setStep('loading');
@@ -51,9 +55,6 @@ export const PostJobPreview = () => {
               <img src={PostAJob} alt="Post Success" className="jobpost-previous-success-hero-img" />
               <h2 className="jobpost-previous-success-title">Job Posted Successfully for the position</h2>
               <p className="jobpost-previous-success-subtitle">{state.jobTitle}</p>
-              {/* <button className="jobpost-previous-btn-post" style={{ marginTop: '30px' }} onClick={() => navigate('/Job-portal/Employer/Dashboard')}>
-                Go to Dashboard
-              </button> */}
             </div>
           )}
         </div>
@@ -74,7 +75,7 @@ export const PostJobPreview = () => {
         <section className="jobpost-previous-card jobpost-previous-main-info">
           <div className="jobpost-previous-card-top-row">
             <div className="jobpost-previous-title-area">
-              <h2 className="jobpost-previous-job-title-text">{state.jobTitle || "UX/UI Designer"}</h2>
+              <h2 className="jobpost-previous-job-title-text">{state.jobTitle || "Job Title Not Specified"}</h2>
               <p className="jobpost-previous-company-meta">Wipro • ⭐ 4.3 • 55k+ reviews</p>
             </div>
             <div className="jobpost-previous-company-logo-square">W</div>
@@ -83,52 +84,40 @@ export const PostJobPreview = () => {
           <div className="jobpost-previous-info-grid-row">
             <div className="jobpost-previous-info-item-group">
               <div className="jobpost-previous-info-item">
-                <img src={ClockIcon} alt="clock" className="jobpost-previous-icon"/>
-
-                <span>{state.trainingMin || '3'} months training</span>
+                <img src={ClockIcon} alt="clock" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
+                <span>{state.workDuration || 'Not specified'}</span>
               </div>
               <div className="jobpost-previous-vertical-separator"></div>
               <div className="jobpost-previous-info-item">
-
-                <span>₹ {state.salaryMin} - {state.salaryMax}/month</span>
+                {/* Note: If you have a specific currency icon in assets, you can replace the text symbol below */}
+                <span style={{ fontWeight: 'bold', marginRight: '8px' }}>₹</span>
+                <span>{state.salary || 'Not disclosed'}</span>
               </div>
             </div>
 
             <div className="jobpost-previous-info-item">
-
-              <img src={experience} alt="experience" className="jobpost-previous-icon"/>
+              <img src={experienceIcon} alt="experience" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
               <span className="experience-text">
-                {state.experience !== undefined && state.experience !== null ? (
-                  String(state.experience)
-                    .replace(/([0-9]+)/g, '  $1  ')
-                    .replace(/([a-zA-Z])\s*([0-9])/g, '$1, $2')
-                    .trim()
-                ) : (
-                  "Not specified"
-                )}
-                {!String(state.experience).toLowerCase().includes('year') && " years of experience"}
+                {state.experience ? `${state.experience} years` : "Fresher / Not specified"}
               </span>
             </div>
 
             <div className="jobpost-previous-info-item">
-
-              <img src={place} alt="location" className="jobpost-previous-icon"/>
-              <span>{state.city || 'Location not specified'}</span>
+              <img src={placeIcon} alt="location" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
+              <span>{state.location || 'Location not specified'}</span>
             </div>
           </div>
 
           <div className="jobpost-previous-tags-row">
-            {Array.isArray(state.jobType) && state.jobType.length > 0 ? (
-              state.jobType.map((type, index) => (
-                <span key={index} className="jobpost-previous-job-type-tag">
-                  {type}
-                </span>
-              ))
-            ) : (
-              <span className="jobpost-previous-job-type-tag">
-                {state.jobType || "Not specified"}
+            {getSelectedLabels(state.workType).map((type, index) => (
+              <span key={index} className="jobpost-previous-job-type-tag">{type}</span>
+            ))}
+            
+            {getSelectedLabels(state.shift).map((s, index) => (
+              <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" style={{backgroundColor: '#e0f2fe', color: '#0369a1'}}>
+                {s} Shift
               </span>
-            )}
+            ))}
 
             <button className="jobpost-previous-suggest-link" type="button">
               Suggest more roles like this
@@ -136,7 +125,7 @@ export const PostJobPreview = () => {
           </div>
 
           <div className="jobpost-previous-footer-meta-text">
-            Posted: Just now | Openings: {state.vacancyMin || 1}  | Applicants: 0
+            Posted: Just now | Openings: {state.openings || 1} | Applicants: 0
           </div>
         </section>
 
@@ -144,69 +133,47 @@ export const PostJobPreview = () => {
           <div className="jobpost-previous-highlights-callout">
             <h4>Job highlights</h4>
             <ul>
-              <li>Candidates with {state.experience} experience preferred.</li>
-              <li>Strong Communication Skills.</li>
+              {state.jobHighlights && state.jobHighlights.filter(h => h.trim() !== "").map((highlight, i) => (
+                <li key={i}>{highlight}</li>
+              ))}
+              {(!state.jobHighlights || state.jobHighlights[0] === "") && <li>No specific highlights added.</li>}
             </ul>
           </div>
 
           <div className="jobpost-previous-section-block">
-            <h4>Company Overview</h4>
-            <p className="jobpost-previous-description-text">
-              Driving Digital Transformation With Innovation And Intelligence. Founded in 1945, Wipro is a leading global information technology, consulting, and business process services company...
-            </p>
-          </div>
-
-          <div className="jobpost-previous-section-block">
             <h4>Job description</h4>
-            <p className="jobpost-previous-description-text">{state.description}</p>
+            <p className="jobpost-previous-description-text">{state.jobDescription || "No description provided."}</p>
           </div>
 
           <div className="jobpost-previous-section-block">
             <h4>Responsibilities</h4>
             <ul className="jobpost-previous-description-list">
-              <li>Collaborate with product and development teams to define and implement innovative UI/UX solutions.</li>
-              <li>Create wireframes, user flows, and high-fidelity designs.</li>
+              {state.responsibilities && state.responsibilities.filter(r => r.trim() !== "").map((res, i) => (
+                <li key={i}>{res}</li>
+              ))}
+              {(!state.responsibilities || state.responsibilities[0] === "") && <li>Refer to job description.</li>}
             </ul>
           </div>
 
           <div className="jobpost-previous-meta-info-grid">
-            <p>
-              <strong>Role:</strong> {Array.isArray(state.jobTitle) ? state.jobTitle.join(', ') : state.jobTitle || 'Not specified'}
-            </p>
-
-            <p>
-              <strong>Industry Type:</strong> {Array.isArray(state.industry) ? state.industry.join(', ') : state.industry || 'Not specified'}
-            </p>
-
-            <p>
-              <strong>Department:</strong> {Array.isArray(state.category) ? state.category.join(' /  ') : state.category || 'Not specified'}
-            </p>
-
-            <p>
-              <strong>Job Type:</strong> {Array.isArray(state.jobType) ? state.jobType.join(', ') : state.jobType || 'Not specified'}
-            </p>
-
-            <p>
-              <strong>Experience level:</strong> {Array.isArray(state.experience) ? state.experience.join(',  ') : String(state.experience || 'Not specified')}
-            </p>
-
-            <p>
-              <strong>Qualification:</strong> {Array.isArray(state.education) ? state.education.join(',   ') : state.education || 'Not specified'}
-            </p>
-
-            <p>
-              <strong>Location:</strong> {state.city && state.country
-                ? `${Array.isArray(state.city) ? state.city.join(', ') : state.city}, ${Array.isArray(state.country) ? state.country.join(', ') : state.country}`
-                : 'Location not specified'}
-            </p>
+            <p><strong>Industry Type:</strong> {state.category?.join(', ') || 'Not specified'}</p>
+            <p><strong>Department:</strong> {state.department?.join(', ') || 'Not specified'}</p>
+            <p><strong>Employment Type:</strong> {state.jobCategory || 'Not specified'}</p>
+            <p><strong>Education:</strong> {state.education?.join(', ') || 'Not specified'}</p>
+            <p><strong>Work Duration:</strong> {state.workDuration || 'Not specified'}</p>
+            <p><strong>Post Active For:</strong> {state.jobPostDuration || 'Not specified'}</p>
           </div>
 
           <div className="jobpost-previous-skills-section">
             <h4>Key Skills</h4>
             <div className="jobpost-previous-skills-container">
-              {state.skills ? state.skills.split(',').map((skill, i) => (
-                <span key={i} className="jobpost-previous-skill-pill">{skill.trim()}</span>
-              )) : <span className="jobpost-previous-skill-pill">Not specified</span>}
+              {state.skills?.length > 0 ? (
+                state.skills.map((skill, i) => (
+                  <span key={i} className="jobpost-previous-skill-pill">{skill}</span>
+                ))
+              ) : (
+                <span className="jobpost-previous-skill-pill">Not specified</span>
+              )}
             </div>
           </div>
 
@@ -214,10 +181,9 @@ export const PostJobPreview = () => {
             <div className="jobpost-previous-social-sharing">
               <span>Share this job:</span>
               <div className="jobpost-previous-social-icons" style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
- 
-                <img src={linkedin} alt="linkedin" className="jobpost-previous-icon-in"/>
-                <img src={facebook} alt="facebook" className="jobpost-previous-icon-fb"/>
-                <img src={twitter} alt="twitter" className="jobpost-previous-icon-x"/>
+                <img src={linkedinIcon} alt="linkedin" className="jobpost-previous-icon-in" style={{ width: '22px', cursor: 'pointer' }} />
+                <img src={facebookIcon} alt="facebook" className="jobpost-previous-icon-fb" style={{ width: '22px', cursor: 'pointer' }} />
+                <img src={twitterIcon} alt="twitter" className="jobpost-previous-icon-x" style={{ width: '22px', cursor: 'pointer' }} />
               </div>
             </div>
             <div className="jobpost-previous-btn-group">
@@ -231,3 +197,5 @@ export const PostJobPreview = () => {
     </div>
   );
 };
+
+export default PostJobPreview;
