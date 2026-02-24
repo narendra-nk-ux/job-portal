@@ -14,7 +14,7 @@ import { useJobs } from '../JobContext';
 
 const PostJobPreview = () => {
   const { state } = useLocation();
-  const { postJob, editJob } = useJobs();
+  const { postJob, editJob, companyProfile } = useJobs();
   const navigate = useNavigate();
   const [step, setStep] = useState('preview');
 
@@ -63,22 +63,22 @@ const PostJobPreview = () => {
   };
 
   const handleFinalPost = () => {
-  setStep('loading');
+    setStep('loading');
 
-  setTimeout(() => {
-    if (state.id) {
-      editJob(state.id, state);
-    } else {
-      postJob(state);
-    }
-
-
-    setStep('success');
     setTimeout(() => {
-      navigate('/Job-portal/Employer/Dashboard');
-    }, 2000);
-  }, 1000);
-};
+      if (state.id) {
+        editJob(state.id, state);
+      } else {
+        postJob(state);
+      }
+
+
+      setStep('success');
+      setTimeout(() => {
+        navigate('/Job-portal/Employer/Dashboard');
+      }, 2000);
+    }, 1000);
+  };
 
   if (step === 'loading' || step === 'success') {
     return (
@@ -189,6 +189,14 @@ const PostJobPreview = () => {
               {(!state.jobHighlights || state.jobHighlights[0] === "") && <li>No specific highlights added.</li>}
             </ul>
           </div>
+
+          <div className="jobpost-previous-section-block">
+          <h4>Company Overview {companyProfile.companyName}</h4>
+          <p className="jobpost-previous-description-text">
+            {companyProfile.about || "No company overview provided."}
+          </p>
+        </div>
+
 
           <div className="jobpost-previous-section-block">
             <h4>Job description</h4>

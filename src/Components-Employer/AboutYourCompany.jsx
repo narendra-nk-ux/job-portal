@@ -4,10 +4,12 @@ import { Footer } from "../Components-LandingPage/Footer";
 import "./AboutYourCompany.css";
 import fileIcon from "../assets/fileIcon.png"
 import { useNavigate } from "react-router-dom";
+import { useJobs } from '../JobContext';
 
 export const AboutYourCompany = () => {
 
     const navigate = useNavigate();
+    const { setCompanyProfile } = useJobs();
 
     const [formData, setFormData] = useState({
         companyName: "",
@@ -57,6 +59,13 @@ export const AboutYourCompany = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        setCompanyProfile({
+            companyName: formData.companyName,
+            about: formData.about,
+            website: formData.website,
+            companyLogo: formData.companyLogo 
+        });
 
         console.log("Form Data Ready for Backend:", formData);
 

@@ -15,6 +15,16 @@ export const JobProvider = ({ children }) => {
 
     const isJobSaved = (jobId) => savedJobs.some((j) => j.id === jobId);
 
+
+
+    //Company Overview 
+    const [companyProfile, setCompanyProfile] = useState({
+        name: "Wipro", // Default for now
+        overview: "Leading global information technology, consulting and business process services company.",
+        website: "www.wipro.com",
+        logo: "W"
+    });
+
     // 1. Post a New Job
     const postJob = (newJobData) => {
         const newJob = {
@@ -95,7 +105,10 @@ export const JobProvider = ({ children }) => {
             isJobSaved,
 
             postJob,
-            editJob
+            editJob,
+
+            companyProfile,
+            setCompanyProfile
         }}>
             {children}
         </JobContext.Provider>

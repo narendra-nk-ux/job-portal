@@ -28,6 +28,7 @@ export const Esignup = () => {
     setErrors({ ...errors, [name]: "" })
   }
 
+
   const validateForm = () => {
     const newErrors = {}
 
