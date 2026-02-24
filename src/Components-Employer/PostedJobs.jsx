@@ -103,8 +103,8 @@ export const PostedJobs = ({ onViewApplicants }) => {
           <div className="postedjobs-modal">
             <p>Do you want to remove this job post?</p>
             <div className="postedjobs-modal-btns">
-              <button onClick={() => setShowDeleteModal(false)} className="btn-cancel">Cancel</button>
-              <button onClick={confirmDelete} className="btn-delete">Delete</button>
+              <button onClick={() => setShowDeleteModal(false)} className="postedjobs-btn-cancel">Cancel</button>
+              <button onClick={confirmDelete} className="postedjobs-btn-delete">Delete</button>
             </div>
           </div>
         </div>

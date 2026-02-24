@@ -4,6 +4,7 @@ import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
 import './PostJobForm.css';
 
+
 const PostJobForm = () => {
   const navigate = useNavigate();
 
@@ -360,7 +361,7 @@ const PostJobForm = () => {
         </div>
 
         <div className="jobpost-actions">
-          <button type="button" className="jobpost-btn-cancel" onClick={() => navigate('/jobportal')}>Cancel</button>
+          <button type="button" className="jobpost-btn-cancel" onClick={() => navigate(-1)}>Cancel</button>
           <button type="button" className="jobpost-btn-preview" onClick={handleSubmit}>Preview</button>
         </div>
       </main>

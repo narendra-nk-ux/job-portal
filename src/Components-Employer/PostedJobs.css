@@ -157,7 +157,7 @@
     margin-top: 25px;
 }
 
-.btn-cancel {
+.postedjobs-btn-cancel {
     border: 1px solid #ddd;
     padding: 8px 25px;
     border-radius: 8px;
@@ -166,7 +166,7 @@
     cursor: pointer;
 }
 
-.btn-delete {
+.postedjobs-btn-delete {
     border: 1px solid #ddd;
     padding: 8px 25px;
     border-radius: 8px;

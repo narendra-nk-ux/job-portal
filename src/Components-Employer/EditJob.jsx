@@ -2,49 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
-import './EditJob.css'; 
+import './PostJobForm.css';
 
-export const EditJob = () => {
+const EditJob = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const existingJob = location.state || {};
 
- 
+  // Extract existing data from navigation state
+  const existingJobData = location.state || null;
+
   const categoryOptions = ["Aerospace & Defense", "Ai/MI", "Analytics", "Artificial Intelligence", "Automotive", "Big Data", "Biotechnology", "Business Consulting", "Business Intelligence", "Cloud Computing", "Cloud Services", "Construction", "Consulting", "Consumer Goods", "Consumer Tech", "Corporate", "Corporate Functions", "Customer Support", "Cybersecurity", "Data Infrastructure", "Data Science", "Design", "Digital Marketing", "Digital Media", "E-Commerce", "Ed-Tech", "Energy", "Enterprise Software", "Entertainment", "Finance", "Financial Services", "Fintech!!", "Fmcg", "Healthcare", "Hospital", "Hr Services", "Human Resources", "Internet", "It Consulting", "It Networking", "IT Services", "Logistics", "Marketing", "Marketing & Advertising", "Martech", "Mobile App Development", "Mobile Development", "Pharmaceutical", "Pharma", "Product Development", "Project Management", "Real Estate", "Recruitment", "Regional Sales", "Renewable Power", "Research", "Retail", "Retail Tech", "Saas", "Sales", "Site Reliability Engineering", "Software Development", "Software Product", "Software Testing", "Subscription Service", "Supply Chain", "Technology", "Telecommunications"];
-  
-  const experienceOptions = ["Fresher", "1 Year", "2 Years", "3 Years", "4 Years", "5 Years", "6 Years", "7 Years", "8 Years", "9 Years", "10 Years", "11 Years", "12 Years", "13 Years", "14 Years", "15 Years", "16 Years", "17 Years", "18 Years", "19 Years", "20 Years"];
-  
-  const educationOptions = ["BS (2)", "B.A (23)", "CA (28)", "B.Ed (2)", "M.Com (6)", "B.Sc (132)", "MCA (280)", "BCA (119)", "LLM (70)", "MS/M.Sc (Science) (134)", "Diploma (34)", "B.Com (15)", "M.Tech (301)", "MBA/PGDM (136)", "PG Diploma (21)", "B.B.A/ B.M.S (27)", "Medical-MS/MD (10)", "B.Tech/B.E. (1865)", "Any Graduate (4607)", "Other Post Graduate (8)", "ITI Certification (2)", "Any Postgraduate (4541)", "Graduation Not Required (25)", "Post Graduation Not Required (50)", "Bachelor Of Science (B.Sc.) In Business Economics (2)" ];
+  const educationOptions = ["BS (2)", "B.A (23)", "CA (28)", "B.Ed (2)", "M.Com (6)", "B.Sc (132)", "MCA (280)", "BCA (119)", "LLM (70)", "MS/M.Sc (Science) (134)", "Diploma (34)", "B.Com (15)", "M.Tech (301)", "MBA/PGDM (136)", "PG Diploma (21)", "B.B.A/ B.M.S (27)", "Medical-MS/MD (10)", "B.Tech/B.E. (1865)", "Any Graduate (4607)", "Other Post Graduate (8)", "ITI Certification (2)", "Any Postgraduate (4541)", "Graduation Not Required (25)", "Post Graduation Not Required (50)", "Bachelor Of Science (B.Sc.) In Business Economics (2)"];
+  const departmentOptions = ["Engineering", "Marketing", "Sales", "Human Resources", "Finance", "Operations", "Product Management", "Customer Success", "Design", "Data Science", "Legal", "Information Technology", "Administrative"];
 
   const [formData, setFormData] = useState({
-    jobTitle: existingJob.title || '',
-    category: existingJob.category || [],
-    experience: existingJob.experience || [],
-    education: existingJob.education || [],
-    skills: existingJob.skills || '',
-    industry: existingJob.industry || '',
-    jobType: existingJob.jobType || [],
-    salaryMin: existingJob.salaryMin || '',
-    salaryMax: existingJob.salaryMax || '',
-    city: existingJob.city || existingJob.location || '',
-    state: existingJob.state || '',
-    country: existingJob.country || '',
-    pin: existingJob.pin || '',
-    trainingMin: existingJob.trainingMin || '',
-    trainingMax: existingJob.trainingMax || '',
-    vacancyMin: existingJob.vacancyMin || '',
-    vacancyMax: existingJob.vacancyMax || '',
-    description: existingJob.description || ''
+    jobTitle: existingJobData?.jobTitle || '',
+    category: existingJobData?.category || [],
+    department: existingJobData?.department || [],
+    education: existingJobData?.education || [],
+    workType: existingJobData?.workType || { hybrid: false, remote: false, onSite: false },
+    shift: existingJobData?.shift || { general: false, night: false, rotational: false },
+    workDuration: existingJobData?.workDuration || '',
+    jobPostDuration: existingJobData?.jobPostDuration || '',
+    salary: existingJobData?.salary || '',
+    experience: existingJobData?.experience || '',
+    location: existingJobData?.location || '',
+    openings: existingJobData?.openings || '',
+    jobCategory: existingJobData?.jobCategory || 'Full-time',
+    keySkills: '',
+    jobHighlights: existingJobData?.jobHighlights || [''],
+    jobDescription: existingJobData?.jobDescription || '',
+    responsibilities: existingJobData?.responsibilities || ['']
   });
 
-  const [manualExp, setManualExp] = useState(existingJob.manualExp || '');
+  const [skillsList, setSkillsList] = useState(existingJobData?.skills || []);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const toggleDropdown = (name) => setOpenDropdown(openDropdown === name ? null : name);
+  const toggleDropdown = (name) => {
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
 
   const handleCheckboxChange = (name, value, allOptions = []) => {
     setFormData(prev => {
-      const currentList = prev[name];
+      const currentList = prev[name] || [];
       if (value === "all") {
         const isAllSelected = currentList.length === allOptions.length;
         return { ...prev, [name]: isAllSelected ? [] : allOptions };
@@ -58,83 +58,97 @@ export const EditJob = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox' && name === 'jobType') {
-      const newList = checked
-        ? [...formData.jobType, value]
-        : formData.jobType.filter(t => t !== value);
-      setFormData(prev => ({ ...prev, [name]: newList }));
+    if (type === 'checkbox' && name.includes('.')) {
+      const [group, field] = name.split('.');
+      setFormData((prev) => ({
+        ...prev,
+        [group]: { ...prev[group], [field]: checked }
+      }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleManualExpChange = (e) => {
-    setManualExp(e.target.value);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const newSkill = formData.keySkills.trim();
+      if (newSkill && !skillsList.includes(newSkill)) {
+        setSkillsList([...skillsList, newSkill]);
+        setFormData({ ...formData, keySkills: '' });
+      }
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const removeSkill = (skillToRemove) => {
+    setSkillsList(skillsList.filter(skill => skill !== skillToRemove));
+  };
+
+  const handleHighlightChange = (index, value) => {
+    const newHighlights = [...formData.jobHighlights];
+    newHighlights[index] = value;
+    setFormData({ ...formData, jobHighlights: newHighlights });
+  };
+
+  const addHighlightField = () => {
+    setFormData({ ...formData, jobHighlights: [...formData.jobHighlights, ""] });
+  };
+
+  const handleResponsibilityChange = (index, value) => {
+    const updatedRes = [...formData.responsibilities];
+    updatedRes[index] = value;
+    setFormData({ ...formData, responsibilities: updatedRes });
+  };
+
+  const addResponsibilityField = () => {
+    setFormData({ ...formData, responsibilities: [...formData.responsibilities, ""] });
+  };
+
+  const handleUpdateSubmission = (e) => {
+    if (e) e.preventDefault();
     const submissionData = {
       ...formData,
-      experience: manualExp ? [...formData.experience, manualExp] : formData.experience,
-      title: formData.jobTitle, 
-      location: formData.city 
+      skills: skillsList,
+      id: existingJobData?.id // Carry over the ID for the update API
     };
+    // Navigate to preview or directly call your Update API here
     navigate('/Job-portal/Employer/PostJobpreview', { state: submissionData });
   };
 
   return (
-    <div className="jobpost-page-title"> 
+    <div className="jobpost-page-title">
       <EHeader />
-      <main className="edit-job-main">
+      <main className="jobpost-main-content">
         <header className="jobpost-form-header">
-          <h1>Edit a Job</h1>
-          {/* <p>Update the details below to keep your job post accurate</p> */}
-          <p> Complete the steps below to reach thousands of qualified candidates </p>
+          <h1>Edit Job Listing</h1>
+          <p>Update the details below to keep your job post accurate</p>
         </header>
 
         <div className="jobpost-form-container">
-          <form className="jobpost-form" onSubmit={handleSubmit}>
-
-            {/* Job Title */}
+          <form className="jobpost-form" onSubmit={handleUpdateSubmission}>
             <div className="jobpost-form-row">
               <label className="jobpost-label">Job title</label>
-              <input 
-                className="jobpost-input" 
-                type="text" 
-                name="jobTitle" 
-                placeholder="e.g., Fullstack Developer" 
-                value={formData.jobTitle}
-                onChange={handleChange} 
-              />
+              <input className="jobpost-input" type="text" name="jobTitle" value={formData.jobTitle} onChange={handleChange} />
             </div>
 
-            {/* Category Dropdown */}
+            {/* Industrial Type */}
             <div className="jobpost-form-row jobpost-top-align">
-              <label className="jobpost-label">Category/Department</label>
+              <label className="jobpost-label">Industrial type</label>
               <div className={`jobpost-dropdown ${openDropdown === 'category' ? 'jobpost-is-active' : ''}`}>
                 <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('category')}>
-                  {formData.category.length > 0 ? `${formData.category.length} Selected` : 'Select Category'}
+                  {formData.category.length > 0 ? `${formData.category.length} Selected` : 'Select'}
                   <i className="fas fa-angle-down jobpost-arrow"></i>
                 </div>
                 <div className="jobpost-dropdown-panel">
                   <label className="jobpost-select-all">
-                    <input 
-                      type="checkbox" 
-                      onChange={() => handleCheckboxChange('category', 'all', categoryOptions)}
-                      checked={formData.category.length === categoryOptions.length && categoryOptions.length > 0} 
-                    />
+                    <input type="checkbox" onChange={() => handleCheckboxChange('category', 'all', categoryOptions)}
+                      checked={formData.category.length === categoryOptions.length} />
                     <strong>Select all</strong>
                   </label>
                   <div className="jobpost-options-grid">
                     {categoryOptions.map(cat => (
                       <label key={cat} className="jobpost-option-item">
-                        <input 
-                          type="checkbox" 
-                          checked={formData.category.includes(cat)} 
-                          onChange={() => handleCheckboxChange('category', cat)} 
-                        /> 
-                        {cat}
+                        <input type="checkbox" checked={formData.category.includes(cat)} onChange={() => handleCheckboxChange('category', cat)} /> {cat}
                       </label>
                     ))}
                   </div>
@@ -142,62 +156,111 @@ export const EditJob = () => {
               </div>
             </div>
 
-            {/* Experience */}
+            {/* Department */}
             <div className="jobpost-form-row jobpost-top-align">
-              <label className="jobpost-label">Experience</label>
-              <div className={`jobpost-dropdown ${openDropdown === 'experience' ? 'jobpost-is-active' : ''}`}>
-                <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('experience')}>
-                  {formData.experience.length > 0 || manualExp
-                    ? `${formData.experience.length + (manualExp ? 1 : 0)} Selected`
-                    : 'Select Experience'}
+              <label className="jobpost-label">Department</label>
+              <div className={`jobpost-dropdown ${openDropdown === 'department' ? 'jobpost-is-active' : ''}`}>
+                <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('department')}>
+                  {formData.department.length > 0 ? `${formData.department.length} Selected` : 'Select'}
                   <i className="fas fa-angle-down jobpost-arrow"></i>
                 </div>
                 <div className="jobpost-dropdown-panel">
                   <div className="jobpost-options-grid">
-                    {experienceOptions.map(exp => (
-                      <label key={exp} className="jobpost-option-item">
-                        <input
-                          type="checkbox"
-                          checked={formData.experience.includes(exp)}
-                          onChange={() => handleCheckboxChange('experience', exp)}
-                        /> 
-                        {exp}
+                    {departmentOptions.map(dept => (
+                      <label key={dept} className="jobpost-option-item">
+                        <input type="checkbox" checked={formData.department.includes(dept)} onChange={() => handleCheckboxChange('department', dept)} /> {dept}
                       </label>
                     ))}
-                    <div className="jobpost-manual-exp-container">
-                      <span className="jobpost-manual-label">For {'>'}20 years</span>
-                      <input
-                        type="text"
-                        className="jobpost-manual-input"
-                        placeholder="Enter experience"
-                        value={manualExp}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={handleManualExpChange}
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Education*/}
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Work type</label>
+              <div className="jobpost-inline-group">
+                <label className="jobpost-checkbox-label">
+                  <input type="checkbox" name="workType.hybrid" checked={formData.workType.hybrid} onChange={handleChange} /> Hybrid
+                </label>
+                <label className="jobpost-checkbox-label">
+                  <input type="checkbox" name="workType.remote" checked={formData.workType.remote} onChange={handleChange} /> Remote
+                </label>
+                <label className="jobpost-checkbox-label">
+                  <input type="checkbox" name="workType.onSite" checked={formData.workType.onSite} onChange={handleChange} /> On-site
+                </label>
+              </div>
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Shift</label>
+              <div className="jobpost-inline-group">
+                <label className="jobpost-checkbox-label">
+                  <input type="checkbox" name="shift.general" checked={formData.shift.general} onChange={handleChange} /> General
+                </label>
+                <label className="jobpost-checkbox-label">
+                  <input type="checkbox" name="shift.night" checked={formData.shift.night} onChange={handleChange} /> Night
+                </label>
+                <label className="jobpost-checkbox-label">
+                  <input type="checkbox" name="shift.rotational" checked={formData.shift.rotational} onChange={handleChange} /> Rotational
+                </label>
+              </div>
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Work duration</label>
+              <input className="jobpost-input" type="text" name="workDuration" value={formData.workDuration} onChange={handleChange} />
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Jobpost duration</label>
+              <input className="jobpost-input" type="text" name="jobPostDuration" value={formData.jobPostDuration} onChange={handleChange} />
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Salary</label>
+              <input className="jobpost-input" type="text" name="salary" value={formData.salary} onChange={handleChange} />
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Experience</label>
+              <input className="jobpost-input" type="text" name="experience" value={formData.experience} onChange={handleChange} />
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Location</label>
+              <input className="jobpost-input" type="text" name="location" value={formData.location} onChange={handleChange} />
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Openings</label>
+              <input className="jobpost-input" type="text" name="openings" value={formData.openings} onChange={handleChange} />
+            </div>
+
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Job category</label>
+              <div className="jobpost-radio-container">
+                <label className="jobpost-radio-label">
+                  <input type="radio" name="jobCategory" value="Full-time" checked={formData.jobCategory === 'Full-time'} onChange={handleChange} /> Full-time
+                </label>
+                <label className="jobpost-radio-label">
+                  <input type="radio" name="jobCategory" value="Internship" checked={formData.jobCategory === 'Internship'} onChange={handleChange} /> Internship
+                </label>
+              </div>
+            </div>
+
+            {/* Education */}
             <div className="jobpost-form-row jobpost-top-align">
               <label className="jobpost-label">Education</label>
               <div className={`jobpost-dropdown ${openDropdown === 'education' ? 'jobpost-is-active' : ''}`}>
                 <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('education')}>
-                  {formData.education.length > 0 ? `${formData.education.length} Selected` : 'Select Education'}
+                  {formData.education.length > 0 ? `${formData.education.length} Selected` : 'Select'}
                   <i className="fas fa-angle-down jobpost-arrow"></i>
                 </div>
                 <div className="jobpost-dropdown-panel">
                   <div className="jobpost-options-grid">
                     {educationOptions.map(edu => (
                       <label key={edu} className="jobpost-option-item">
-                        <input 
-                          type="checkbox" 
-                          checked={formData.education.includes(edu)} 
-                          onChange={() => handleCheckboxChange('education', edu)} 
-                        /> 
-                        {edu}
+                        <input type="checkbox" checked={formData.education.includes(edu)} onChange={() => handleCheckboxChange('education', edu)} /> {edu}
                       </label>
                     ))}
                   </div>
@@ -205,200 +268,79 @@ export const EditJob = () => {
               </div>
             </div>
 
-            {/* Key Skills */}
+            {/* Skills */}
             <div className="jobpost-form-row">
               <label className="jobpost-label">Key skills</label>
-              <input 
-                className="jobpost-input" 
-                type="text" 
-                name="skills" 
-                placeholder="React, Node.js, etc." 
-                value={formData.skills}
-                onChange={handleChange} 
-              />
+              <div className="jobpost-skills-titile">
+                <input
+                  className="jobpost-input skills-input"
+                  type="text"
+                  name="keySkills"
+                  placeholder="Press Enter to add skills"
+                  value={formData.keySkills}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyDown}
+                />
+                <div className="jobpost-tags-area">
+                  {skillsList.map((skill, index) => (
+                    <span key={index} className="jobpost-tag">
+                      {skill} <button type="button" onClick={() => removeSkill(skill)}>×</button>
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Industry */}
+            {/* Highlights */}
             <div className="jobpost-form-row">
-              <label className="jobpost-label">Industry</label>
-              <input 
-                className="jobpost-input" 
-                type="text" 
-                name="industry" 
-                placeholder="IT Services" 
-                value={formData.industry}
-                onChange={handleChange} 
-              />
-            </div>
-
-            {/* Job Type */}
-            <div className="jobpost-form-row">
-              <label className="jobpost-label">Job type</label>
-              <div className="jobpost-checkbox-group">
-                {['Full time', 'Part time', 'Hybrid', 'Remote'].map(type => (
-                  <label key={type} className="jobpost-checkbox-label">
-                    <input 
-                      type="checkbox" 
-                      name="jobType" 
-                      value={type} 
-                      checked={formData.jobType.includes(type)}
-                      onChange={handleChange} 
-                    /> 
-                    {type}
-                  </label>
+              <label className="jobpost-label">Job highlights</label>
+              <div className="highlights-container">
+                {formData.jobHighlights.map((highlight, index) => (
+                  <div key={index} className="jobpost-input-icon-titile">
+                    <input
+                      className="jobpost-input"
+                      type="text"
+                      value={highlight}
+                      onChange={(e) => handleHighlightChange(index, e.target.value)}
+                    />
+                    {index === formData.jobHighlights.length - 1 && (
+                      <span className="jobpost-plus-icon" onClick={addHighlightField}>+</span>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
 
-            {/* Salary */}
             <div className="jobpost-form-row">
-              <label className="jobpost-label">Salary</label>
-              <div className="jobpost-boxed-container jobpost-grid-2">
-                <div className="jobpost-grid-item">
-                  <span>From</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="text" 
-                    name="salaryMin" 
-                    value={formData.salaryMin}
-                    onChange={handleChange} 
-                  />
-                </div>
-                <div className="jobpost-grid-item">
-                  <span>To</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="text" 
-                    name="salaryMax" 
-                    value={formData.salaryMax}
-                    onChange={handleChange} 
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Location */}
-            <div className="jobpost-form-row">
-              <label className="jobpost-label">Location</label>
-              <div className="jobpost-boxed-container jobpost-grid-2-rows">
-                <div className="jobpost-grid-item">
-                  <span>City</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="text" 
-                    name="city" 
-                    value={formData.city}
-                    onChange={handleChange} 
-                  />
-                </div>
-                <div className="jobpost-grid-item">
-                  <span>State</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="text" 
-                    name="state" 
-                    value={formData.state}
-                    onChange={handleChange} 
-                  />
-                </div>
-                <div className="jobpost-grid-item">
-                  <span>Country</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="text" 
-                    name="country" 
-                    value={formData.country}
-                    onChange={handleChange} 
-                  />
-                </div>
-                <div className="jobpost-grid-item">
-                  <span>Pin</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="text" 
-                    name="pin" 
-                    value={formData.pin}
-                    onChange={handleChange} 
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Training Period */}
-            <div className="jobpost-form-row">
-              <label className="jobpost-label">Training period</label>
-              <div className="jobpost-boxed-container jobpost-grid-2">
-                <div className="jobpost-grid-item">
-                  <span>From</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="date" 
-                    name="trainingMin" 
-                    value={formData.trainingMin}
-                    onChange={handleChange} 
-                  />
-                </div>
-                <div className="jobpost-grid-item">
-                  <span>To</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="date" 
-                    name="trainingMax" 
-                    value={formData.trainingMax}
-                    onChange={handleChange} 
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Vacancy Duration */}
-            <div className="jobpost-form-row">
-              <label className="jobpost-label">Vacancy duration</label>
-              <div className="jobpost-boxed-container jobpost-grid-2">
-                <div className="jobpost-grid-item">
-                  <span>From</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="date" 
-                    name="vacancyMin" 
-                    value={formData.vacancyMin}
-                    onChange={handleChange} 
-                  />
-                </div>
-                <div className="jobpost-grid-item">
-                  <span>To</span>
-                  <input 
-                    className="jobpost-input" 
-                    type="date" 
-                    name="vacancyMax" 
-                    value={formData.vacancyMax}
-                    onChange={handleChange} 
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="jobpost-form-row jobpost-top-align">
               <label className="jobpost-label">Job description</label>
-              <textarea 
-                className="jobpost-textarea" 
-                name="description" 
-                placeholder="Describe the role..." 
-                value={formData.description}
-                onChange={handleChange}
-              />
+              <textarea className="jobpost-textarea" name="jobDescription" value={formData.jobDescription} onChange={handleChange}></textarea>
             </div>
 
-            {/* Actions */}
-            <div className="jobpost-actions">
-              <button type="button" className="jobpost-btn-cancel" onClick={() => navigate(-1)}>
-                Cancel
-              </button>
-              <button type="submit" className="jobpost-btn-post">Preview</button>
+            {/* Responsibilities */}
+            <div className="jobpost-form-row">
+              <label className="jobpost-label">Responsibilities</label>
+              <div className="responsibilities-list">
+                {formData.responsibilities.map((res, index) => (
+                  <div key={index} className="jobpost-input-icon-titile">
+                    <input
+                      className="jobpost-input"
+                      type="text"
+                      value={res}
+                      onChange={(e) => handleResponsibilityChange(index, e.target.value)}
+                    />
+                    {index === formData.responsibilities.length - 1 && (
+                      <span className="jobpost-plus-icon" onClick={addResponsibilityField}>+</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-
           </form>
+        </div>
+
+        <div className="jobpost-actions">
+          <button type="button" className="jobpost-btn-cancel" onClick={() => navigate(-1)}>cancel</button>
+          <button type="button" className="jobpost-btn-preview" onClick={handleUpdateSubmission}> Preview</button>
         </div>
       </main>
       <Footer />
@@ -406,3 +348,4 @@ export const EditJob = () => {
   );
 };
 
+export default EditJob;

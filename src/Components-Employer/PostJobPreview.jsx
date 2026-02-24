@@ -25,9 +25,20 @@ const PostJobPreview = () => {
     );
   }
 
-  // Helper to extract true values from checkbox objects (workType, shift)
-  const getSelectedLabels = (obj) => {
-    return Object.keys(obj || {}).filter(key => obj[key]).map(key => key.charAt(0).toUpperCase() + key.slice(1));
+ const getSelectedLabels = (val) => {
+    if (!val) return [];
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      return Object.keys(val)
+        .filter(key => val[key])
+        .map(key => key.charAt(0).toUpperCase() + key.slice(1));
+    }
+    if (Array.isArray(val)) return val;
+    return [val];
+  };
+
+  const formatDisplay = (val) => {
+    const labels = getSelectedLabels(val);
+    return labels.length > 0 ? labels.join(', ') : 'Not specified';
   };
 
   const handleFinalPost = () => {
@@ -112,9 +123,9 @@ const PostJobPreview = () => {
             {getSelectedLabels(state.workType).map((type, index) => (
               <span key={index} className="jobpost-previous-job-type-tag">{type}</span>
             ))}
-            
+
             {getSelectedLabels(state.shift).map((s, index) => (
-              <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" style={{backgroundColor: '#e0f2fe', color: '#0369a1'}}>
+              <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" >
                 {s} Shift
               </span>
             ))}
@@ -156,12 +167,18 @@ const PostJobPreview = () => {
           </div>
 
           <div className="jobpost-previous-meta-info-grid">
-            <p><strong>Industry Type:</strong> {state.category?.join(', ') || 'Not specified'}</p>
-            <p><strong>Department:</strong> {state.department?.join(', ') || 'Not specified'}</p>
-            <p><strong>Employment Type:</strong> {state.jobCategory || 'Not specified'}</p>
-            <p><strong>Education:</strong> {state.education?.join(', ') || 'Not specified'}</p>
-            <p><strong>Work Duration:</strong> {state.workDuration || 'Not specified'}</p>
-            <p><strong>Post Active For:</strong> {state.jobPostDuration || 'Not specified'}</p>
+            <p><strong>Role:</strong> {formatDisplay(state.jobTitle)}</p>
+            <p><strong>Industry Type:</strong> {formatDisplay(state.category)}</p>
+            <p><strong>Department:</strong> {formatDisplay(state.department)}</p>
+            <p><strong>Work Type:</strong> {formatDisplay(state.workType)}</p>
+            <p><strong>Education:</strong> {formatDisplay(state.education)}</p>
+            <p><strong>Work Duration:</strong> {formatDisplay(state.workDuration)}</p>
+            <p><strong>Post Active For:</strong> {formatDisplay(state.jobPostDuration)}</p>
+            <p>
+              <strong>Location:</strong> {state.city && state.country
+                ? `${formatDisplay(state.city)}, ${formatDisplay(state.country)}`
+                : 'Location not specified'}
+            </p>
           </div>
 
           <div className="jobpost-previous-skills-section">

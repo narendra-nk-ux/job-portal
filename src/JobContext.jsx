@@ -15,6 +15,29 @@ export const JobProvider = ({ children }) => {
 
     const isJobSaved = (jobId) => savedJobs.some((j) => j.id === jobId);
 
+    // 1. Post a New Job
+    const postJob = (newJobData) => {
+        const newJob = {
+            ...newJobData,
+            id: jobs.length > 0 ? Math.max(...jobs.map(j => j.id)) + 1 : 1, 
+            postedDate: getFormattedDate(),
+        };
+        setJobs((prev) => [newJob, ...prev]);
+        alert(`Job "${newJob.title}" posted successfully!`);
+    };
+
+    // 2. Edit an Existing Job
+    const editJob = (jobId, updatedData) => {
+        setJobs((prev) => 
+            prev.map((job) => (job.id === jobId ? { ...job, ...updatedData } : job))
+        );
+        
+        // Also update saved jobs if the edited job was saved
+        setSavedJobs((prev) => 
+            prev.map((job) => (job.id === jobId ? { ...job, ...updatedData } : job))
+        );
+    };
+
     const applyForJob = (originalJob) => {
         const newAppliedJob = {
             ...originalJob,
@@ -67,7 +90,10 @@ export const JobProvider = ({ children }) => {
             setJobs,
             applyForJob,
             toggleSaveJob,
-            isJobSaved
+            isJobSaved,
+
+            postJob,
+            editJob
         }}>
             {children}
         </JobContext.Provider>
