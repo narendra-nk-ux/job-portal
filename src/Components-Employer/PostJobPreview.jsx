@@ -128,7 +128,7 @@ const PostJobPreview = () => {
             <div className="jobpost-previous-info-item">
               <img src={experienceIcon} alt="experience" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
               <span className="experience-text">
-                {state.experience ? `${state.experience} years` : "Fresher / Not specified"}
+                {state.experience ? `${state.experience} of experience` : "Fresher / Not specified"}
               </span>
             </div>
 
@@ -200,14 +200,12 @@ const PostJobPreview = () => {
             <p><strong>Industry Type:</strong> {formatDisplay(state.category)}</p>
             <p><strong>Department:</strong> {formatDisplay(state.department)}</p>
             <p><strong>Work Type:</strong> {formatDisplay(state.workType)}</p>
+            <p><strong>Job Category:</strong> {state.jobCategory ? formatDisplay(state.jobCategory) : 'Not specified'}</p>
             <p><strong>Education:</strong> {formatDisplay(state.education)}</p>
             <p><strong>Work Duration:</strong> {formatDisplay(state.workDuration)}</p>
             <p><strong>Post Active For:</strong> {formatDisplay(state.jobPostDuration)}</p>
-            <p>
-              <strong>Location:</strong> {state.city && state.country
-                ? `${formatDisplay(state.city)}, ${formatDisplay(state.country)}`
-                : 'Location not specified'}
-            </p>
+            <p><strong>Experience level:</strong> {state.experience ? `${formatDisplay(state.experience)} of experience` : "Fresher / Not specified"}</p>
+            <p><strong>Location:</strong> {state.location ? formatDisplay(state.location) : 'Location not specified'}</p>
           </div>
 
           <div className="jobpost-previous-skills-section">
