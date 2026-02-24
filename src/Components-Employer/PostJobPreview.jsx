@@ -25,7 +25,7 @@ const PostJobPreview = () => {
     );
   }
 
- const getSelectedLabels = (val) => {
+  const getSelectedLabels = (val) => {
     if (!val) return [];
     if (typeof val === 'object' && !Array.isArray(val)) {
       return Object.keys(val)
@@ -34,6 +34,25 @@ const PostJobPreview = () => {
     }
     if (Array.isArray(val)) return val;
     return [val];
+  };
+
+  const getPostedTime = (date) => {
+    if (!date) return "Just now";
+
+    const now = new Date();
+    const postedDate = new Date(date);
+    const diffInSeconds = Math.floor((now - postedDate) / 1000);
+
+    if (diffInSeconds < 60) return "Just now";
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    return `${diffInDays}d ago`;
   };
 
   const formatDisplay = (val) => {
@@ -136,7 +155,17 @@ const PostJobPreview = () => {
           </div>
 
           <div className="jobpost-previous-footer-meta-text">
-            Posted: Just now | Openings: {state.openings || 1} | Applicants: 0
+            <span className="meta-item">
+              <strong>Posted:</strong> {getPostedTime(state.createdAt)}
+            </span>
+            <span className="meta-separator">|</span>
+            <span className="meta-item">
+              <strong>Openings:</strong> {state.openings || 1}
+            </span>
+            <span className="meta-separator">|</span>
+            <span className="meta-item">
+              <strong>Applicants:</strong> <span className="applicant-count">0</span>
+            </span>
           </div>
         </section>
 
