@@ -8,7 +8,6 @@ const EditJob = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Extract existing data from navigation state
   const existingJobData = location.state || null;
 
   const categoryOptions = ["Aerospace & Defense", "Ai/MI", "Analytics", "Artificial Intelligence", "Automotive", "Big Data", "Biotechnology", "Business Consulting", "Business Intelligence", "Cloud Computing", "Cloud Services", "Construction", "Consulting", "Consumer Goods", "Consumer Tech", "Corporate", "Corporate Functions", "Customer Support", "Cybersecurity", "Data Infrastructure", "Data Science", "Design", "Digital Marketing", "Digital Media", "E-Commerce", "Ed-Tech", "Energy", "Enterprise Software", "Entertainment", "Finance", "Financial Services", "Fintech!!", "Fmcg", "Healthcare", "Hospital", "Hr Services", "Human Resources", "Internet", "It Consulting", "It Networking", "IT Services", "Logistics", "Marketing", "Marketing & Advertising", "Martech", "Mobile App Development", "Mobile Development", "Pharmaceutical", "Pharma", "Product Development", "Project Management", "Real Estate", "Recruitment", "Regional Sales", "Renewable Power", "Research", "Retail", "Retail Tech", "Saas", "Sales", "Site Reliability Engineering", "Software Development", "Software Product", "Software Testing", "Subscription Service", "Supply Chain", "Technology", "Telecommunications"];
@@ -109,9 +108,9 @@ const EditJob = () => {
     const submissionData = {
       ...formData,
       skills: skillsList,
-      id: existingJobData?.id // Carry over the ID for the update API
+      id: existingJobData?.id 
     };
-    // Navigate to preview or directly call your Update API here
+    
     navigate('/Job-portal/Employer/PostJobpreview', { state: submissionData });
   };
 
@@ -120,15 +119,16 @@ const EditJob = () => {
       <EHeader />
       <main className="jobpost-main-content">
         <header className="jobpost-form-header">
-          <h1>Edit Job Listing</h1>
-          <p>Update the details below to keep your job post accurate</p>
+          <h1>Edit a Job </h1>
+          {/* <p>Update the details below to keep your job post accurate</p> */}
+          <p>Complete the steps below to reach thousends of qualified candidates</p>
         </header>
 
         <div className="jobpost-form-container">
           <form className="jobpost-form" onSubmit={handleUpdateSubmission}>
             <div className="jobpost-form-row">
               <label className="jobpost-label">Job title</label>
-              <input className="jobpost-input" type="text" name="jobTitle" value={formData.jobTitle} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="jobTitle" placeholder="e.g., Fullstack Developer" value={formData.jobTitle} onChange={handleChange} />
             </div>
 
             {/* Industrial Type */}
@@ -208,32 +208,32 @@ const EditJob = () => {
 
             <div className="jobpost-form-row">
               <label className="jobpost-label">Work duration</label>
-              <input className="jobpost-input" type="text" name="workDuration" value={formData.workDuration} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="workDuration"   placeholder='e.g., "3 Months", "6 Months", "permanent"'value={formData.workDuration} onChange={handleChange} />
             </div>
 
             <div className="jobpost-form-row">
               <label className="jobpost-label">Jobpost duration</label>
-              <input className="jobpost-input" type="text" name="jobPostDuration" value={formData.jobPostDuration} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="jobPostDuration" placeholder='e.g., "1 Months","2 Months", "6 Months"' value={formData.jobPostDuration} onChange={handleChange} />
             </div>
 
             <div className="jobpost-form-row">
               <label className="jobpost-label">Salary</label>
-              <input className="jobpost-input" type="text" name="salary" value={formData.salary} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="salary"  placeholder="Max Annual CTC" value={formData.salary} onChange={handleChange} />
             </div>
 
             <div className="jobpost-form-row">
               <label className="jobpost-label">Experience</label>
-              <input className="jobpost-input" type="text" name="experience" value={formData.experience} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="experience" placeholder="Minimum years required" value={formData.experience} onChange={handleChange} />
             </div>
 
             <div className="jobpost-form-row">
               <label className="jobpost-label">Location</label>
-              <input className="jobpost-input" type="text" name="location" value={formData.location} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="location" placeholder="City name(e.g., Bengaluru)" value={formData.location} onChange={handleChange} />
             </div>
 
             <div className="jobpost-form-row">
               <label className="jobpost-label">Openings</label>
-              <input className="jobpost-input" type="text" name="openings" value={formData.openings} onChange={handleChange} />
+              <input className="jobpost-input" type="text" name="openings" placeholder="Total vacant positions" value={formData.openings} onChange={handleChange} />
             </div>
 
             <div className="jobpost-form-row">

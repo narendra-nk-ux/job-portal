@@ -21,9 +21,10 @@ export const JobProvider = ({ children }) => {
             ...newJobData,
             id: jobs.length > 0 ? Math.max(...jobs.map(j => j.id)) + 1 : 1, 
             postedDate: getFormattedDate(),
+            createdAt: new Date().toISOString(),
         };
         setJobs((prev) => [newJob, ...prev]);
-        alert(`Job "${newJob.title}" posted successfully!`);
+        alert(`Job "${newJob.jobTitle}" posted successfully!`);
     };
 
     // 2. Edit an Existing Job
@@ -36,6 +37,7 @@ export const JobProvider = ({ children }) => {
         setSavedJobs((prev) => 
             prev.map((job) => (job.id === jobId ? { ...job, ...updatedData } : job))
         );
+        alert(`Job "${updatedData.jobTitle}" updated successfully!`);
     };
 
     const applyForJob = (originalJob) => {

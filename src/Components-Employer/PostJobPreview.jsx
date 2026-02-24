@@ -10,9 +10,11 @@ import facebookIcon from '../assets/socials-facebook.png';
 import './PostJobPreview.css';
 import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
+import { useJobs } from '../JobContext';
 
 const PostJobPreview = () => {
   const { state } = useLocation();
+  const { postJob, editJob } = useJobs();
   const navigate = useNavigate();
   const [step, setStep] = useState('preview');
 
@@ -61,14 +63,22 @@ const PostJobPreview = () => {
   };
 
   const handleFinalPost = () => {
-    setStep('loading');
+  setStep('loading');
+
+  setTimeout(() => {
+    if (state.id) {
+      editJob(state.id, state);
+    } else {
+      postJob(state);
+    }
+
+
+    setStep('success');
     setTimeout(() => {
-      setStep('success');
-      setTimeout(() => {
-        navigate('/Job-portal/Employer/Dashboard');
-      }, 2000);
-    }, 1500);
-  };
+      navigate('/Job-portal/Employer/Dashboard');
+    }, 2000);
+  }, 1000);
+};
 
   if (step === 'loading' || step === 'success') {
     return (
