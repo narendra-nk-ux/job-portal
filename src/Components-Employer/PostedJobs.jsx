@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 export const PostedJobs = ({ onViewApplicants }) => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([
-  { id: 1, title: 'UI/UX Designer', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 0, rejected: 3 },
-  { id: 2, title: 'Front End Developer', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
-  { id: 3, title: 'Scrum Master', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
-  { id: 4, title: 'Team Lead', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
-  { id: 5, title: 'Tester', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
-  { id: 6, title: 'IT Analyst', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
-  { id: 7, title: 'IT Coordinator', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
-  { id: 8, title: 'Systems Administrator', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 }
+  { id: 1, jobTitle: 'UI/UX Designer', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 0, rejected: 3 },
+  { id: 2, jobTitle:'Front End Developer', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
+  { id: 3, jobTitle:'Scrum Master', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
+  { id: 4, jobTitle: 'Team Lead', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
+  { id: 5, jobTitle: 'Tester', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
+  { id: 6, jobTitle: 'IT Analyst', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
+  { id: 7, jobTitle: 'IT Coordinator', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 },
+  { id: 8, jobTitle: 'Systems Administrator', location: 'Coimbatore', date: '24/01/2026', applicants: 20, new: 15, reviewed: 12, hired: 5, rejected: 3 }
 ]);
 
   const [activeMenu, setActiveMenu] = useState(null);
