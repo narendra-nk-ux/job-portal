@@ -136,7 +136,7 @@ const EditJob = () => {
               <label className="jobpost-label">Industrial type</label>
               <div className={`jobpost-dropdown ${openDropdown === 'category' ? 'jobpost-is-active' : ''}`}>
                 <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('category')}>
-                  {formData.category.length > 0 ? `${formData.category.length} Selected` : 'Select'}
+                  {formData.category.length > 0 ? formData.category.join(', ') : 'Select'}
                   <i className="fas fa-angle-down jobpost-arrow"></i>
                 </div>
                 <div className="jobpost-dropdown-panel">
@@ -161,7 +161,7 @@ const EditJob = () => {
               <label className="jobpost-label">Department</label>
               <div className={`jobpost-dropdown ${openDropdown === 'department' ? 'jobpost-is-active' : ''}`}>
                 <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('department')}>
-                  {formData.department.length > 0 ? `${formData.department.length} Selected` : 'Select'}
+                  {formData.department.length > 0 ? formData.department.join(', ') : 'Select'}
                   <i className="fas fa-angle-down jobpost-arrow"></i>
                 </div>
                 <div className="jobpost-dropdown-panel">
@@ -253,7 +253,7 @@ const EditJob = () => {
               <label className="jobpost-label">Education</label>
               <div className={`jobpost-dropdown ${openDropdown === 'education' ? 'jobpost-is-active' : ''}`}>
                 <div className="jobpost-dropdown-trigger" onClick={() => toggleDropdown('education')}>
-                  {formData.education.length > 0 ? `${formData.education.length} Selected` : 'Select'}
+                  {formData.education.length > 0 ? formData.education.join(', ') : 'Select Education'}
                   <i className="fas fa-angle-down jobpost-arrow"></i>
                 </div>
                 <div className="jobpost-dropdown-panel">
