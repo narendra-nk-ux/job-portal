@@ -50,6 +50,7 @@ export const PostedJobs = ({ onViewApplicants }) => {
   return (
     <div className="postedjobs-container">
       <h2 className="postedjobs-header">Jobs posted by you</h2>
+      {/* <h2>{jobs.length}</h2> */}
 
       <div className="postedjobs-grid-layout postedjobs-table-header">
         <div />

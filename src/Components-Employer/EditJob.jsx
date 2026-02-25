@@ -15,13 +15,26 @@ const EditJob = () => {
   const departmentOptions = ["Engineering", "Marketing", "Sales", "Human Resources", "Finance", "Operations", "Product Management", "Customer Success", "Design", "Data Science", "Legal", "Information Technology", "Administrative"];
 
   const [formData, setFormData] = useState({
-    jobTitle: existingJobData?.jobTitle || '',
-    category: existingJobData?.category || [],
-    department: existingJobData?.department || [],
-    education: existingJobData?.education || [],
-    workType: existingJobData?.workType || { hybrid: false, remote: false, onSite: false },
-    shift: existingJobData?.shift || { general: false, night: false, rotational: false },
-    workDuration: existingJobData?.workDuration || '',
+    jobTitle: existingJobData?.jobTitle || existingJobData?.JobTitle || existingJobData?.title || '',
+    category: existingJobData?.category || existingJobData?.IndustryType || [],
+    department: existingJobData?.department || existingJobData?.Department || [],
+    education: existingJobData?.education || existingJobData?.EducationRequired || [],
+    workType: typeof existingJobData?.workType === 'object' 
+        ? existingJobData.workType 
+        : { 
+            hybrid: existingJobData?.WorkType === 'Hybrid', 
+            remote: existingJobData?.WorkType === 'Remote', 
+            onSite: existingJobData?.WorkType === 'On-site' 
+          },
+          
+    shift: typeof existingJobData?.shift === 'object'
+        ? existingJobData.shift
+        : {
+            general: existingJobData?.Shift === 'General',
+            night: existingJobData?.Shift === 'Night',
+            rotational: existingJobData?.Shift === 'Rotational'
+          },
+    workDuration: existingJobData?.workDuration || existingJobData?.duration || '',
     jobPostDuration: existingJobData?.jobPostDuration || '',
     salary: existingJobData?.salary || '',
     experience: existingJobData?.experience || '',
@@ -29,12 +42,12 @@ const EditJob = () => {
     openings: existingJobData?.openings || '',
     jobCategory: existingJobData?.jobCategory || 'Full-time',
     keySkills: '',
-    jobHighlights: existingJobData?.jobHighlights || [''],
+    jobHighlights: existingJobData?.jobHighlights || existingJobData?.JobHighlights || [''],
     jobDescription: existingJobData?.jobDescription || '',
-    responsibilities: existingJobData?.responsibilities || ['']
+    responsibilities: existingJobData?.responsibilities || existingJobData?.Responsibilities || ['']
   });
 
-  const [skillsList, setSkillsList] = useState(existingJobData?.skills || []);
+  const [skillsList, setSkillsList] = useState(existingJobData?.skills || existingJobData?.KeySkills || []);
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const toggleDropdown = (name) => {

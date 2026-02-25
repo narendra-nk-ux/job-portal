@@ -18,7 +18,7 @@ export const JobList = [
     posted: "2025/11/01",
     PostedBy: "Company Jobs",
 
-    IndustryType: ["IT Services"],
+    IndustryType: ["IT Services", "Big Data"],
     Department: ["Engineering", "Development"],
     WorkType: "Hybrid",
     Shift: "General",
