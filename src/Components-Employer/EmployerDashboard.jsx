@@ -19,15 +19,25 @@ import ClockImage from '../assets/Employer/ClockImage.gif'
 import jobpost from '../assets/Employer/JOBPOST.png'
 import { Header } from '../Components-LandingPage/Header'
 import { JHeader } from '../Components-Jobseeker/JHeader'
-import {PostedJobs} from './PostedJobs'
-import {ViewApplicants} from './ViewApplicants'
+import { PostedJobs } from './PostedJobs'
+import { ViewApplicants } from './ViewApplicants'
+import { useJobs } from '../JobContext'
 
 export const EmployerDashboard = () => {
 
     const navigate = useNavigate();
+
+    const { jobs } = useJobs();
+    const [activeMenu, setActiveMenu] = useState(null);
+
     const [activetab, setActiveTab] = useState('Dashboard');
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [selectedJob, setSelectedJob] = useState(null);
+
+    const toggleMenu = (id) => {
+        setActiveMenu(activeMenu === id ? null : id);
+    };
+
 
     const handlePostaJobClick = () => {
         navigate('/Job-portal/Employer/PostJob');
@@ -223,10 +233,71 @@ export const EmployerDashboard = () => {
                                         </div>
                                     </div>
 
+                                    {/* Recently posted jobs */}
+
                                     <div className='ERecent-Post-Cont'>
-                                        <h3 style={{ marginLeft: "40px" }}>Recently Posted Jobs</h3>
-                                        <div className='ERecent-Post-Jobs'>
-                                            <button className='post-job-btn' onClick={handlePostaJobClick}>+ Post a Job</button>
+                                        <h3 style={{ marginleft: "40px" }}>Recently Posted Jobs</h3>
+                                        <div className='ERecent-Post-Table-Container'>
+                                            <div className="dashboard-job-header">
+                                                <span>Job Title</span>
+                                                <span>Applicants</span>
+                                                <span>Reviewed</span>
+                                                <span>Shortlisted</span>
+                                                <span>Scheduled</span>
+                                                <span></span>
+                                            </div>
+
+                                            {jobs.length > 0 ? (
+                                                [...jobs].slice(0, 5).map((job) => (
+                                                    <div key={job.id} className="dashboard-job-row">
+                                                        <div className="dashboard-job-info">
+                                                            <strong>{job.jobTitle || job.title}</strong>
+                                                            <small>Created on: {job.postedDate || job.date}</small>
+                                                        </div>
+                                                        <span className="count-badge">{job.applicants || 0}</span>
+                                                        <span className="count-badge">{job.reviewed || 0}</span>
+                                                        <span className="count-badge">{job.shortlisted || 0}</span>
+                                                        <span className="count-badge">{job.scheduled || 0}</span>
+                                                        <div className="dashboard-job-actions">
+                                                            <button
+                                                                className="view-app-link"
+                                                                onClick={() => {
+                                                                    setSelectedJob(job);
+                                                                    setActiveTab('ViewApplicants');
+                                                                }}
+                                                            >
+                                                                View applicants
+                                                            </button>
+
+                                                            <div className="menu-dots-icon">
+                                                                <span className="dots-icon" onClick={() => toggleMenu(job.id)}>⋮</span>
+                                                                {activeMenu === job.id && (
+                                                                    <div className="postedjobs-dropdown" style={{ top: '30px', right: '0' }}>
+                                                                        <button onClick={() => navigate('/Job-portal/Employer/EditJob', { state: job })}>Edit</button>
+                                                                        <button className="delete-opt">Delete</button>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <div className="no-jobs-posted">
+                                                    <p>No jobs posted yet.</p>
+                                                    <button className='post-job-btn' onClick={handlePostaJobClick}>+ Post a Job</button>
+                                                </div>
+                                            )}
+
+                                            {jobs.length > 0 && (
+                                                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                                    <button
+                                                        className="view-more-link"
+                                                        onClick={() => setActiveTab('My job post')}
+                                                    >
+                                                        View more...
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </>
@@ -241,18 +312,18 @@ export const EmployerDashboard = () => {
                     {activetab === 'Post a Job' && (
                         <h1>Post Job</h1>)}
                     {activetab === 'My job post' && (
-                      <PostedJobs
-                        onViewApplicants={(job) => {
-                          setSelectedJob(job);
-                          setActiveTab('ViewApplicants');
-                        }}
-                      />
+                        <PostedJobs
+                            onViewApplicants={(job) => {
+                                setSelectedJob(job);
+                                setActiveTab('ViewApplicants');
+                            }}
+                        />
                     )}
                     {activetab === 'ViewApplicants' && (
-                      <ViewApplicants
-                        job={selectedJob}
-                        onBack={() => setActiveTab('My job post')}
-                      />
+                        <ViewApplicants
+                            job={selectedJob}
+                            onBack={() => setActiveTab('My job post')}
+                        />
                     )}
                     {activetab === 'Analytics' && (
                         <h1>Applicants Section</h1>)}
