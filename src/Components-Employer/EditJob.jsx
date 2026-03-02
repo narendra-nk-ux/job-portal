@@ -128,7 +128,8 @@ const EditJob = () => {
   };
 
   return (
-    <div className="jobpost-page-title">
+    // <div className="jobpost-page-title">
+    <div>
       <EHeader />
       <main className="jobpost-main-content">
         <header className="jobpost-form-header">

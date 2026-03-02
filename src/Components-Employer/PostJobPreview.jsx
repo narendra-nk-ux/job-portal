@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PostAJob from '../assets/PostAjob.png';
 import ClockIcon from '../assets/opportunity_time.png';
@@ -7,6 +7,7 @@ import placeIcon from '../assets/opportunity_location.png';
 import twitterIcon from '../assets/socials-x.png';
 import linkedinIcon from '../assets/socials-linkedin.png';
 import facebookIcon from '../assets/socials-facebook.png';
+import starIcon from '../assets/Star_icon.png';
 import './PostJobPreview.css';
 import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
@@ -14,9 +15,20 @@ import { useJobs } from '../JobContext';
 
 const PostJobPreview = () => {
   const { state } = useLocation();
-  const { postJob, editJob, companyProfile } = useJobs();
+  const { postJob, editJob, companyProfile, getSuggestedJobs, jobs } = useJobs();
   const navigate = useNavigate();
   const [step, setStep] = useState('preview');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+
+  // const suggestions = useMemo(() => {
+  //   if (!state || !getSuggestedJobs) return [];
+  //   return getSuggestedJobs(state.jobTitle, state.category);
+  // }, [state?.jobTitle, state?.category, getSuggestedJobs]);
+
+  const suggestions = useMemo(() => {
+    return getSuggestedJobs(state.jobTitle, state.category);
+  }, [state.jobTitle, state.category, jobs]);
 
   if (!state) {
     return (
@@ -40,19 +52,14 @@ const PostJobPreview = () => {
 
   const getPostedTime = (date) => {
     if (!date) return "Just now";
-
     const now = new Date();
     const postedDate = new Date(date);
     const diffInSeconds = Math.floor((now - postedDate) / 1000);
-
     if (diffInSeconds < 60) return "Just now";
-
     const diffInMinutes = Math.floor(diffInSeconds / 60);
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-
     const diffInHours = Math.floor(diffInMinutes / 60);
     if (diffInHours < 24) return `${diffInHours}h ago`;
-
     const diffInDays = Math.floor(diffInHours / 24);
     return `${diffInDays}d ago`;
   };
@@ -64,15 +71,12 @@ const PostJobPreview = () => {
 
   const handleFinalPost = () => {
     setStep('loading');
-
     setTimeout(() => {
       if (state.id) {
         editJob(state.id, state);
       } else {
         postJob(state);
       }
-
-
       setStep('success');
       setTimeout(() => {
         navigate('/Job-portal/Employer/Dashboard');
@@ -82,7 +86,7 @@ const PostJobPreview = () => {
 
   if (step === 'loading' || step === 'success') {
     return (
-      <div className="jobpost-previous-preview-page-wrapper">
+      <div>
         <EHeader />
         <div className="jobpost-previous-status-container">
           {step === 'loading' ? (
@@ -106,7 +110,6 @@ const PostJobPreview = () => {
   return (
     <div className="jobpost-previous-preview-page-wrapper">
       <EHeader />
-
       <header className="jobpost-previous-preview-header">
         <h1>Preview Job</h1>
       </header>
@@ -116,9 +119,22 @@ const PostJobPreview = () => {
           <div className="jobpost-previous-card-top-row">
             <div className="jobpost-previous-title-area">
               <h2 className="jobpost-previous-job-title-text">{state.jobTitle || "Job Title Not Specified"}</h2>
-              <p className="jobpost-previous-company-meta">Wipro • ⭐ 4.3 • 55k+ reviews</p>
+              <h5 className="overview-job-company">
+                {companyProfile.companyName || "Company Name"}
+                <span className="review-divider"> | </span>
+                <span className="star">
+                  <img src={starIcon} alt="star" style={{ width: '14px', marginRight: '4px' }} />
+                </span>
+                {companyProfile.ratings || "4.3"}
+                <span className="review-divider"> | </span>
+                <span className="opp-reviews">
+                  {companyProfile.reviewNo || "55k+"} Reviews
+                </span>
+              </h5>
             </div>
-            <div className="jobpost-previous-company-logo-square">W</div>
+            <div className="jobpost-previous-company-logo-square">
+              {companyProfile.companyName ? companyProfile.companyName.charAt(0).toUpperCase() : "W"}
+            </div>
           </div>
 
           <div className="jobpost-previous-info-grid-row">
@@ -129,7 +145,6 @@ const PostJobPreview = () => {
               </div>
               <div className="jobpost-previous-vertical-separator"></div>
               <div className="jobpost-previous-info-item">
-                {/* Note: If you have a specific currency icon in assets, you can replace the text symbol below */}
                 <span style={{ fontWeight: 'bold', marginRight: '8px' }}>₹</span>
                 <span>{state.salary || 'Not disclosed'}</span>
               </div>
@@ -152,17 +167,54 @@ const PostJobPreview = () => {
             {getSelectedLabels(state.workType).map((type, index) => (
               <span key={index} className="jobpost-previous-job-type-tag">{type}</span>
             ))}
-
             {getSelectedLabels(state.shift).map((s, index) => (
               <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" >
                 {s} Shift
               </span>
             ))}
-
-            <button className="jobpost-previous-suggest-link" type="button">
-              Suggest more roles like this
+            <button
+              className="jobpost-previous-suggest-link"
+              type="button"
+              onClick={() => setShowSuggestions(!showSuggestions)}
+            >
+              {showSuggestions ? "Hide Suggestions" : "Suggest more roles like this"}
             </button>
           </div>
+
+          {/* {showSuggestions && (
+            <div className="jobpost-suggestions-results">
+              <h4 className="jobpost-suggestions-title">Similar Roles Found:</h4>
+              <div className="jobpost-suggestions-list">
+                {suggestions.length > 0 ? (
+                  suggestions.map((job) => (
+                    <div key={job.id} className="suggestion-item-card" onClick={() => navigate(`/Job-portal/job/${job.id}`)}>
+                      <div className="suggestion-role-name">{job.jobTitle}</div>
+                      <div className="suggestion-company-name">{job.company} • {job.location}</div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="no-suggestions-text">No similar roles found at this time.</p>
+                )}
+              </div>
+            </div>
+          )} */}
+
+          {showSuggestions && (
+            <div className="jobpost-suggestions-results">
+              <h4 className="jobpost-suggestions-title">Similar Roles in {formatDisplay(state.category)}</h4>
+              <div className="jobpost-suggestions-list">
+                {suggestions.map((job) => (
+                  <div key={job.id} className="suggestion-item-card" onClick={() => navigate(`/job/${job.id}`)}>
+                    <div className="suggestion-role-name">{job.jobTitle}</div>
+                    <div className="suggestion-company-name">{job.company} • {job.location}</div>
+                    <div className="match-pill">
+                      {Math.min(job.relevance * 10, 100)}% Match
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="jobpost-previous-footer-meta-text">
             <span className="meta-item">
@@ -179,7 +231,9 @@ const PostJobPreview = () => {
           </div>
         </section>
 
+        {/* Remaining sections (highlights, overview, description, etc.) stay the same */}
         <section className="jobpost-previous-card jobpost-previous-details-info">
+          {/* ... existing detailed sections ... */}
           <div className="jobpost-previous-highlights-callout">
             <h4>Job highlights</h4>
             <ul>
@@ -191,12 +245,11 @@ const PostJobPreview = () => {
           </div>
 
           <div className="jobpost-previous-section-block">
-          <h4>Company Overview {companyProfile.companyName}</h4>
-          <p className="jobpost-previous-description-text">
-            {companyProfile.about || "No company overview provided."}
-          </p>
-        </div>
-
+            <h4>Company Overview {companyProfile.companyName}</h4>
+            <p className="jobpost-previous-description-text">
+              {companyProfile.about || "No company overview provided."}
+            </p>
+          </div>
 
           <div className="jobpost-previous-section-block">
             <h4>Job description</h4>
