@@ -48,7 +48,7 @@ import { EmployerDashboard } from './Components-Employer/EmployerDashboard'
 import { AboutYourCompany } from './Components-Employer/AboutYourCompany'
 import { CompanyVerify } from './Components-Employer/CompanyVerify'
 import EditJob from './Components-Employer/EditJob'
-import {PostedJobs} from './Components-Employer/PostedJobs'
+import { PostedJobs } from './Components-Employer/PostedJobs'
 import PostJobPreview from './Components-Employer/PostJobPreview'
 import PostJobForm from './Components-Employer/PostJobForm'
 // import ViewApplicants from './Components-Employer/ViewApplicants'
@@ -147,15 +147,15 @@ const router = createBrowserRouter([{
 },
 {
   path: '/Job-portal/jobseeker/Contact_Us',
-  element: < ContactUs/>
+  element: < ContactUs />
 },
 {
   path: '/Job-portal/jobseeker/FAQ',
-  element: <FAQ/>
+  element: <FAQ />
 },
 {
   path: '/Job-portal/jobseeker/Blogs',
-  element: < Blogpage/>
+  element: < Blogpage />
 },
 {
   path: '/Job-portal/jobseeker/Blogs/Category',
@@ -163,75 +163,75 @@ const router = createBrowserRouter([{
 },
 {
   path: '/Job-portal/jobseeker/Blogs/Technology',
-  element: <TechnologyBlog/>
+  element: <TechnologyBlog />
 },
 {
   path: '/Job-portal/jobseeker/help-center',
-  element: <HelpCenter/>
+  element: <HelpCenter />
 },
 {
   path: '/Job-portal/jobseeker/help-center/raise-a-ticket',
-  element: <RaiseTicket/>
+  element: <RaiseTicket />
 },
 {
   path: '/Job-portal/jobseeker/help-center/help-FAQs',
   element: <FAQ />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/live-chat',
+  path: '/Job-portal/jobseeker/help-center/live-chat',
   element: <LiveChat />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/profile-creation-help',
+  path: '/Job-portal/jobseeker/help-center/profile-creation-help',
   element: <ProfileCreationHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/resume-upload-help',
+  path: '/Job-portal/jobseeker/help-center/resume-upload-help',
   element: <ResumeUploadHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/job-apply-help',
+  path: '/Job-portal/jobseeker/help-center/job-apply-help',
   element: <JobApplyIssuesHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/interview-scheduling-help',
+  path: '/Job-portal/jobseeker/help-center/interview-scheduling-help',
   element: <InterviewSchedulingHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/job-posting-help',
+  path: '/Job-portal/jobseeker/help-center/job-posting-help',
   element: <JobPostingHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/candidate-search-help',
+  path: '/Job-portal/jobseeker/help-center/candidate-search-help',
   element: <CandidateSearchHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/subscription-issue-help',
+  path: '/Job-portal/jobseeker/help-center/subscription-issue-help',
   element: <SubscriptionIssuesHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/invoice-payment-help',
+  path: '/Job-portal/jobseeker/help-center/invoice-payment-help',
   element: <InvoicePaymentHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/login-issue-help',
+  path: '/Job-portal/jobseeker/help-center/login-issue-help',
   element: <LoginIssuesHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/page-error-help',
+  path: '/Job-portal/jobseeker/help-center/page-error-help',
   element: <PageErrorsHelp />,
 },
 {
-  path:'/Job-portal/jobseeker/help-center/file-upload-help',
+  path: '/Job-portal/jobseeker/help-center/file-upload-help',
   element: <FileUploadHelp />,
 },
 {
   path: '/Job-portal/Employer/Dashboard',
-  element: <EmployerDashboard/>
+  element: <EmployerDashboard />
 },
 {
   path: '/Job-portal/Employer/about-your-company',
-  element: <AboutYourCompany />,
+  element: <AboutYourCompany />
 },
 {
   path: '/Job-portal/Employer/about-your-company/company-verification',

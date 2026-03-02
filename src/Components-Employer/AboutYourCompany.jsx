@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { JHeader } from "../Components-Jobseeker/JHeader";
+import { EHeader } from "./EHeader";
 import { Footer } from "../Components-LandingPage/Footer";
 import "./AboutYourCompany.css";
 import fileIcon from "../assets/fileIcon.png"
@@ -74,7 +74,7 @@ export const AboutYourCompany = () => {
 
     return (
         <div>
-            <JHeader />
+            <EHeader />
 
             <div className="aboutcompany-container">
                 <h2 className="aboutcompany-title">About Your Company</h2>

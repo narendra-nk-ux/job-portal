@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import './Esignup.css'
 import workTime from '../assets/WorkTime.png'
 import eye from '../assets/show_password.png'
@@ -147,7 +147,11 @@ export const Esignup = () => {
           <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter your mobile number" className={errors.phone ? "input-error" : ""} />
           {errors.phone && <span className="error-msg">{errors.phone}</span>}
 
-          <button className="j-sign-up-submit">Create Account</button>
+          <Link to="/Job-portal/Employer/about-your-company">
+            <button type="button" className="j-sign-up-submit">
+              Create Account
+            </button>
+          </Link>
         </form>
       </div>
     </div>
