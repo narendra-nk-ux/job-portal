@@ -129,3 +129,14 @@
 .aboutcompany-clickable-area {
   cursor: pointer;
 }
+
+.error-text {
+    color: #d93025;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+}
+
+.error-border {
+    border: 1.5px solid #d93025 !important;
+}

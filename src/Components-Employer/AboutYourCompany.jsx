@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useJobs } from '../JobContext';
 
 export const AboutYourCompany = () => {
-
     const navigate = useNavigate();
     const { setCompanyProfile } = useJobs();
 
@@ -25,51 +24,91 @@ export const AboutYourCompany = () => {
         companyLogo: null
     });
 
+    const [errors, setErrors] = useState({});
+
+    const validateForm = () => {
+        let newErrors = {};
+
+       
+        if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
+        if (!formData.contactPerson.trim()) newErrors.contactPerson = "Contact person is required";
+        if (!formData.address1.trim()) newErrors.address1 = "Primary address is required";
+        if (!formData.companySize.trim()) newErrors.companySize = "Please specify company size";
+        if (!formData.about.trim()) newErrors.about = "Please provide a description";
+
+    
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!formData.companyMail) {
+            newErrors.companyMail = "Email is required";
+        } else if (!emailRegex.test(formData.companyMail)) {
+            newErrors.companyMail = "Invalid email format";
+        }
+
+        const phoneRegex = /^\d{10}$/;
+        if (!formData.contactNumber) {
+            newErrors.contactNumber = "Phone number is required";
+        } else if (!phoneRegex.test(formData.contactNumber)) {
+            newErrors.contactNumber = "Enter a valid 10-digit number";
+        }
+
+  
+        if (!formData.companyLogo) {
+            newErrors.companyLogo = "Please upload a logo";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleChange = (e) => {
         const { name, value, files } = e.target;
 
+        if (errors[name]) {
+            setErrors(prev => ({ ...prev, [name]: null }));
+        }
+
         if (files) {
             const file = files[0];
-
-            const allowedTypes = [
-                "image/png",
-                "image/jpeg",
-                "image/jpg",
-                "image/webp"
-            ];
+            const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
 
             if (!allowedTypes.includes(file.type)) {
                 alert("Only image files (PNG, JPG, JPEG, WEBP) are allowed!");
                 return;
             }
-
-            setFormData({
-                ...formData,
-                [name]: file
-            });
-
+            setFormData({ ...formData, [name]: file });
         } else {
-            setFormData({
-                ...formData,
-                [name]: value
-            });
+
+            if (name === "contactNumber") {
+                const onlyNums = value.replace(/[^0-9]/g, "");
+                if (onlyNums.length <= 10) {
+                    setFormData({ ...formData, [name]: onlyNums });
+                }
+            } else {
+                setFormData({ ...formData, [name]: value });
+            }
         }
     };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setCompanyProfile({
-            companyName: formData.companyName,
-            about: formData.about,
-            website: formData.website,
-            companyLogo: formData.companyLogo 
-        });
+        if (validateForm()) {
 
-        console.log("Form Data Ready for Backend:", formData);
+            setCompanyProfile({
+                companyName: formData.companyName,
+                about: formData.about,
+                website: formData.website,
+                companyLogo: formData.companyLogo,
+                contactNumber: formData.contactNumber,
+                companyMail: formData.companyMail
+            });
 
-        navigate("/Job-portal/Employer/about-your-company/company-verification");
+            console.log("Form Validated. Proceeding to Verification...");
+            navigate("/Job-portal/Employer/about-your-company/company-verification");
+        } else {
+            const firstError = Object.keys(errors)[0];
+            console.log("Validation failed at:", firstError);
+        }
     };
 
     return (
@@ -86,14 +125,16 @@ export const AboutYourCompany = () => {
                         <input
                             type="text"
                             name="companyName"
+                            className={errors.companyName ? "error-border" : ""}
                             placeholder="e.g., job portal"
                             value={formData.companyName}
                             onChange={handleChange}
                         />
+                        {errors.companyName && <span className="error-text">{errors.companyName}</span>}
                     </div>
 
                     <div className="aboutcompany-form-group">
-                        <label>Company Moto</label>
+                        <label>Company Moto (Optional)</label>
                         <input
                             type="text"
                             name="companyMoto"
@@ -107,21 +148,26 @@ export const AboutYourCompany = () => {
                         <input
                             type="text"
                             name="contactPerson"
+                            className={errors.contactPerson ? "error-border" : ""}
                             placeholder="e.g., vijay"
                             value={formData.contactPerson}
                             onChange={handleChange}
                         />
+                        {errors.contactPerson && <span className="error-text">{errors.contactPerson}</span>}
                     </div>
 
                     <div className="aboutcompany-form-group">
                         <label>Contact Number</label>
                         <input
                             type="text"
+                            inputMode="numeric"
                             name="contactNumber"
+                            className={errors.contactNumber ? "error-border" : ""}
                             placeholder="e.g., 9145******"
                             value={formData.contactNumber}
                             onChange={handleChange}
                         />
+                        {errors.contactNumber && <span className="error-text">{errors.contactNumber}</span>}
                     </div>
 
                     <div className="aboutcompany-form-group">
@@ -129,10 +175,12 @@ export const AboutYourCompany = () => {
                         <input
                             type="email"
                             name="companyMail"
+                            className={errors.companyMail ? "error-border" : ""}
                             placeholder="e.g., hr@example.com"
                             value={formData.companyMail}
                             onChange={handleChange}
                         />
+                        {errors.companyMail && <span className="error-text">{errors.companyMail}</span>}
                     </div>
 
                     <div className="aboutcompany-form-group">
@@ -148,10 +196,7 @@ export const AboutYourCompany = () => {
 
                     <div className="aboutcompany-form-group">
                         <label>Company Logo</label>
-
-                        <div className="aboutcompany-file-upload-box">
-
-                            {/* Hidden Input */}
+                        <div className={`aboutcompany-file-upload-box ${errors.companyLogo ? "error-border" : ""}`}>
                             <input
                                 type="file"
                                 name="companyLogo"
@@ -161,20 +206,16 @@ export const AboutYourCompany = () => {
                                 hidden
                             />
 
-                            {/* If No File */}
                             {!formData.companyLogo && (
                                 <label htmlFor="logoUpload" className="aboutcompany-upload-placeholder">
                                     Click to Upload Logo
                                 </label>
                             )}
 
-                            {/* If File Selected */}
                             {formData.companyLogo && (
                                 <div className="aboutcompany-file-preview">
-
                                     <label htmlFor="logoUpload" className="aboutcompany-file-left clickable-area">
                                         <img src={fileIcon} alt="file" />
-
                                         <div>
                                             <p>{formData.companyLogo.name}</p>
                                             <span>
@@ -182,23 +223,23 @@ export const AboutYourCompany = () => {
                                             </span>
                                         </div>
                                     </label>
-
                                 </div>
                             )}
-
                         </div>
+                        {errors.companyLogo && <span className="error-text">{errors.companyLogo}</span>}
                     </div>
-
 
                     <div className="aboutcompany-form-group">
                         <label>Company Size</label>
                         <input
                             type="text"
                             name="companySize"
-                            placeholder="e.g., startup"
+                            className={errors.companySize ? "error-border" : ""}
+                            placeholder="e.g., 10-50 employees"
                             value={formData.companySize}
                             onChange={handleChange}
                         />
+                        {errors.companySize && <span className="error-text">{errors.companySize}</span>}
                     </div>
 
                     <div className="aboutcompany-form-group">
@@ -206,18 +247,20 @@ export const AboutYourCompany = () => {
                         <input
                             type="text"
                             name="address1"
-                            placeholder="e.g., India"
+                            className={errors.address1 ? "error-border" : ""}
+                            placeholder="e.g., 123 Street Name"
                             value={formData.address1}
                             onChange={handleChange}
                         />
+                        {errors.address1 && <span className="error-text">{errors.address1}</span>}
                     </div>
 
                     <div className="aboutcompany-form-group">
-                        <label>Company Address 2</label>
+                        <label>Company Address 2 (Optional)</label>
                         <input
                             type="text"
                             name="address2"
-                            placeholder="e.g., India"
+                            placeholder="e.g., Suite or Floor"
                             value={formData.address2}
                             onChange={handleChange}
                         />
@@ -228,13 +271,16 @@ export const AboutYourCompany = () => {
                         <textarea
                             rows="5"
                             name="about"
+                            className={errors.about ? "error-border" : ""}
+                            placeholder="Tell us about your company culture and mission..."
                             value={formData.about}
                             onChange={handleChange}
                         />
+                        {errors.about && <span className="error-text">{errors.about}</span>}
                     </div>
 
                     <div className="aboutcompany-form-buttons">
-                        <button type="button" className="aboutcompany-back-btn">Back</button>
+                        <button type="button" className="aboutcompany-back-btn" onClick={() => navigate(-1)}>Back</button>
                         <button type="submit" className="aboutcompany-next-btn">Next</button>
                     </div>
 
