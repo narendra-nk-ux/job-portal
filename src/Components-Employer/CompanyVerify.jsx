@@ -19,10 +19,10 @@ export const CompanyVerify = () => {
     incorporationCertificate: null,
   });
 
-  // --- NEW: Error State ---
+ 
   const [errors, setErrors] = useState({});
 
-  // --- NEW: Validation Logic ---
+ 
   const validateForm = () => {
     let newErrors = {};
 
@@ -53,11 +53,10 @@ export const CompanyVerify = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle all inputs
+  
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors({ ...errors, [name]: null });
     }
@@ -76,7 +75,6 @@ export const CompanyVerify = () => {
         [name]: file,
       });
     } else {
-      // Numbers only validation for phoneNumber (matching your About page logic)
       if (name === "phoneNumber") {
         const onlyNums = value.replace(/[^0-9]/g, "");
         if (onlyNums.length <= 10) {
@@ -98,7 +96,6 @@ export const CompanyVerify = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // --- UPDATED: Check validation ---
     if (validateForm()) {
       console.log("Verification Data Ready:", formData);
       navigate('/Job-portal/Employer/Dashboard', { state: { fromVerify: true } });
