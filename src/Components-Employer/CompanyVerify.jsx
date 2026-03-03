@@ -105,7 +105,7 @@ export const CompanyVerify = () => {
   };
 
   return (
-    <div className="verify-page">
+    <>
       <EHeader />
 
       <div className="company-verify-container">
@@ -249,6 +249,6 @@ export const CompanyVerify = () => {
       </div>
 
       <Footer />
-    </div>
+    </>
   );
 };
