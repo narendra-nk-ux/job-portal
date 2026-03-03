@@ -38,11 +38,11 @@ export const CompanyVerify = () => {
       newErrors.officialEmail = "Invalid email format";
     }
 
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^[6-9]\d{9}$/;
     if (!formData.phoneNumber) {
       newErrors.phoneNumber = "Phone number is required";
     } else if (!phoneRegex.test(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Enter a valid 10-digit number";
+      newErrors.phoneNumber = "Number must start with 6, 7, 8, or 9 and be 10 digits";
     }
 
     if (!formData.incorporationCertificate) {

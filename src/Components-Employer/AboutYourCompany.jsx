@@ -44,7 +44,7 @@ export const AboutYourCompany = () => {
             newErrors.companyMail = "Invalid email format";
         }
 
-        const phoneRegex = /^\d{10}$/;
+        const phoneRegex = /^[6-9]\d{10}$/;;
         if (!formData.contactNumber) {
             newErrors.contactNumber = "Phone number is required";
         } else if (!phoneRegex.test(formData.contactNumber)) {
