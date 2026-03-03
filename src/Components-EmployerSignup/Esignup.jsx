@@ -4,8 +4,17 @@ import './Esignup.css'
 import workTime from '../assets/WorkTime.png'
 import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
+import { useNavigate } from "react-router-dom";
 
 export const Esignup = () => {
+  const navigate = useNavigate();
+
+  const handleCreateAccount = (e) => {
+        e.preventDefault();
+        alert("Account created successfully! Let's set up your company profile.");
+        navigate("/Job-portal/Employer/about-your-company");
+    };
+
   const [passwordShow, setPasswordShow] = useState(true)
   const [confirmPasswordShow, setConfirmPasswordShow] = useState(true)
 
@@ -147,11 +156,15 @@ export const Esignup = () => {
           <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter your mobile number" className={errors.phone ? "input-error" : ""} />
           {errors.phone && <span className="error-msg">{errors.phone}</span>}
 
-          <Link to="/Job-portal/Employer/about-your-company">
-            <button type="button" className="j-sign-up-submit">
+          
+            <button
+              type="button"
+              className="j-sign-up-submit"
+              onClick={handleCreateAccount}
+            >
               Create Account
             </button>
-          </Link>
+          
         </form>
       </div>
     </div>
