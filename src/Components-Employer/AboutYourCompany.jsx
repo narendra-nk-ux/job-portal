@@ -48,7 +48,7 @@ export const AboutYourCompany = () => {
         if (!formData.contactNumber) {
             newErrors.contactNumber = "Phone number is required";
         } else if (!phoneRegex.test(formData.contactNumber)) {
-            newErrors.contactNumber = "Enter a valid 10-digit number";
+            newErrors.contactNumber = "Number must start with 6, 7, 8, or 9 and be 10 digits";
         }
 
   
