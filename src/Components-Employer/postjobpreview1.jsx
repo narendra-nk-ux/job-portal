@@ -13,7 +13,7 @@ import timeIcon from '../assets/opportunity_time.png';
 import experienceIcon from '../assets/opportunity_bag.png';
 import placeIcon from '../assets/opportunity_location.png';
 
-const PostJobPreview = () => {
+export const PostJobPreview = () => {
   const { state: job } = useLocation();
   const navigate = useNavigate();
   const { postJob, editjob } = useJobs();
@@ -176,4 +176,3 @@ const PostJobPreview = () => {
   );
 };
 
-export default PostJobPreview;

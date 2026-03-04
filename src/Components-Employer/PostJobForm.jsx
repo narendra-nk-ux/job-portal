@@ -221,7 +221,7 @@ export const PostJobForm = () => {
   };
 
   return (
-    <div>
+    <>
       <EHeader />
       <main className="jobpost-main-content">
         <header className="jobpost-form-header">
@@ -506,7 +506,7 @@ export const PostJobForm = () => {
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 
