@@ -66,10 +66,10 @@ export const PostedJobs = ({ onViewApplicants }) => {
         {jobs.map((job) => (
           <div key={job.id} className="postedjobs-grid-layout postedjobs-card">
             <div className="postedjobs-info">
-              <h3>{job.jobTitle || job.title}</h3>
+              <h3>{job.title || title}</h3>
 
               <p className="postedjobs-loc flex items-center gap-2">
-                <img src={place} alt="location" className="post-job-locationicon" />
+                <img src={place} alt="location" className="post-job-locationicon1" />
                 {job.location}
               </p>
               <small>Created on: {job.postedDate || job.date}</small>

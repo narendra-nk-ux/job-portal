@@ -71,6 +71,9 @@
     display: flex;
     gap: 4px;
 }
+.post-job-locationicon1 {
+  width: 20px;
+}
 
 .postedjobs-actions {
     display: flex;

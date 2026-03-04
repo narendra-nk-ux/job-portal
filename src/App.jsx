@@ -49,7 +49,7 @@ import { AboutYourCompany } from './Components-Employer/AboutYourCompany'
 import { CompanyVerify } from './Components-Employer/CompanyVerify'
 import EditJob from './Components-Employer/EditJob'
 import { PostedJobs } from './Components-Employer/PostedJobs'
-import PostJobPreview from './Components-Employer/PostJobPreview'
+import PostJobPreview  from './Components-Employer/PostJobPreview';
 import PostJobForm from './Components-Employer/PostJobForm'
 // import ViewApplicants from './Components-Employer/ViewApplicants'
 

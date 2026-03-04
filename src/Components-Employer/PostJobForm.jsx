@@ -18,7 +18,8 @@ export const PostJobForm = () => {
   ];
 
   const [formData, setFormData] = useState({
-    jobTitle: '',
+    title: '', // Changed to match the input 'name' or updated logic below
+    company: '',
     category: [],
     department: [],
     education: [],
@@ -47,7 +48,7 @@ export const PostJobForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.jobTitle.trim()) newErrors.jobTitle = "Job title is required";
+    if (!formData.title.trim()) newErrors.title = "Job title is required";
     if (formData.category.length === 0) newErrors.category = "Industrial type is required";
     if (formData.department.length === 0) newErrors.department = "Department is required";
     if (!formData.workType) newErrors.workType = "Work type is required";
@@ -147,7 +148,7 @@ export const PostJobForm = () => {
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     if (!validateForm()) {
-      return false; // stops form submit if errors
+      return false;
     }
     const submissionData = {
       ...formData,
@@ -157,7 +158,6 @@ export const PostJobForm = () => {
   };
 
   return (
-    // <div className="jobpost-page-title">
     <div>
       <EHeader />
       <main className="jobpost-main-content">
@@ -171,8 +171,15 @@ export const PostJobForm = () => {
             <div className="jobpost-form-row">
               <label className="jobpost-label">Job title</label>
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <input className={`jobpost-input ${errors.jobTitle ? "input-error" : ""}`} type="text" name="jobTitle" placeholder="e.g., Fullstack Developer" value={formData.jobTitle} onChange={handleChange} />
-                {errors.jobTitle && <span className="error-msg">{errors.jobTitle}</span>}
+                <input 
+                  className={`jobpost-input ${errors.title ? "input-error" : ""}`} 
+                  type="text" 
+                  name="title" 
+                  placeholder="e.g., Fullstack Developer" 
+                  value={formData.title} 
+                  onChange={handleChange} 
+                />
+                {errors.title && <span className="error-msg">{errors.title}</span>}
               </div>
             </div>
 
@@ -360,12 +367,12 @@ export const PostJobForm = () => {
                     style={errors.keySkills ? { borderColor: '#d93025' } : {}}
                     type="text"
                     name="keySkills"
-                    placeholder="Press Enter to add skills  (e.g., Python, AWS, React etc...)"
+                    placeholder="Press Enter to add skills (e.g., Python, AWS, React etc...)"
                     value={formData.keySkills}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
                   />
-                  <div className="jobpost-tags-area" style={errors.keySkills ? { borderColor: '#d93025' } : {}}>
+                  <div className="jobpost-tags-area">
                     {skillsList.map((skill, index) => (
                       <span key={index} className="jobpost-tag">
                         {skill} <button type="button" onClick={() => removeSkill(skill)}>×</button>
@@ -401,7 +408,7 @@ export const PostJobForm = () => {
             <div className="jobpost-form-row">
               <label className="jobpost-label">Job description</label>
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <textarea className={`jobpost-textarea ${errors.jobDescription ? "input-error" : ""}`} name="jobDescription" placeholder="Describe the role, responsibilities, requirements, and what makes this opportunity unique.... " value={formData.jobDescription} onChange={handleChange}></textarea>
+                <textarea className={`jobpost-textarea ${errors.jobDescription ? "input-error" : ""}`} name="jobDescription" placeholder="Describe the role..." value={formData.jobDescription} onChange={handleChange}></textarea>
                 {errors.jobDescription && <span className="error-msg">{errors.jobDescription}</span>}
               </div>
             </div>

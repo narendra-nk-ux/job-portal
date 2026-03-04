@@ -15,7 +15,7 @@ import { useJobs } from '../JobContext';
 
 const PostJobPreview = () => {
   const { state } = useLocation();
-  const { postJob, editJob, companyProfile, getSuggestedJobs, jobs } = useJobs(); // Added missing context pulls
+  const { postJob, editJob, companyProfile = {}, getSuggestedJobs, jobs } = useJobs(); 
   const navigate = useNavigate();
   const [step, setStep] = useState('preview');
 
@@ -88,6 +88,7 @@ const PostJobPreview = () => {
         <EHeader />
         <div className="jobpost-previous-status-container">
           {step === 'loading' ? (
+            /* FIXED BLOCK BELOW */
             <div className="jobpost-previous-success-msg">
               <div className="jobpost-previous-loader"></div>
               <p className="jobpost-previous-success-title">Posting your job...</p>
@@ -108,7 +109,6 @@ const PostJobPreview = () => {
   return (
     <>
       <EHeader />
-
       <div className='jobpost-overview-content'>
         <div className='search-backbtn-container'>
           <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
@@ -117,39 +117,34 @@ const PostJobPreview = () => {
           </header>
         </div>
 
-        {/* MAIN FLEX CONTAINER */}
         <main className="jobpost-overview-main">
-
-          {/* CONTAINER 1: LEFT SIDE (Job Content) */}
           <div className="jobpost-job-main">
-
-            {/* Main Info Card */}
             <section className="jobpost-previous-card jobpost-previous-main-info">
               <div className="jobpost-previous-card-top-row">
                 <div className="jobpost-previous-title-area">
                   <h2 className="jobpost-previous-job-title-text">{state.jobTitle || "Job Title Not Specified"}</h2>
                   <h5 className="overview-job-company">
-                    {companyProfile.companyName || "Company Name"}
+                    {companyProfile?.companyName || "Company Name"}
                     <span className="review-divider"> | </span>
                     <span className="star">
                       <img src={starIcon} alt="star" style={{ width: '14px', marginRight: '4px' }} />
                     </span>
-                    {companyProfile.ratings || "4.3"}
+                    {companyProfile?.ratings || "4.3"}
                     <span className="review-divider"> | </span>
                     <span className="opp-reviews">
-                      {companyProfile.reviewNo || "55k+"} Reviews
+                      {companyProfile?.reviewNo || "55k+"} Reviews
                     </span>
                   </h5>
                 </div>
                 <div className="jobpost-previous-company-logo-square">
-                  {companyProfile.companyName ? companyProfile.companyName.charAt(0).toUpperCase() : "W"}
+                  {companyProfile?.companyName ? companyProfile.companyName.charAt(0).toUpperCase() : "W"}
                 </div>
               </div>
 
               <div className="jobpost-previous-info-grid-row">
                 <div className="jobpost-previous-info-item-group">
                   <div className="jobpost-previous-info-item">
-                    <img src={ClockIcon} alt="clock" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
+                    <img src={ClockIcon} alt="clock" className="jobpost-previous-icon" />
                     <span>{state.workDuration || 'Not specified'}</span>
                   </div>
                   <div className="jobpost-previous-vertical-separator"></div>
@@ -160,23 +155,21 @@ const PostJobPreview = () => {
                 </div>
 
                 <div className="jobpost-previous-info-item">
-                  <img src={experienceIcon} alt="experience" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
+                  <img src={experienceIcon} alt="experience" className="jobpost-previous-icon" />
                   <span className="experience-text">
                     {state.experience ? `${state.experience} of experience` : "Fresher / Not specified"}
                   </span>
                 </div>
 
                 <div className="jobpost-previous-info-item">
-                  <img src={placeIcon} alt="location" className="jobpost-previous-icon" style={{ width: '16px', marginRight: '8px' }} />
+                  <img src={placeIcon} alt="location" className="jobpost-previous-icon" />
                   <span>{state.location || 'Location not specified'}</span>
                 </div>
               </div>
 
               <div className="jobpost-previous-tags-row">
                 {getSelectedLabels(state.jobCategory).map((cat, index) => (
-                  <span key={`cat-${index}`} className="jobpost-previous-job-type-tag">
-                    {cat}
-                  </span>
+                  <span key={`cat-${index}`} className="jobpost-previous-job-type-tag">{cat}</span>
                 ))}
                 {getSelectedLabels(state.shift).map((s, index) => (
                   <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" >
@@ -203,12 +196,11 @@ const PostJobPreview = () => {
               </div>
             </section>
 
-            {/* Details Card */}
             <section className="jobpost-previous-card jobpost-previous-details-info">
               <div className="jobpost-previous-highlights-callout">
                 <h4>Job highlights</h4>
                 <ul>
-                  {state.jobHighlights && state.jobHighlights.filter(h => h.trim() !== "").map((highlight, i) => (
+                  {state.jobHighlights?.filter(h => h.trim() !== "").map((highlight, i) => (
                     <li key={i}>{highlight}</li>
                   ))}
                   {(!state.jobHighlights || state.jobHighlights[0] === "") && <li>No specific highlights added.</li>}
@@ -216,9 +208,9 @@ const PostJobPreview = () => {
               </div>
 
               <div className="jobpost-previous-section-block">
-                <h4>Company Overview {companyProfile.companyName}</h4>
+                <h4>Company Overview {companyProfile?.companyName}</h4>
                 <p className="jobpost-previous-description-text">
-                  {companyProfile.about || "No company overview provided."}
+                  {companyProfile?.about || "No company overview provided."}
                 </p>
               </div>
 
@@ -230,7 +222,7 @@ const PostJobPreview = () => {
               <div className="jobpost-previous-section-block">
                 <h4>Responsibilities</h4>
                 <ul className="jobpost-previous-description-list">
-                  {state.responsibilities && state.responsibilities.filter(r => r.trim() !== "").map((res, i) => (
+                  {state.responsibilities?.filter(r => r.trim() !== "").map((res, i) => (
                     <li key={i}>{res}</li>
                   ))}
                   {(!state.responsibilities || state.responsibilities[0] === "") && <li>Refer to job description.</li>}
@@ -267,9 +259,9 @@ const PostJobPreview = () => {
                 <div className="jobpost-previous-social-sharing">
                   <span>Share this job:</span>
                   <div className="jobpost-previous-social-icons" style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
-                    <img src={linkedinIcon} alt="linkedin" className="jobpost-previous-icon-in" style={{ width: '22px', cursor: 'pointer' }} />
-                    <img src={facebookIcon} alt="facebook" className="jobpost-previous-icon-fb" style={{ width: '22px', cursor: 'pointer' }} />
-                    <img src={twitterIcon} alt="twitter" className="jobpost-previous-icon-x" style={{ width: '22px', cursor: 'pointer' }} />
+                    <img src={linkedinIcon} alt="linkedin" className="jobpost-previous-icon-in" />
+                    <img src={facebookIcon} alt="facebook" className="jobpost-previous-icon-fb" />
+                    <img src={twitterIcon} alt="twitter" className="jobpost-previous-icon-x" />
                   </div>
                 </div>
                 <div className="jobpost-previous-btn-group">
@@ -279,7 +271,6 @@ const PostJobPreview = () => {
               </div>
             </section>
           </div>
-
         </main>
       </div>
       <Footer />
