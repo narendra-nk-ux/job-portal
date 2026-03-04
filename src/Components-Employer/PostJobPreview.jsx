@@ -20,7 +20,7 @@ const PostJobPreview = () => {
   const { id } = useParams();
   const [step, setStep] = useState('preview');
 
-    const getSelectedLabels = (val) => {
+  const getSelectedLabels = (val) => {
     if (!val) return [];
     if (typeof val === 'object' && !Array.isArray(val)) {
       return Object.keys(val)
@@ -36,31 +36,67 @@ const PostJobPreview = () => {
     return labels.length > 0 ? labels.join(', ') : 'Not specified';
   };
 
-   const formatPostedDate = (date) => {
+  const formatPostedDate = (date) => {
     return "Just now";
   };
 
-  const job = state ? {
-    ...state,
-    title: state.jobTitle || "Job Title",
-    company: state.companyName || "your Company",
-    ratings: "4.2", // Mock value for preview
-    reviewNo: "100+", // Mock value for preview
-    logo: state.companyLogo || null,
-    duration: state.workDuration || state.employmentCategory || "Full-time",
-    salary: state.salary || "Not disclosed",
-    experience: state.experience || "0",
-    location: state.location || "Remote",
-    shift: formatDisplay(state.shift),
-    WorkType: state.workType || "On-site",
-    tags: Array.isArray(state.tags) ? state.tags : [state.employmentCategory || "Full-time"],
-    posted: new Date().toISOString(),
-    openings: state.openings || 1,
+  // const job = state ? {
+  //   ...state,
+  //   title: state.jobTitle || "Job Title",
+  //   company: state.companyName || "your Company",
+  //   ratings: "4.2", // Mock value for preview
+  //   reviewNo: "100+", // Mock value for preview
+  //   logo: state.companyLogo || null,
+  //   duration: state.workDuration || state.employmentCategory || "Full-time",
+  //   salary: state.salary || "Not disclosed",
+  //   experience: state.experience || "0",
+  //   location: state.location || "Remote",
+  //   shift: formatDisplay(state.shift),
+  //   WorkType: state.workType || "On-site",
+  //   tags: Array.isArray(state.tags) ? state.tags : [state.employmentCategory || "Full-time"],
+  //   posted: new Date().toISOString(),
+  //   openings: state.openings || 1,
+  //   applicants: 0,
+  //   JobHighlights: state.jobHighlights || [],
+  //   Responsibilities: state.responsibilities || [],
+  //   KeySkills: state.skills || []
+  // } : null;
+
+  const job = {
+    title: "Software Engineer",
+    company: "TechCorp",
+    ratings: "4.2",
+    reviewNo: "100+",
+    logo: "https://link-to-logo.com/image.png",
+    duration: "Full-time",
+    salary: "Not disclosed",
+    experience: "2-4 years",
+    location: "Remote",
+    shift: "Day Shift",
+    workType: "On-site",
+    tag: "Engineering",
+    postedAt: "2026-03-04T12:26:32.000Z",
+    openings: 1,
     applicants: 0,
-    JobHighlights: state.jobHighlights || [],
-    Responsibilities: state.responsibilities || [],
-    KeySkills: state.skills || []
-  } : null;
+    highlights: [
+      "Work with cutting-edge tech",
+      "Competitive benefits",
+      "Flexible working hours"
+    ],
+    responsibilities: [
+      "Develop clean, maintainable code",
+      "Collaborate with cross-functional teams",
+      "Participate in code reviews"
+    ],
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js"
+    ]
+  };
+
+
 
   const handleFinalPost = () => {
     setStep('loading');
@@ -83,7 +119,7 @@ const PostJobPreview = () => {
         setStep('preview');
         alert("Something went wrong while posting the job. Please try again.");
       }
-    }, 1000); 
+    }, 1000);
   };
 
   if (!state || !job) {
@@ -197,7 +233,12 @@ const PostJobPreview = () => {
                 <div className="jobpost-previous-section-block">
                   <h4>Company Overview {job.company}</h4>
                   <p className="jobpost-previous-description-text">
-                    {state.aboutCompany || "No company overview provided."}
+                    {/* {state.aboutCompany || "No company overview provided."} */}
+                    Technologies is a fast-growing software startup focused on building innovative digital products for modern businesses. We specialize in full-stack development, SaaS platforms, and AI-powered web applications.
+
+                    Our mission is to simplify complex business processes through smart automation and intuitive user experiences. We believe in agile development, continuous learning, and delivering measurable results for our clients.
+
+                    With a collaborative culture and a passion for technology, CodeCraft empowers businesses to scale efficiently in a digital-first world.
                   </p>
                 </div>
 

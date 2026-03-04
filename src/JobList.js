@@ -32,6 +32,9 @@ export const JobList = [
     openings: 8,
     applicants: 65,
     tags: ["Full-time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
 
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "MS/M.Sc (Science)", "Any Graduate"],
@@ -53,6 +56,7 @@ export const JobList = [
       "Monitor and troubleshoot production issues and implement long-term solutions.",
       "Contribute to system architecture and technical design documentation."
     ]
+
   },
   {
     id: "70",
@@ -77,6 +81,9 @@ export const JobList = [
     openings: 3,
     applicants: 45,
     tags: ["Full-time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "PG Diploma", "Any Postgraduate", "MCA", "Any Graduate"],
     KeySkills: ["PMP/Prince2", "Risk Management", "Budget Management", "Agile", "Stakeholder Communication", "MS Project"],
@@ -120,6 +127,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Sc", "B.Tech/B.E.", "BCA", "Any Graduate", "MCA", "M.Sc (Science)"],
     KeySkills: ["SQL", "Data Cleansing", "Power BI/Tableau", "Statistical Analysis", "Excel"],
@@ -163,6 +173,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Sc", "BCA", "B.Tech/B.E.", "B.Com", "Any Graduate"],
     KeySkills: ["SQL", "Excel", "Data Cleaning", "Tableau/Power BI", "Data Interpretation"],
@@ -206,6 +219,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "M.Sc (Science)", "MCA", "B.Sc", "Any Graduate"],
     KeySkills: ["SQL", "Data Visualization", "Python/R", "Experimentation", "A/B Testing", "Data Analysis"],
@@ -249,6 +265,9 @@ export const JobList = [
     openings: 20,
     applicants: 300,
     tags: ["Full-time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "MS/M.Sc (Science)", "Any Graduate"],
     KeySkills: ["C++/Java/Python", "Algorithms", "Data Structures", "Distributed Systems", "Testing"],
@@ -292,6 +311,9 @@ export const JobList = [
     openings: 6,
     applicants: 70,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Des", "B.Sc", "M.Des", "Diploma", "Any Graduate", "BFA"],
     KeySkills: ["Figma", "Wireframes", "Prototyping", "User Research", "Visual Design", "HTML/CSS"],
@@ -335,6 +357,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "BCA", "B.Sc", "M.Sc (Science)", "Any Graduate"],
     KeySkills: ["SQL", "Redshift", "Data Visualization", "Python/R", "Statistical Analysis"],
@@ -378,6 +403,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Sc", "B.Tech/B.E.", "M.Sc (Science)", "BCA", "Any Graduate"],
     KeySkills: ["UX Research", "Wireframes", "Figma", "Photoshop", "HTML", "CSS"],
@@ -425,6 +453,9 @@ export const JobList = [
     openings: 10,
     applicants: 150,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "B.Sc", "Any Graduate", "MS/M.Sc (Science)"],
     KeySkills: ["Java", "Python", "REST APIs", "SQL", "Git", "AWS"],
@@ -468,6 +499,9 @@ export const JobList = [
     openings: 3,
     applicants: 85,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.B.A/ B.M.S", "MBA/PGDM", "B.A", "Any Graduate", "Bachelor Of Science (B.Sc.) In Business Economics"],
     KeySkills: ["SEO Basics", "Social Media Management", "Content Writing", "Google Analytics", "Canva"],
@@ -511,6 +545,9 @@ export const JobList = [
     openings: 2,
     applicants: 25,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["CA", "MBA/PGDM", "M.Com", "B.Com", "Bachelor Of Science (B.Sc.) In Business Economics", "Any Graduate"],
     KeySkills: ["Financial Modeling", "Valuation", "Budgeting", "SAP/ERP", "Advanced Excel", "GAAP/IFRS"],
@@ -554,6 +591,9 @@ export const JobList = [
     openings: 4,
     applicants: 70,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "B.B.A/ B.M.S", "Any Graduate", "Any Postgraduate"],
     KeySkills: ["Product Roadmap", "User Stories", "Agile/Scrum", "JIRA", "A/B Testing", "UX/UI Principles"],
@@ -597,6 +637,9 @@ export const JobList = [
     openings: 6,
     applicants: 65,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "BCA", "MCA", "M.Tech", "Diploma"],
     KeySkills: ["AWS/Azure", "Kubernetes", "Terraform", "CI/CD", "Linux", "Scripting (Bash/Python)"],
@@ -640,6 +683,9 @@ export const JobList = [
     openings: 3,
     applicants: 120,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.A", "M.A", "Any Graduate", "Any Postgraduate", "B.Ed"],
     KeySkills: ["Content Strategy", "SEO Writing", "Grammarly", "WordPress", "Copywriting", "Research Skills"],
@@ -683,6 +729,9 @@ export const JobList = [
     openings: 2,
     applicants: 30,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["Medical-MS/MD", "MS/M.Sc (Science)", "B.Sc", "Other Post Graduate", "Any Postgraduate"],
     KeySkills: ["Pharmacology", "Cell Culture", "ELISA", "Data Analysis", "HPLC", "Laboratory Techniques"],
@@ -726,6 +775,9 @@ export const JobList = [
     openings: 8,
     applicants: 95,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "BCA", "Diploma", "Any Graduate", "B.Sc"],
     KeySkills: ["Troubleshooting", "Networking (TCP/IP)", "Windows Server", "Ticketing Systems (e.g., Zendesk)", "VOIP", "Customer Service"],
@@ -769,6 +821,9 @@ export const JobList = [
     openings: 15,
     applicants: 180,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "B.Com", "Any Graduate", "Diploma"],
     KeySkills: ["B2C Sales", "Lead Generation", "Negotiation", "CRM Software", "Customer Relationship Management", "Product Knowledge"],
@@ -812,6 +867,9 @@ export const JobList = [
     openings: 5,
     applicants: 250,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MS/M.Sc (Science)", "MCA", "Any Graduate"],
     KeySkills: ["Python", "TensorFlow/PyTorch", "Pandas/NumPy", "Scikit-learn", "Statistical Modeling", "Data Visualization"],
@@ -855,6 +913,9 @@ export const JobList = [
     openings: 4,
     applicants: 50,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "Diploma", "M.Tech", "ITI Certification", "Any Graduate"],
     KeySkills: ["Site Supervision", "Quality Control", "AutoCAD", "Project Management", "Construction Safety", "Budgeting"],
@@ -898,6 +959,9 @@ export const JobList = [
     openings: 7,
     applicants: 140,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "Any Graduate", "Post Graduation Not Required", "B.A"],
     KeySkills: ["Sourcing", "Applicant Tracking Systems (ATS)", "Interviewing", "Technical Recruitment", "Negotiation", "LinkedIn Recruiter"],
@@ -941,6 +1005,9 @@ export const JobList = [
     openings: 5,
     applicants: 90,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "M.Tech", "Any Graduate"],
     KeySkills: ["ReactJS", "JavaScript (ES6+)", "HTML5/CSS3", "Redux/Context API", "Webpack/Babel", "RESTful APIs"],
@@ -984,6 +1051,9 @@ export const JobList = [
     openings: 2,
     applicants: 35,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "Any Graduate", "B.Tech/B.E.", "Diploma", "B.B.A/ B.M.S"],
     KeySkills: ["Supply Chain Management", "Warehouse Management", "Inventory Control", "Process Improvement", "Team Leadership", "Logistics Software (WMS)"],
@@ -1027,6 +1097,9 @@ export const JobList = [
     openings: 3,
     applicants: 45,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["M.Tech", "B.Tech/B.E.", "MS/M.Sc (Science)", "Ph.D", "Other Post Graduate"],
     KeySkills: ["FEA", "Nastran/Patran", "Abaqus", "Structural Analysis", "Fatigue & Damage Tolerance", "CAD Software"],
@@ -1070,6 +1143,9 @@ export const JobList = [
     openings: 12,
     applicants: 60,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Sc", "Diploma", "Medical-MS/MD", "Any Graduate"],
     KeySkills: ["Critical Care Nursing", "BLS/ACLS", "Medication Administration", "Patient Monitoring", "ICU Procedures", "Emergency Response"],
@@ -1113,6 +1189,9 @@ export const JobList = [
     openings: 1,
     applicants: 20,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["CA", "MBA/PGDM", "M.Com", "B.Com", "Any Postgraduate"],
     KeySkills: ["Budgeting & Forecasting", "Financial Modeling", "CA/MBA Finance", "P&L Management", "SAP/Hyperion", "Management Reporting"],
@@ -1156,6 +1235,9 @@ export const JobList = [
     openings: 6,
     applicants: 40,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["Diploma", "ITI Certification", "B.Tech/B.E.", "Any Graduate"],
     KeySkills: ["Electrical Troubleshooting", "Preventive Maintenance (PM)", "SCADA Systems", "Renewable Energy", "Safety Protocols (LOTO)", "Mechanical Repair"],
@@ -1199,6 +1281,9 @@ export const JobList = [
     openings: 4,
     applicants: 80,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "M.Tech", "Any Graduate", "B.Sc"],
     KeySkills: ["Penetration Testing", "Ethical Hacking", "CEH/OSCP", "Burp Suite", "Kali Linux", "Vulnerability Assessment"],
@@ -1242,6 +1327,9 @@ export const JobList = [
     openings: 5,
     applicants: 210,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.B.A/ B.M.S", "MBA/PGDM", "B.A", "Any Graduate", "B.Com"],
     KeySkills: ["SEO", "Social Media", "Analytics", "Content Strategy"],
@@ -1286,6 +1374,9 @@ export const JobList = [
     openings: 3,
     applicants: 150,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "B.Sc", "Any Graduate"],
     KeySkills: ["CI/CD", "Linux", "Shell Scripting", "AWS"],
@@ -1329,6 +1420,9 @@ export const JobList = [
     openings: 10,
     applicants: 350,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["Any Graduate", "Diploma", "B.A", "B.Com", "B.B.A/ B.M.S", "Graduation Not Required"],
     KeySkills: ["Communication", "Email Support", "Chat Support"],
@@ -1373,6 +1467,9 @@ export const JobList = [
     openings: 1,
     applicants: 60,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "PG Diploma", "Any Postgraduate", "Any Graduate"],
     KeySkills: ["Project Management", "Scrum", "Leadership"],
@@ -1417,6 +1514,9 @@ export const JobList = [
     openings: 3,
     applicants: 190,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "B.Sc", "Any Graduate"],
     KeySkills: ["Manual Testing", "Selenium", "JIRA"],
@@ -1461,6 +1561,9 @@ export const JobList = [
     openings: 4,
     applicants: 175,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Com", "M.Com", "MBA/PGDM", "CA", "Bachelor Of Science (B.Sc.) In Business Economics"],
     KeySkills: ["Tally", "Accounting", "Excel"],
@@ -1505,6 +1608,9 @@ export const JobList = [
     openings: 8,
     applicants: 230,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["Any Graduate", "B.B.A/ B.M.S", "MBA/PGDM", "Diploma", "B.A"],
     KeySkills: ["Sales", "Marketing", "Communication"],
@@ -1549,6 +1655,9 @@ export const JobList = [
     openings: 3,
     applicants: 160,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.A", "B.B.A/ B.M.S", "MBA/PGDM", "Any Graduate", "Diploma"],
     KeySkills: ["Social Media", "Content Strategy", "Analytics"],
@@ -1593,6 +1702,9 @@ export const JobList = [
     openings: 2,
     applicants: 80,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "Diploma", "BCA", "B.Sc", "Any Graduate"],
     KeySkills: ["Networking", "Cisco", "Firewall", "Troubleshooting"],
@@ -1637,6 +1749,9 @@ export const JobList = [
     openings: 6,
     applicants: 260,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["M.Tech", "MS/M.Sc (Science)", "B.Tech/B.E.", "MCA", "Any Postgraduate"],
     KeySkills: ["Python", "Machine Learning", "Deep Learning", "Research"],
@@ -1681,6 +1796,9 @@ export const JobList = [
     openings: 2,
     applicants: 85,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "M.Sc (Science)", "Any Graduate"],
     KeySkills: ["SQL (Advanced)", "Tableau/Power BI", "ETL/ELT", "Data Warehousing", "Data Modeling", "Business Requirements Gathering"],
@@ -1725,6 +1843,9 @@ export const JobList = [
     openings: 1,
     applicants: 150,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MS/M.Sc (Science)", "M.Tech", "B.Tech/B.E.", "MCA", "Any Postgraduate"],
     KeySkills: ["Python (Scikit-learn)", "Machine Learning", "Statistics", "Data Modeling", "SQL", "Model Evaluation"],
@@ -1769,6 +1890,9 @@ export const JobList = [
     openings: 3,
     applicants: 65,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "MBA/PGDM", "B.Sc", "Any Graduate", "M.Sc (Science)"],
     KeySkills: ["SQL", "A/B Testing", "Product Metrics (KPIs)", "Google Analytics/Mixpanel", "Data Visualization", "Communication"],
@@ -1813,6 +1937,9 @@ export const JobList = [
     openings: 2,
     applicants: 95,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "Any Graduate", "B.Com", "M.Sc (Science)"],
     KeySkills: ["Marketing KPIs (CPA, ROI)", "Excel (Advanced)", "SQL (Basic)", "Google Analytics/Ads", "Data Storytelling", "Statistics"],
@@ -1857,6 +1984,9 @@ export const JobList = [
     openings: 1,
     applicants: 40,
     tags: ["Full-Time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["Medical-MS/MD", "MS/M.Sc (Science)", "B.Sc", "Other Post Graduate", "Any Postgraduate"],
     KeySkills: ["SQL", "SAS/R", "Healthcare Data (EHR/Claims)", "Statistical Modeling", "Data Governance", "Domain Knowledge"],
@@ -1901,6 +2031,9 @@ export const JobList = [
     openings: 1,
     applicants: 70,
     tags: ["Internship"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "Any Graduate", "Diploma", "B.Com"],
     KeySkills: ["SEO/SEM", "Google Ads/Analytics", "Paid Social (Meta/LinkedIn)", "CPA/ROAS Optimization", "A/B Testing", "Budget Management"],
@@ -1945,7 +2078,9 @@ export const JobList = [
     openings: 2,
     applicants: 55,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "Any Postgraduate", "Any Graduate", "Bachelor Of Science (B.Sc.) In Business Economics"],
     KeySkills: ["Go-to-Market (GTM)", "Messaging/Positioning", "Sales Enablement", "Market Research", "B2B Marketing", "Competitive Analysis"],
 
@@ -1989,7 +2124,9 @@ export const JobList = [
     openings: 1,
     applicants: 90,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.A", "M.A", "Any Graduate", "Diploma", "B.Ed"],
     KeySkills: ["Content Strategy", "SEO (Advanced)", "Editorial Management", "Content Creation", "Lead Generation", "Analytics (Google Analytics)"],
 
@@ -2033,7 +2170,9 @@ export const JobList = [
     openings: 1,
     applicants: 45,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "Any Graduate", "Diploma", "B.Com"],
     KeySkills: ["CRM (Salesforce/HubSpot)", "Email Marketing", "Marketing Automation", "Customer Segmentation", "A/B Testing", "HTML/CSS for Email"],
 
@@ -2077,7 +2216,9 @@ export const JobList = [
     openings: 1,
     applicants: 30,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "Any Graduate", "Diploma", "B.Com", "B.B.A/ B.M.S"],
     KeySkills: ["Event Management", "Lead Generation", "Sales Alignment", "Partnership Marketing", "Budget Tracking", "Regional Strategy"],
 
@@ -2121,7 +2262,9 @@ export const JobList = [
     openings: 2,
     applicants: 45,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "MS/M.Sc (Science)", "Any Graduate"],
     KeySkills: ["Go (Golang)", "Microservices", "REST/gRPC", "Kubernetes/Docker", "AWS/GCP/Azure", "System Design", "Databases (SQL/NoSQL)"],
 
@@ -2165,7 +2308,9 @@ export const JobList = [
     openings: 3,
     applicants: 78,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "Any Graduate", "M.Tech"],
     KeySkills: ["React.js", "TypeScript", "JavaScript (ES6+)", "State Management (Redux/Zustand)", "HTML/CSS/SASS", "Web Performance", "Testing"],
 
@@ -2209,7 +2354,9 @@ export const JobList = [
     openings: 1,
     applicants: 22,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["M.Tech", "B.Tech/B.E.", "MS/M.Sc (Science)", "MCA", "Any Graduate"],
     KeySkills: ["Apache Spark", "Kafka", "Distributed Systems", "Scala/Python", "Cloud Data Warehouses", "System Architecture", "Hadoop Ecosystem"],
 
@@ -2253,7 +2400,9 @@ export const JobList = [
     openings: 2,
     applicants: 55,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "M.Tech", "Any Graduate"],
     KeySkills: ["Swift", "iOS SDK", "SwiftUI/UIKit", "Combine/RxSwift", "Unit Testing", "APIs/Networking", "Clean Architecture"],
 
@@ -2297,7 +2446,9 @@ export const JobList = [
     openings: 4,
     applicants: 60,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "B.Sc", "Any Graduate"],
     KeySkills: ["AWS/GCP/Azure", "Kubernetes", "Terraform/Ansible", "CI/CD (Jenkins/GitLab)", "Prometheus/Grafana", "Linux", "Networking"],
 
@@ -2341,7 +2492,9 @@ export const JobList = [
     openings: 2,
     applicants: 40,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["M.Des", "B.Des", "B.Tech/B.E.", "Diploma", "Any Graduate"],
     KeySkills: ["Figma/Sketch", "User Research", "Prototyping", "Design Systems", "UX Writing", "Wireframing", "Interaction Design"],
 
@@ -2385,7 +2538,9 @@ export const JobList = [
     openings: 3,
     applicants: 80,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.A", "BFA", "Diploma", "B.Des", "Any Graduate"],
     KeySkills: ["UI Design", "Visual Hierarchy", "Typography", "Adobe Creative Suite/Figma", "Design QA", "Accessibility Standards", "Branding"],
 
@@ -2429,7 +2584,9 @@ export const JobList = [
     openings: 1,
     applicants: 35,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MS/M.Sc (Science)", "M.A", "B.Sc", "Any Graduate", "M.Des"],
     KeySkills: ["Usability Testing", "Qualitative/Quantitative Research", "Survey Design", "Persona Development", "Journey Mapping", "Data Synthesis"],
 
@@ -2473,7 +2630,9 @@ export const JobList = [
     openings: 2,
     applicants: 55,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Des", "B.Tech/B.E.", "BCA", "Any Graduate", "Diploma"],
     KeySkills: ["Interaction Design", "Mobile UX (iOS/Android)", "Prototyping (Principle/Figma)", "User Flows", "Wireframing", "Animation/Motion"],
 
@@ -2517,7 +2676,9 @@ export const JobList = [
     openings: 3,
     applicants: 120,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Des", "Diploma", "B.Tech/B.E.", "Any Graduate", "BFA"],
     KeySkills: ["Figma/Sketch", "Visual Design", "Wireframing", "Prototyping (Basic)", "eCommerce UX", "Design Principles"],
 
@@ -2561,7 +2722,9 @@ export const JobList = [
     openings: 4,
     applicants: 310,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "B.Sc", "Any Graduate"],
     KeySkills: ["React", "HTML", "CSS", "JavaScript", "UI/UX"],
 
@@ -2605,7 +2768,9 @@ export const JobList = [
     openings: 3,
     applicants: 250,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "BCA", "Any Graduate"],
     KeySkills: ["Node.js", "MongoDB", "Express", "SQL", "API Development"],
 
@@ -2649,7 +2814,9 @@ export const JobList = [
     openings: 5,
     applicants: 180,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["Diploma", "B.Des", "Any Graduate", "BFA", "B.Sc"],
     KeySkills: ["Figma", "Wireframing", "Prototyping", "User Research"],
 
@@ -2693,7 +2860,9 @@ export const JobList = [
     openings: 2,
     applicants: 140,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "M.Tech", "Any Graduate"],
     KeySkills: ["Java", "Spring Boot", "Microservices", "SQL"],
 
@@ -2737,7 +2906,9 @@ export const JobList = [
     openings: 3,
     applicants: 260,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Sc", "BCA", "B.Com", "Any Graduate", "B.Tech/B.E."],
     KeySkills: ["Power BI", "Excel", "SQL", "Data Cleaning"],
 
@@ -2781,7 +2952,9 @@ export const JobList = [
     openings: 4,
     applicants: 180,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "BCA", "Diploma", "Any Graduate"],
     KeySkills: ["Flutter", "Dart", "Android", "iOS"],
 
@@ -2825,7 +2998,9 @@ export const JobList = [
     openings: 5,
     applicants: 120,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["Diploma", "BFA", "Any Graduate", "B.A", "Graduation Not Required"],
     KeySkills: ["Photoshop", "Illustrator", "Branding", "Creativity"],
 
@@ -2869,7 +3044,9 @@ export const JobList = [
     openings: 8,
     applicants: 300,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "Any Graduate", "B.A", "Any Postgraduate"],
     KeySkills: ["Recruitment", "Communication", "Screening", "Coordination"],
 
@@ -2913,7 +3090,9 @@ export const JobList = [
     openings: 2,
     applicants: 110,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "B.Sc", "Any Graduate"],
     KeySkills: ["AWS", "Terraform", "Docker", "CI/CD"],
 
@@ -2957,7 +3136,9 @@ export const JobList = [
     openings: 2,
     applicants: 170,
     tags: ["Full-Time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "B.Com", "Any Graduate", "Bachelor Of Science (B.Sc.) In Business Economics"],
     KeySkills: ["Business Analysis", "Documentation", "Excel", "Communication"],
 
@@ -3001,7 +3182,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Sc (Science)", "B.Sc", "MCA", "Any Graduate"],
     KeySkills: ["SQL", "Data Visualization", "Python/R", "Data Modeling", "Business Intelligence"],
 
@@ -3048,7 +3231,9 @@ export const JobList = [
     openings: 3,
     applicants: 25,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Des", "M.Des", "B.Tech/B.E.", "Any Graduate", "Diploma"],
     KeySkills: ["UX Design", "UI Design", "Prototyping", "Sketch/Figma", "User Research", "Design Systems"],
 
@@ -3092,7 +3277,9 @@ export const JobList = [
     openings: 4,
     applicants: 50,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MBA/PGDM", "M.Tech", "Any Graduate", "MCA"],
     KeySkills: ["Agile/Scrum", "Risk Management", "System Architecture", "Software Development Life Cycle (SDLC)", "Cross-Functional Leadership"],
 
@@ -3136,7 +3323,9 @@ export const JobList = [
     openings: 2,
     applicants: 35,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["CA", "MBA/PGDM", "B.Com", "M.Com", "Bachelor Of Science (B.Sc.) In Business Economics"],
     KeySkills: ["Financial Modeling", "Budgeting & Forecasting", "SAP/Oracle", "Variance Analysis", "Advanced Excel", "FP&A"],
 
@@ -3180,7 +3369,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Sc", "B.Tech/B.E.", "BCA", "Any Graduate", "M.Sc (Science)"],
     KeySkills: ["SQL", "Excel", "Data Cleaning", "Data Visualization", "Statistical Analysis"],
 
@@ -3223,7 +3414,9 @@ export const JobList = [
     openings: 8,
     applicants: 75,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "M.Tech", "Any Graduate", "BCA"],
     KeySkills: ["React", "Node.js", "SQL/NoSQL", "REST APIs", "Azure", "JavaScript"],
 
@@ -3266,7 +3459,9 @@ export const JobList = [
     openings: 4,
     applicants: 50,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "Any Graduate", "MS/M.Sc (Science)"],
     KeySkills: ["Cloud Security", "AWS/Azure", "DevSecOps", "Threat Modeling", "Identity Access Management (IAM)", "SIEM"],
 
@@ -3309,7 +3504,9 @@ export const JobList = [
     openings: 6,
     applicants: 60,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "B.B.A/ B.M.S", "Any Graduate", "Any Postgraduate"],
     KeySkills: ["Requirements Gathering", "UML/Flowcharting", "Stakeholder Analysis", "User Stories", "MS Visio"],
 
@@ -3352,7 +3549,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "BCA", "B.Sc", "M.Sc (Science)", "Any Graduate"],
     KeySkills: ["SQL", "Redshift", "Data Visualization", "Python/R", "Statistical Analysis"],
 
@@ -3395,7 +3594,9 @@ export const JobList = [
     openings: 12,
     applicants: 150,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MCA", "MS/M.Sc (Science)", "Any Graduate"],
     KeySkills: ["Java/C++", "Distributed Systems", "AWS", "System Design", "Algorithms", "Microservices"],
 
@@ -3438,7 +3639,9 @@ export const JobList = [
     openings: 4,
     applicants: 60,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Des", "M.Des", "Any Graduate", "B.Tech/B.E.", "Diploma"],
     KeySkills: ["UX Research", "Figma", "Prototyping", "Information Architecture", "Usability Testing", "Design Systems"],
 
@@ -3481,7 +3684,9 @@ export const JobList = [
     openings: 6,
     applicants: 45,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["CA", "MBA/PGDM", "B.Com", "M.Com", "Any Graduate"],
     KeySkills: ["FP&A", "Financial Modeling", "Budgeting", "Variance Analysis", "Excel", "Hyperion/Cognos"],
 
@@ -3524,7 +3729,9 @@ export const JobList = [
     openings: 8,
     applicants: 90,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.B.A/ B.M.S", "B.Com", "Any Graduate", "Diploma"],
     KeySkills: ["Digital Marketing", "SEO/SEM", "Content Creation", "Campaign Management", "Data Analysis", "Market Research"],
 
@@ -3567,7 +3774,9 @@ export const JobList = [
     openings: 15,
     applicants: 90,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "M.Tech", "Any Graduate", "BCA"],
     KeySkills: ["Core Java", "Spring Boot", "Microservices", "REST API", "JPA/Hibernate", "Maven/Gradle"],
 
@@ -3610,7 +3819,9 @@ export const JobList = [
     openings: 6,
     applicants: 70,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "Any Postgraduate", "Any Graduate", "Bachelor Of Science (B.Sc.) In Business Economics"],
     KeySkills: ["Business Strategy", "Process Mapping", "Stakeholder Management", "Digital Transformation", "Consulting", "Solution Architecture"],
 
@@ -3653,7 +3864,9 @@ export const JobList = [
     openings: 10,
     applicants: 50,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "BCA", "Diploma", "Any Graduate", "M.Sc (Science)"],
     KeySkills: ["AWS/Azure Fundamentals", "Linux", "Scripting (Shell/Python)", "Monitoring Tools", "ITIL"],
 
@@ -3696,7 +3909,9 @@ export const JobList = [
     openings: 8,
     applicants: 45,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "M.Tech", "Any Graduate", "M.Sc (Science)"],
     KeySkills: ["Selenium/Cypress", "Test Automation", "Performance Testing", "Agile/Scrum", "CI/CD", "Test Leadership"],
 
@@ -3739,7 +3954,9 @@ export const JobList = [
     openings: 20,
     applicants: 150,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "B.Sc", "Any Graduate", "M.Tech"],
     KeySkills: ["Java/Python/.NET", "DSA", "Agile/Scrum", "SQL", "API Development"],
 
@@ -3782,7 +3999,9 @@ export const JobList = [
     openings: 3,
     applicants: 50,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "Any Postgraduate", "Any Graduate", "MS/M.Sc (Science)"],
     KeySkills: ["AWS/Azure/GCP", "Cloud Migration", "Architecture Design", "Terraform", "DevOps", "Governance"],
 
@@ -3825,7 +4044,9 @@ export const JobList = [
     openings: 30,
     applicants: 100,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["Any Graduate", "Diploma", "B.Sc", "BCA", "Graduation Not Required"],
     KeySkills: ["Customer Service", "Troubleshooting", "ServiceNow/CRM", "ITIL", "Windows OS", "MS Office"],
 
@@ -3868,7 +4089,9 @@ export const JobList = [
     openings: 10,
     applicants: 60,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "Any Graduate", "B.B.A/ B.M.S", "B.Com", "Any Postgraduate"],
     KeySkills: ["Recruitment", "Sourcing", "ATS (Taleo/Workday)", "Stakeholder Management", "Negotiation", "Interviewing"],
 
@@ -3911,7 +4134,9 @@ export const JobList = [
     openings: 15,
     applicants: 200,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "MS/M.Sc (Science)", "MCA", "Any Graduate"],
     KeySkills: ["C++", "Python", "Distributed Systems", "Algorithms", "System Design", "Microservices"],
 
@@ -3954,7 +4179,9 @@ export const JobList = [
     openings: 8,
     applicants: 90,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Des", "M.Des", "B.Tech/B.E.", "Diploma", "Any Graduate"],
     KeySkills: ["UX Design", "UI Design", "Figma", "Prototyping", "User Research", "Design Systems"],
 
@@ -3997,7 +4224,9 @@ export const JobList = [
     openings: 5,
     applicants: 75,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "M.Tech", "Any Graduate", "MCA"],
     KeySkills: ["Agile/Scrum", "Program Management", "Technical Roadmapping", "Risk Management", "Infrastructure", "Cross-Functional Leadership"],
 
@@ -4040,7 +4269,9 @@ export const JobList = [
     openings: 10,
     applicants: 120,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MS/M.Sc (Science)", "M.Tech", "Ph.D", "B.Tech/B.E.", "Any Postgraduate"],
     KeySkills: ["Machine Learning", "PyTorch/TensorFlow", "Python", "Statistical Modeling", "Experimentation", "Recommendation Systems"],
 
@@ -4083,7 +4314,9 @@ export const JobList = [
     openings: 5,
     applicants: 40,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Sc", "B.Tech/B.E.", "BCA", "Any Graduate", "M.Sc (Science)"],
     KeySkills: ["SQL", "Excel", "Data Cleansing", "Tableau", "Data Analysis"],
 
@@ -4126,7 +4359,9 @@ export const JobList = [
     openings: 15,
     applicants: 120,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "MCA", "M.Tech", "Any Graduate", "BCA"],
     KeySkills: ["React", "Node.js/Java", "SQL", "Cloud", "API Development", "Full Stack"],
 
@@ -4169,7 +4404,9 @@ export const JobList = [
     openings: 8,
     applicants: 90,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "BCA", "Any Graduate", "MCA"],
     KeySkills: ["Kubernetes", "CI/CD", "Terraform", "AWS/Azure", "Python/Bash", "Monitoring"],
 
@@ -4212,7 +4449,9 @@ export const JobList = [
     openings: 12,
     applicants: 80,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "B.B.A/ B.M.S", "Any Graduate", "Any Postgraduate"],
     KeySkills: ["Requirements Elicitation", "Process Modeling", "Stakeholder Management", "Agile", "UML/BPMN"],
 
@@ -4255,6 +4494,9 @@ export const JobList = [
     openings: 7,
     applicants: 80,
     tags: ["Full-time"],
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
 
     EducationRequired: ["B.Tech/B.E.", "M.Tech", "Any Graduate", "Any Postgraduate", "MS/M.Sc (Science)"],
     KeySkills: ["Google Cloud Platform", "Cloud Migration", "Architecture Design", "DevOps", "Networking", "Security"],
@@ -4298,7 +4540,9 @@ export const JobList = [
     openings: 4,
     applicants: 50,
     tags: ["Internship"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MS/M.Sc (Science)", "M.A", "Ph.D", "B.Tech/B.E.", "Any Graduate"],
     KeySkills: ["Qualitative Research", "Usability Testing", "Survey Design", "HCI", "Synthesis", "Interviews"],
 
@@ -4341,7 +4585,9 @@ export const JobList = [
     openings: 5,
     applicants: 100,
     tags: ["Full-time"],
-
+    status: { text: 'Hiring in Progress', type: 'progress' },
+    // status: { text: 'Reviewing Application', type: 'reviewing' },
+    // status: { text: 'Hiring Done', type: 'done' },
     EducationRequired: ["MBA/PGDM", "B.Tech/B.E.", "MS/M.Sc (Science)", "Any Postgraduate", "Any Graduate"],
     KeySkills: ["Product Strategy", "Roadmapping", "Agile/Scrum", "Market Analysis", "User Stories", "Stakeholder Management"],
 

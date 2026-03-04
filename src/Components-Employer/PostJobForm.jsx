@@ -48,24 +48,72 @@ export const PostJobForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.title.trim()) newErrors.title = "Job title is required";
-    if (formData.category.length === 0) newErrors.category = "Industrial type is required";
+    // 1. Text Field Validations (Required)
+    if (!formData.title.trim()) {
+      newErrors.title = "Job title is required";
+    }
+
+    // 2. Multi-Select Validations
+    if (formData.category.length === 0) newErrors.category = "Please select at least one industrial type";
     if (formData.department.length === 0) newErrors.department = "Department is required";
+    if (formData.education.length === 0) newErrors.education = "Education is required";
+
+    // 3. Selection Validations
     if (!formData.workType) newErrors.workType = "Work type is required";
     if (!formData.shift) newErrors.shift = "Shift is required";
-    if (!formData.workDuration.trim()) newErrors.workDuration = "Work duration is required";
-    if (!formData.salary.trim()) newErrors.salary = "Salary is required";
-    if (!formData.experience.trim()) newErrors.experience = "Experience is required";
-    if (!formData.location.trim()) newErrors.location = "Location is required";
-    if (!formData.openings.trim()) newErrors.openings = "Openings are required";
     if (!formData.jobCategory) newErrors.jobCategory = "Job category is required";
-    if (formData.education.length === 0) newErrors.education = "Education is required";
-    if (skillsList.length === 0) newErrors.keySkills = "At least one key skill is required";
-    if (!formData.jobHighlights[0].trim()) newErrors.jobHighlights = "At least one highlight is required";
-    if (!formData.jobDescription.trim()) newErrors.jobDescription = "Job description is required";
-    if (!formData.responsibilities[0].trim()) newErrors.responsibilities = "At least one responsibility is required";
+
+    // 4. Numeric Format Validations
+    // Salary: Expects a number or decimal (LPA)
+    const salaryRegex = /^\d+(\.\d{1,2})?$/;
+    if (!formData.salary.trim()) {
+      newErrors.salary = "Salary is required";
+    } else if (!salaryRegex.test(formData.salary)) {
+      newErrors.salary = "Enter a valid number (e.g., 5.5 number or decimal )";
+    }
+
+    // Experience: Expects numbers (Years)
+    const expRegex = /^[0-9]+$/;
+    if (!formData.experience.trim()) {
+      newErrors.experience = "Experience is required";
+    } else if (!expRegex.test(formData.experience)) {
+      newErrors.experience = "Experience must be a whole number";
+    }
+
+    // Openings: Expects numbers
+    if (!formData.openings.trim()) {
+      newErrors.openings = "Openings are required";
+    } else if (!expRegex.test(formData.openings)) {
+      newErrors.openings = "Openings must be a number";
+    }
+
+    // 5. Array Validations (Minimum 1 valid entry)
+    if (skillsList.length === 0) {
+      newErrors.keySkills = "Please add at least one skill by pressing Enter";
+    }
+
+    if (!formData.jobHighlights[0]?.trim()) {
+      newErrors.jobHighlights = "Add at least one key highlight";
+    }
+
+    if (!formData.responsibilities[0]?.trim()) {
+      newErrors.responsibilities = "Add at least one responsibility";
+    }
+
+    if (!formData.jobDescription.trim() || formData.jobDescription.length < 50) {
+      newErrors.jobDescription = "Description must be at least 50 characters long";
+    }
+
+    if (!formData.location.trim()) newErrors.location = "Location is required";
+    if (!formData.workDuration.trim()) newErrors.workDuration = "Duration is required";
 
     setErrors(newErrors);
+    
+    // Scroll to the first error for better UX
+    if (Object.keys(newErrors).length > 0) {
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -97,8 +145,23 @@ export const PostJobForm = () => {
         }));
       }
     } else {
+      let filteredValue = value;
+
+      if (name === 'salary') {
+        // Allow only numbers and a single decimal point
+        filteredValue = value.replace(/[^0-9.]/g, '');
+        const parts = filteredValue.split('.');
+        if (parts.length > 2) return; // Ignore if user types a second dot
+        if (parts[1]?.length > 2) return; // Optional: Limit to 2 decimal places
+      } 
+      
+      else if (name === 'experience' || name === 'openings') {
+        // Allow only whole numbers
+        filteredValue = value.replace(/[^0-9]/g, '');
+      }
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
+  
   };
 
   const handleKeyDown = (e) => {
@@ -292,15 +355,16 @@ export const PostJobForm = () => {
             <div className="jobpost-form-row">
               <label className="jobpost-label">Salary</label>
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <input className={`jobpost-input ${errors.salary ? "input-error" : ""}`} type="text" name="salary" placeholder="Max Annual CTC in LPA" value={formData.salary} onChange={handleChange} />
+                <input className={`jobpost-input ${errors.salary ? "input-error" : ""}`} type="text" name="salary" inputMode="numeric or decimal"  placeholder="Max Annual CTC in LPA" value={formData.salary} onChange={handleChange} />
                 {errors.salary && <span className="error-msg">{errors.salary}</span>}
               </div>
             </div>
 
+
             <div className="jobpost-form-row">
               <label className="jobpost-label">Experience</label>
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <input className={`jobpost-input ${errors.experience ? "input-error" : ""}`} type="text" name="experience" placeholder="Minimum years required" value={formData.experience} onChange={handleChange} />
+                <input className={`jobpost-input ${errors.experience ? "input-error" : ""}`} type="text" name="experience"  placeholder="Minimum years required" value={formData.experience} onChange={handleChange} />
                 {errors.experience && <span className="error-msg">{errors.experience}</span>}
               </div>
             </div>

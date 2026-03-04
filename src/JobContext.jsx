@@ -189,19 +189,29 @@ export const JobProvider = ({ children }) => {
     // Post A Job 
     const postJob = (newJobData, userType = "employer") => {
         const newId = jobs.length > 0 ? Math.max(...jobs.map(j => Number(j.id))) + 1 : 1;
+        const postingSource = SOURCE_MAP[userType];
 
         const stringId = String(newId);
-        const postingSource = userType === "employer" ? "Company Jobs" : "Consultant Jobs";
-        const cleanIndustry = newJobData.category || [];
-        const cleanDept = newJobData.department || [];
-        const cleanEdu = newJobData.education || [];
-        const cleanSkills = newJobData.skills || [];
-        const cleanHighlights = newJobData.jobHighlights || [];
-        const cleanRes = newJobData.responsibilities || [];
-        const cleanOpenings = parseInt(newJobData.openings) || 1;
-        const cleanTags = [newJobData.jobCategory, newJobData.workType].filter(Boolean);
+        // const postingSource = userType === "employer" ? "Company Jobs" : "Consultant Jobs";
+        const SOURCE_MAP = {
+            employer: "Company Jobs",
+            consultant: "Consultant Jobs"
+        };
+        const cleanIndustry = newJobData.category;
+        const cleanDept = newJobData.department;
+        const cleanEdu = newJobData.education;
+        const cleanSkills = newJobData.skills;
+        const cleanHighlights = newJobData.jobHighlight;
+        const cleanRes = newJobData.responsibilities;
+        const cleanOpenings = parseInt(newJobData.openings);
+        const cleanTags = newJobData.jobCategory;
+        const JOB_STATUS = {
+            hiring: { text: 'Hiring in Progress', type: 'progress' },
+            reviewing: { text: 'Reviewing Application', type: 'reviewing' },
+            done: { text: 'Hiring Done', type: 'done' }
+        };
 
-        
+
         const newJob = {
             id: stringId,
             title: newJobData.jobTitle,
@@ -228,7 +238,8 @@ export const JobProvider = ({ children }) => {
             reviewNo: "100+",
             tags: cleanTags,
             companyOverview: newJobData.aboutCompany,
-            jobDescription: newJobData.jobDescription
+            jobDescription: newJobData.jobDescription,
+            status: JOB_STATUS.hiring
         };
 
         setJobs((prev) => [newJob, ...prev]);
@@ -285,6 +296,7 @@ export const JobProvider = ({ children }) => {
             ...originalJob,
             appliedDate: `Applied on ${getFormattedDate()}`,
             status: { text: 'Hiring in Progress', type: 'progress' },
+            // status: { text: 'Hiring in Progress' , type: 'progress' },
             applicationStatus: [
                 { label: 'Application Submitted', sub: "Your profile, resume, and cover letter have successfully entered the company's database, and an acknowledgment has been sent.", status: 'completed' },
                 { label: 'Resume Screening', sub: "Your resume is currently being reviewed...", status: 'pending' },

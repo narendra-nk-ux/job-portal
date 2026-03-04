@@ -11,7 +11,7 @@ export const Esignup = () => {
 
   const handleCreateAccount = (e) => {
         e.preventDefault();
-        alert("Account created successfully! Let's set up your company profile.");
+        // alert("Account created successfully! Let's set up your company profile.");
         navigate("/Job-portal/Employer/about-your-company");
     };
 
