@@ -101,8 +101,8 @@
 .jobpost-previous-info-grid-row {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin: 20px 0;
+  gap: 1px;
+  margin: 0 10px;
 }
 
 .jobpost-previous-info-item-group {
@@ -236,8 +236,8 @@
 
 .jobpost-previous-description-text,
 .jobpost-previous-description-list {
-  font-size: 13px;
-  color: #586069;
+  font-size: 15px;
+  color: #83858B;
   line-height: 1.6;
 }
 
@@ -256,7 +256,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 15px;
+  color: #83858B;
 }
 
 .jobpost-previous-footer-actions {

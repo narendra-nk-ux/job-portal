@@ -20,38 +20,7 @@ const PostJobPreview = () => {
   const { id } = useParams();
   const [step, setStep] = useState('preview');
 
-  // --- LOGIC TO DEFINE 'job' FOR PREVIEW ---
-  // If state exists, we create the 'job' object using form data to match Overview logic
-  const job = state ? {
-    ...state,
-    title: state.jobTitle || "Job Title",
-    company: state.companyName || "your Company",
-    ratings: "4.2", // Mock value for preview
-    reviewNo: "100+", // Mock value for preview
-    logo: state.companyLogo || null,
-    duration: state.workDuration || state.employmentCategory || "Full-time",
-    salary: state.salary || "Not disclosed",
-    experience: state.experience || "0",
-    location: state.location || "Remote",
-    WorkType: state.workType || "On-site",
-    tags: Array.isArray(state.tags) ? state.tags : [state.employmentCategory || "Full-time"],
-    posted: new Date().toISOString(),
-    openings: state.openings || 1,
-    applicants: 0,
-    JobHighlights: state.jobHighlights || [],
-    Responsibilities: state.responsibilities || [],
-    KeySkills: state.skills || []
-  } : null;
-
-  const formatPostedDate = (date) => {
-    return "Just now";
-  };
-
-  const getPostedTime = (date) => {
-    return "Just now";
-  };
-
-  const getSelectedLabels = (val) => {
+    const getSelectedLabels = (val) => {
     if (!val) return [];
     if (typeof val === 'object' && !Array.isArray(val)) {
       return Object.keys(val)
@@ -67,19 +36,54 @@ const PostJobPreview = () => {
     return labels.length > 0 ? labels.join(', ') : 'Not specified';
   };
 
+   const formatPostedDate = (date) => {
+    return "Just now";
+  };
+
+  const job = state ? {
+    ...state,
+    title: state.jobTitle || "Job Title",
+    company: state.companyName || "your Company",
+    ratings: "4.2", // Mock value for preview
+    reviewNo: "100+", // Mock value for preview
+    logo: state.companyLogo || null,
+    duration: state.workDuration || state.employmentCategory || "Full-time",
+    salary: state.salary || "Not disclosed",
+    experience: state.experience || "0",
+    location: state.location || "Remote",
+    shift: formatDisplay(state.shift),
+    WorkType: state.workType || "On-site",
+    tags: Array.isArray(state.tags) ? state.tags : [state.employmentCategory || "Full-time"],
+    posted: new Date().toISOString(),
+    openings: state.openings || 1,
+    applicants: 0,
+    JobHighlights: state.jobHighlights || [],
+    Responsibilities: state.responsibilities || [],
+    KeySkills: state.skills || []
+  } : null;
+
   const handleFinalPost = () => {
     setStep('loading');
+
     setTimeout(() => {
-      if (state.id) {
-        editJob(state.id, state);
-      } else {
-        postJob(state);
+      try {
+        if (state.id) {
+          editJob(state.id, state);
+        } else {
+          postJob(state);
+        }
+
+        setStep('success');
+        setTimeout(() => {
+          navigate('/Job-portal/Employer/Dashboard');
+        }, 2000);
+
+      } catch (error) {
+        console.error("Failed to post job:", error);
+        setStep('preview');
+        alert("Something went wrong while posting the job. Please try again.");
       }
-      setStep('success');
-      setTimeout(() => {
-        navigate('/Job-portal/Employer/Dashboard');
-      }, 2000);
-    }, 1000);
+    }, 1000); 
   };
 
   if (!state || !job) {
@@ -212,6 +216,8 @@ const PostJobPreview = () => {
                   </ul>
                 </div>
 
+                <h4>Key Details:</h4>
+
                 <div className="jobpost-previous-meta-info-grid">
                   <p><strong>Role:</strong> {formatDisplay(job.title)}</p>
                   <p><strong>Industry Type:</strong> {formatDisplay(state.category)}</p>
@@ -219,6 +225,7 @@ const PostJobPreview = () => {
                   <p><strong>Job Type:</strong> {formatDisplay(job.WorkType)}</p>
                   <p><strong>Experience level:</strong> {job.experience} years</p>
                   <p><strong>Location:</strong> {job.location}</p>
+                  <p><strong>Shift:</strong> {job.shift}</p>
                 </div>
 
                 <div className="jobpost-previous-skills-section">
