@@ -240,6 +240,7 @@ export const JobProvider = ({ children }) => {
             companyOverview: newJobData.aboutCompany,
             jobDescription: newJobData.jobDescription,
             status: JOB_STATUS.hiring
+            // status: { text: 'Hiring in Progress', type: 'progress' }
         };
 
         setJobs((prev) => [newJob, ...prev]);
