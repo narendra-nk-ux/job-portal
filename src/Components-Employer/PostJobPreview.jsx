@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import PostAJob from '../assets/PostAjob.png';
-import ClockIcon from '../assets/opportunity_time.png';
-import experienceIcon from '../assets/opportunity_bag.png';
-import placeIcon from '../assets/opportunity_location.png';
+import time from '../assets/opportunity_time.png';
+import experience from '../assets/opportunity_bag.png';
+import place from '../assets/opportunity_location.png';
 import twitterIcon from '../assets/socials-x.png';
 import linkedinIcon from '../assets/socials-linkedin.png';
 import facebookIcon from '../assets/socials-facebook.png';
@@ -15,27 +15,40 @@ import { useJobs } from '../JobContext';
 
 const PostJobPreview = () => {
   const { state } = useLocation();
-  const { postJob, editJob, companyProfile = {}, getSuggestedJobs, jobs } = useJobs();
+  const { postJob, editJob, jobs } = useJobs();
   const navigate = useNavigate();
+  const { id } = useParams();
   const [step, setStep] = useState('preview');
 
+  // --- LOGIC TO DEFINE 'job' FOR PREVIEW ---
+  // If state exists, we create the 'job' object using form data to match Overview logic
+  const job = state ? {
+    ...state,
+    title: state.jobTitle || "Job Title",
+    company: state.companyName || "your Company",
+    ratings: "4.2", // Mock value for preview
+    reviewNo: "100+", // Mock value for preview
+    logo: state.companyLogo || null,
+    duration: state.workDuration || state.employmentCategory || "Full-time",
+    salary: state.salary || "Not disclosed",
+    experience: state.experience || "0",
+    location: state.location || "Remote",
+    WorkType: state.workType || "On-site",
+    tags: Array.isArray(state.tags) ? state.tags : [state.employmentCategory || "Full-time"],
+    posted: new Date().toISOString(),
+    openings: state.openings || 1,
+    applicants: 0,
+    JobHighlights: state.jobHighlights || [],
+    Responsibilities: state.responsibilities || [],
+    KeySkills: state.skills || []
+  } : null;
+
   const formatPostedDate = (date) => {
-    if (!date) return "Just now";
-    return getPostedTime(date);
+    return "Just now";
   };
 
   const getPostedTime = (date) => {
-    if (!date) return "Just now";
-    const now = new Date();
-    const postedDate = new Date(date);
-    const diffInSeconds = Math.floor((now - postedDate) / 1000);
-    if (diffInSeconds < 60) return "Just now";
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    const diffInDays = Math.floor(diffInHours / 24);
-    return `${diffInDays}d ago`;
+    return "Just now";
   };
 
   const getSelectedLabels = (val) => {
@@ -69,12 +82,7 @@ const PostJobPreview = () => {
     }, 1000);
   };
 
-  // const suggestions = useMemo(() => {
-  //   if (!state || !getSuggestedJobs) return [];
-  //   return getSuggestedJobs(state.jobTitle, state.category);
-  // }, [state?.jobTitle, state?.category, getSuggestedJobs, jobs]);
-
-  if (!state) {
+  if (!state || !job) {
     return (
       <>
         <EHeader />
@@ -86,7 +94,6 @@ const PostJobPreview = () => {
       </>
     );
   }
-
 
   if (step === 'loading' || step === 'success') {
     return (
@@ -129,42 +136,21 @@ const PostJobPreview = () => {
                 <div className="opp-overview-job-card">
                   <div className="Opportunities-job-header">
                     <div>
-                      <h2 className="opp-topcard-job-title">{state.jobTitle || "Job Title"}</h2>
+                      <h2 className="opp-topcard-job-title">{job.title}</h2>
                       <h5 className="Opportunities-job-company">
-                        {companyProfile?.companyName || "Company Name"}{" "}
+                        {job.company} <span className="Opportunities-divider">|</span>
+                        <span className="star"><img src={starIcon} alt="star" /></span> {job.ratings}
                         <span className="Opportunities-divider">|</span>
-                        <span className="star">
-                          <img src={starIcon} alt="star" style={{ width: '14px', marginRight: '4px' }} />
-                        </span>{" "}
-                        {companyProfile?.ratings || "4.3"}
-                        <span className="Opportunities-divider">|</span>
-                        <span className="opp-reviews"> {companyProfile?.reviewNo || "0"} Reviews</span>
+                        <span className="opp-reviews"> {job.reviewNo} Reviews</span>
                       </h5>
                     </div>
-                    {companyProfile?.logo ? (
-                      <img src={companyProfile.logo} alt="logo" className="Opportunities-job-logo" />
-                    ) : (
-                      <div className="Opportunities-job-logo-placeholder">
-                        {(companyProfile?.companyName || "C").charAt(0).toUpperCase()}
-                      </div>
-                    )}
+                    {job.logo ? (<img src={job.logo} alt={job.company} className="Opportunities-job-logo" />) : (<div className="Opportunities-job-logo-placeholder">{job.company.charAt(0).toUpperCase()}</div>)}
                   </div>
 
                   <div className="Opportunities-job-details">
-                    <p className='Opportunities-detail-line'>
-                      <img src={ClockIcon} className='card-icons' alt="time" />
-                      {state.workDuration || "Not specified"}
-                      <span className="Opportunities-divider">|</span>
-                      ₹ {state.salary || "0"} Lpa
-                    </p>
-                    <p className='Opportunities-detail-line'>
-                      <img src={experienceIcon} className='card-icons' alt="exp" />
-                      {state.experience || "0"} years of experience
-                    </p>
-                    <p className='Opportunities-detail-line'>
-                      <img src={placeIcon} className='card-icons' alt="loc" />
-                      {state.location || "Remote / Not specified"}
-                    </p>
+                    <p className='Opportunities-detail-line'><img src={time} className='card-icons' alt="time" />{job.duration}<span className="Opportunities-divider">|</span>₹ {job.salary} Lpa</p>
+                    <p className='Opportunities-detail-line'><img src={experience} className='card-icons' alt="exp" />{job.experience} years of experience</p>
+                    <p className='Opportunities-detail-line'><img src={place} className='card-icons' alt="loc" />{job.location}</p>
                   </div>
 
                   <div className='Opportunities-details-bottom'>
@@ -176,7 +162,8 @@ const PostJobPreview = () => {
                       ))}
                     </div>
                     <div className="Opportunities-job-type">
-                      {getSelectedLabels(state.workType).join(', ')}
+                      {/* Convert {hybrid: true} to "Hybrid" */}
+                      {getSelectedLabels(state.workType).join(', ') || 'Not specified'}
                     </div>
                   </div>
 
@@ -184,164 +171,82 @@ const PostJobPreview = () => {
 
                   <div className="Opportunities-job-footer">
                     <div className="Opportunities-job-meta1">
-                      <p>
-                        {formatPostedDate(state.createdAt)}{" "}
-                        <span className="Opportunities-divider">|</span>
-                        Openings: {state.openings || 1}{" "}
-                        <span className="Opportunities-divider">|</span>
-                        Applicants: 0
-                      </p>
+                      <p>{formatPostedDate(job.posted)} <span className="Opportunities-divider">|</span> Openings: {job.openings} <span className="Opportunities-divider">|</span> Applicants: {job.applicants}</p>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* <div className="jobpost-previous-card-top-row">
-                <div className="jobpost-previous-title-area">
-                  <h2 className="jobpost-previous-job-title-text">{state.jobTitle || "Job Title Not Specified"}</h2>
-                  <h5 className="overview-job-company">
-                    {companyProfile?.companyName || "Company Name"}
-                    <span className="review-divider"> | </span>
-                    <span className="star">
-                      <img src={starIcon} alt="star" style={{ width: '14px', marginRight: '4px' }} />
-                    </span>
-                    {companyProfile?.ratings || "4.3"}
-                    <span className="review-divider"> | </span>
-                    <span className="opp-reviews">
-                      {companyProfile?.reviewNo || "55k+"} Reviews
-                    </span>
-                  </h5>
-                </div>
-                <div className="jobpost-previous-company-logo-square">
-                  {companyProfile?.companyName ? companyProfile.companyName.charAt(0).toUpperCase() : "W"}
-                </div>
-              </div>
-
-              <div className="jobpost-previous-info-grid-row">
-                <div className="jobpost-previous-info-item-group">
-                  <div className="jobpost-previous-info-item">
-                    <img src={ClockIcon} alt="clock" className="jobpost-previous-icon" />
-                    <span>{state.workDuration || 'Not specified'}</span>
-                  </div>
-                  <div className="jobpost-previous-vertical-separator"></div>
-                  <div className="jobpost-previous-info-item">
-                    <span style={{ fontWeight: 'bold', marginRight: '8px' }}>₹</span>
-                    <span>{state.salary || 'Not disclosed'} Lpa</span>
-                  </div>
-                </div>
-
-                <div className="jobpost-previous-info-item">
-                  <img src={experienceIcon} alt="experience" className="jobpost-previous-icon" />
-                  <span className="experience-text">
-                    {state.experience ? `${state.experience} years of experience` : "Fresher / Not specified"}
-                  </span>
-                </div>
-
-                <div className="jobpost-previous-info-item">
-                  <img src={placeIcon} alt="location" className="jobpost-previous-icon" />
-                  <span>{state.location || 'Location not specified'}</span>
-                </div>
-              </div>
-
-              <div className="jobpost-previous-tags-row">
-                {getSelectedLabels(state.jobCategory).map((cat, index) => (
-                  <span key={`cat-${index}`} className="jobpost-previous-job-type-tag">{cat}</span>
-                ))}
-                {/* {getSelectedLabels(state.shift).map((s, index) => (
-                  <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" >
-                    {s} Shift
-                  </span>
-                ))}  */}
-              {/* {getSelectedLabels(state.workType).map((type, index) => (
-                  <span key={index} className="jobpost-previous-job-type-tag1">{type}</span>
-                ))}
-              </div>
-
-              <div className="jobpost-previous-footer-meta-text">
-                <span className="meta-item">
-                  <strong>Posted:</strong> {getPostedTime(state.createdAt)}
-                </span>
-                <span className="meta-separator">|</span>
-                <span className="meta-item">
-                  <strong>Openings:</strong> {state.openings || 1}
-                </span>
-                <span className="meta-separator">|</span>
-                <span className="meta-item">
-                  <strong>Applicants:</strong> <span className="applicant-count">0</span>
-                </span>
-              </div> */}
             </section>
 
             <section className="jobpost-previous-card jobpost-previous-details-info">
-              <div className="jobpost-previous-highlights-callout">
-                <h4>Job highlights</h4>
-                <ul>
-                  {state.jobHighlights?.filter(h => h.trim() !== "").map((highlight, i) => (
-                    <li key={i}>{highlight}</li>
-                  ))}
-                  {(!state.jobHighlights || state.jobHighlights[0] === "") && <li>No specific highlights added.</li>}
-                </ul>
-              </div>
-
-              <div className="jobpost-previous-section-block">
-                <h4>Company Overview {companyProfile?.companyName}</h4>
-                <p className="jobpost-previous-description-text">
-                  {companyProfile?.about || "No company overview provided."}
-                </p>
-              </div>
-
-              <div className="jobpost-previous-section-block">
-                <h4>Job description</h4>
-                <p className="jobpost-previous-description-text">{state.jobDescription || "No description provided."}</p>
-              </div>
-
-              <div className="jobpost-previous-section-block">
-                <h4>Responsibilities</h4>
-                <ul className="jobpost-previous-description-list">
-                  {state.responsibilities?.filter(r => r.trim() !== "").map((res, i) => (
-                    <li key={i}>{res}</li>
-                  ))}
-                  {(!state.responsibilities || state.responsibilities[0] === "") && <li>Refer to job description.</li>}
-                </ul>
-              </div>
-
-              <div className="jobpost-previous-meta-info-grid">
-                <p><strong>Role:</strong> {formatDisplay(state.jobTitle)}</p>
-                <p><strong>Industry Type:</strong> {formatDisplay(state.category)}</p>
-                <p><strong>Department:</strong> {formatDisplay(state.department)}</p>
-                <p><strong>Work Type:</strong> {formatDisplay(state.workType)}</p>
-                <p><strong>Job Category:</strong> {state.jobCategory ? formatDisplay(state.jobCategory) : 'Not specified'}</p>
-                <p><strong>Education:</strong> {formatDisplay(state.education)}</p>
-                <p><strong>Work Duration:</strong> {formatDisplay(state.workDuration)}</p>
-                <p><strong>Post Active For:</strong> {formatDisplay(state.jobPostDuration)}</p>
-                <p><strong>Experience level:</strong> {state.experience ? `${formatDisplay(state.experience)} years of experience` : "Fresher / Not specified"}</p>
-                <p><strong>Location:</strong> {state.location ? formatDisplay(state.location) : 'Location not specified'}</p>
-              </div>
-
-              <div className="jobpost-previous-skills-section">
-                <h4>Key Skills</h4>
-                <div className="jobpost-previous-skills-container">
-                  {state.skills?.length > 0 ? (
-                    state.skills.map((skill, i) => (
-                      <span key={i} className="jobpost-previous-skill-pill">{skill}</span>
-                    ))
-                  ) : (
-                    <span className="jobpost-previous-skill-pill">Not specified</span>
-                  )}
+              <div className="opp-job-details-card">
+                <div className="opp-job-highlights">
+                  <h4>Job highlights</h4>
+                  <ul>
+                    {job.JobHighlights?.filter(h => h.trim() !== "").map((highlight, i) => (
+                      <li key={i}>{highlight}</li>
+                    ))}
+                    {(!job.JobHighlights || job.JobHighlights.length === 0 || job.JobHighlights[0] === "") && <li>No specific highlights added.</li>}
+                  </ul>
                 </div>
-              </div>
 
-              <div className="jobpost-previous-footer-actions">
-                <div className="jobpost-previous-social-sharing">
-                  <span>Share this job:</span>
-                  <div className="jobpost-previous-social-icons" style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
-                    <img src={linkedinIcon} alt="linkedin" className="jobpost-previous-icon-in" />
-                    <img src={facebookIcon} alt="facebook" className="jobpost-previous-icon-fb" />
-                    <img src={twitterIcon} alt="twitter" className="jobpost-previous-icon-x" />
+                <div className="jobpost-previous-section-block">
+                  <h4>Company Overview {job.company}</h4>
+                  <p className="jobpost-previous-description-text">
+                    {state.aboutCompany || "No company overview provided."}
+                  </p>
+                </div>
+
+                <div className="jobpost-previous-section-block">
+                  <h4>Job description</h4>
+                  <p className="jobpost-previous-description-text">{state.jobDescription || "No description provided."}</p>
+                </div>
+
+                <div className="jobpost-previous-section-block">
+                  <h4>Responsibilities</h4>
+                  <ul className="jobpost-previous-description-list">
+                    {job.Responsibilities?.filter(r => r.trim() !== "").map((res, i) => (
+                      <li key={i}>{res}</li>
+                    ))}
+                    {(!job.Responsibilities || job.Responsibilities.length === 0 || job.Responsibilities[0] === "") && <li>Refer to job description.</li>}
+                  </ul>
+                </div>
+
+                <div className="jobpost-previous-meta-info-grid">
+                  <p><strong>Role:</strong> {formatDisplay(job.title)}</p>
+                  <p><strong>Industry Type:</strong> {formatDisplay(state.category)}</p>
+                  <p><strong>Department:</strong> {formatDisplay(state.department)}</p>
+                  <p><strong>Job Type:</strong> {formatDisplay(job.WorkType)}</p>
+                  <p><strong>Experience level:</strong> {job.experience} years</p>
+                  <p><strong>Location:</strong> {job.location}</p>
+                </div>
+
+                <div className="jobpost-previous-skills-section">
+                  <h4>Key Skills</h4>
+                  <div className="jobpost-previous-skills-container">
+                    {job.KeySkills?.length > 0 ? (
+                      job.KeySkills.map((skill, i) => (
+                        <span key={i} className="jobpost-previous-skill-pill">{skill}</span>
+                      ))
+                    ) : (
+                      <span className="jobpost-previous-skill-pill">Not specified</span>
+                    )}
                   </div>
                 </div>
-                <div className="jobpost-previous-btn-group">
-                  <button className="jobpost-previous-btn-cancel" onClick={() => navigate(-1)}>Cancel</button>
-                  <button className="jobpost-previous-btn-post" onClick={handleFinalPost}>Post</button>
+
+                <div className="jobpost-previous-footer-actions">
+                  <div className="jobpost-previous-social-sharing">
+                    <span>Share this job:</span>
+                    <div className="jobpost-previous-social-icons" style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
+                      <img src={linkedinIcon} alt="linkedin" className="jobpost-previous-icon-in" />
+                      <img src={facebookIcon} alt="facebook" className="jobpost-previous-icon-fb" />
+                      <img src={twitterIcon} alt="twitter" className="jobpost-previous-icon-x" />
+                    </div>
+                  </div>
+                  <div className="jobpost-previous-btn-group">
+                    <button className="jobpost-previous-btn-cancel" onClick={() => navigate(-1)}>Cancel</button>
+                    <button className="jobpost-previous-btn-post" onClick={handleFinalPost}>Post</button>
+                  </div>
                 </div>
               </div>
             </section>
