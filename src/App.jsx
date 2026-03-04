@@ -47,10 +47,10 @@ import { FileUploadHelp } from './Components-Jobseeker/FileUploadHelp'
 import { EmployerDashboard } from './Components-Employer/EmployerDashboard'
 import { AboutYourCompany } from './Components-Employer/AboutYourCompany'
 import { CompanyVerify } from './Components-Employer/CompanyVerify'
-import EditJob from './Components-Employer/EditJob'
+import {EditJob} from './Components-Employer/EditJob'
 import { PostedJobs } from './Components-Employer/PostedJobs'
-import PostJobPreview  from './Components-Employer/PostJobPreview';
-import PostJobForm from './Components-Employer/PostJobForm'
+import {PostJobPreview } from './Components-Employer/PostJobPreview';
+import {PostJobForm} from './Components-Employer/PostJobForm'
 // import ViewApplicants from './Components-Employer/ViewApplicants'
 
 const router = createBrowserRouter([{

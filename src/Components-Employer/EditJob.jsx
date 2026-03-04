@@ -4,7 +4,7 @@ import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
 import './PostJobForm.css';
 
-const EditJob = () => {
+export const EditJob = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -362,4 +362,3 @@ const EditJob = () => {
   );
 };
 
-export default EditJob;

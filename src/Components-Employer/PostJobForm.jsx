@@ -510,4 +510,3 @@ export const PostJobForm = () => {
   );
 };
 
-export default PostJobForm;

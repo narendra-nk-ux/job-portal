@@ -13,7 +13,7 @@ import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
 import { useJobs } from '../JobContext';
 
-const PostJobPreview = () => {
+export const PostJobPreview = () => {
   const { state } = useLocation();
   const { postJob, editJob, jobs } = useJobs();
   const navigate = useNavigate();
@@ -306,4 +306,3 @@ const PostJobPreview = () => {
   );
 };
 
-export default PostJobPreview;
