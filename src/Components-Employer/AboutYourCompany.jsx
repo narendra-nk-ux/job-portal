@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { EHeader } from "./EHeader";
 import { Footer } from "../Components-LandingPage/Footer";
+import { Link } from "react-router-dom";
 import "./AboutYourCompany.css";
 import fileIcon from "../assets/fileIcon.png"
 import { useNavigate } from "react-router-dom";
@@ -29,14 +30,14 @@ export const AboutYourCompany = () => {
     const validateForm = () => {
         let newErrors = {};
 
-       
+
         if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
         if (!formData.contactPerson.trim()) newErrors.contactPerson = "Contact person is required";
         if (!formData.address1.trim()) newErrors.address1 = "Primary address is required";
         if (!formData.companySize.trim()) newErrors.companySize = "Please specify company size";
         if (!formData.about.trim()) newErrors.about = "Please provide a description";
 
-    
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!formData.companyMail) {
             newErrors.companyMail = "Email is required";
@@ -51,7 +52,7 @@ export const AboutYourCompany = () => {
             newErrors.contactNumber = "Number must start with 6, 7, 8, or 9 and be 10 digits";
         }
 
-  
+
         if (!formData.companyLogo) {
             newErrors.companyLogo = "Please upload a logo";
         }
@@ -281,7 +282,12 @@ export const AboutYourCompany = () => {
 
                     <div className="aboutcompany-form-buttons">
                         <button type="button" className="aboutcompany-back-btn" onClick={() => navigate(-1)}>Back</button>
-                        <button type="submit" className="aboutcompany-next-btn">Next</button>
+                        {/* <button type="submit" className="aboutcompany-next-btn">Next</button> */}
+                        <Link to="/Job-portal/Employer/about-your-company/company-verification">
+                            <button type="submit" className="aboutcompany-next-btn">
+                                Next
+                            </button>
+                        </Link>
                     </div>
 
                 </form>
