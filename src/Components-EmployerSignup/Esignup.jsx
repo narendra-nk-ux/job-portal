@@ -1,20 +1,12 @@
 import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import './Esignup.css'
 import workTime from '../assets/WorkTime.png'
 import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
-import { useNavigate } from "react-router-dom";
 
 export const Esignup = () => {
-  const navigate = useNavigate();
-
-  const handleCreateAccount = (e) => {
-        e.preventDefault();
-        // alert("Account created successfully! Let's set up your company profile.");
-        navigate("/Job-portal/Employer/about-your-company");
-    };
-
+  // const navigate = useNavigate();
   const [passwordShow, setPasswordShow] = useState(true)
   const [confirmPasswordShow, setConfirmPasswordShow] = useState(true)
 
@@ -36,7 +28,6 @@ export const Esignup = () => {
     setFormValues({ ...formValues, [name]: value })
     setErrors({ ...errors, [name]: "" })
   }
-
 
   const validateForm = () => {
     const newErrors = {}
@@ -156,15 +147,18 @@ export const Esignup = () => {
           <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter your mobile number" className={errors.phone ? "input-error" : ""} />
           {errors.phone && <span className="error-msg">{errors.phone}</span>}
 
-          
-            <button
-              type="button"
-              className="j-sign-up-submit"
-              onClick={handleCreateAccount}
-            >
+          {/* <button
+            className="j-sign-up-submit"
+            onClick={() => navigate("/Job-portal/Employer/about-your-company")}
+          >
+            Create Account
+          </button> */}
+
+          <Link to="/Job-portal/Employer/about-your-company">
+            <button className="j-sign-up-submit">
               Create Account
             </button>
-          
+          </Link>
         </form>
       </div>
     </div>

@@ -12,6 +12,7 @@ import './PostJobPreview.css';
 import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
 import { useJobs } from '../JobContext';
+import AppleLogo from '../assets/Apple-Logo.png';
 
 export const PostJobPreview = () => {
   const { state } = useLocation();
@@ -64,10 +65,10 @@ export const PostJobPreview = () => {
 
   const job = {
     title: "Software Engineer",
-    company: "TechCorp",
+    company: "Apple",
     ratings: "4.2",
     reviewNo: "100+",
-    logo: "https://link-to-logo.com/image.png",
+    logo: AppleLogo,
     duration: "Full-time",
     salary: "Not disclosed",
     experience: "2-4 years",
@@ -171,7 +172,7 @@ export const PostJobPreview = () => {
 
         <main className="jobpost-overview-main">
           <div className="jobpost-job-main">
-            <section className="jobpost-previous-card jobpost-previous-main-info">
+            {/* <section className="jobpost-previous-card jobpost-previous-main-info"> */}
               <div className="opp-job-main">
                 <div className="opp-overview-job-card">
                   <div className="Opportunities-job-header">
@@ -216,9 +217,9 @@ export const PostJobPreview = () => {
                   </div>
                 </div>
               </div>
-            </section>
+            {/* </section> */}
 
-            <section className="jobpost-previous-card jobpost-previous-details-info">
+            {/* <section className="jobpost-previous-card jobpost-previous-details-info"> */}
               <div className="opp-job-details-card">
                 <div className="opp-job-highlights">
                   <h4>Job highlights</h4>
@@ -297,7 +298,7 @@ export const PostJobPreview = () => {
                   </div>
                 </div>
               </div>
-            </section>
+            {/* </section> */}
           </div>
         </main>
       </div>
