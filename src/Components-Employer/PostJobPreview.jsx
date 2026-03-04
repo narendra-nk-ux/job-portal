@@ -15,37 +15,13 @@ import { useJobs } from '../JobContext';
 
 const PostJobPreview = () => {
   const { state } = useLocation();
-  const { postJob, editJob, companyProfile = {}, getSuggestedJobs, jobs } = useJobs(); 
+  const { postJob, editJob, companyProfile = {}, getSuggestedJobs, jobs } = useJobs();
   const navigate = useNavigate();
   const [step, setStep] = useState('preview');
 
-  const suggestions = useMemo(() => {
-    if (!state || !getSuggestedJobs) return [];
-    return getSuggestedJobs(state.jobTitle, state.category);
-  }, [state?.jobTitle, state?.category, getSuggestedJobs, jobs]);
-
-  if (!state) {
-    return (
-      <>
-        <EHeader />
-        <div className="jobpost-previous-error-screen" style={{ padding: "50px", textAlign: "center" }}>
-          <h2>No job data found</h2>
-          <button className="jobpost-previous-btn-cancel" onClick={() => navigate(-1)}>Go Back</button>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
-  const getSelectedLabels = (val) => {
-    if (!val) return [];
-    if (typeof val === 'object' && !Array.isArray(val)) {
-      return Object.keys(val)
-        .filter(key => val[key])
-        .map(key => key.charAt(0).toUpperCase() + key.slice(1));
-    }
-    if (Array.isArray(val)) return val;
-    return [val];
+  const formatPostedDate = (date) => {
+    if (!date) return "Just now";
+    return getPostedTime(date);
   };
 
   const getPostedTime = (date) => {
@@ -60,6 +36,17 @@ const PostJobPreview = () => {
     if (diffInHours < 24) return `${diffInHours}h ago`;
     const diffInDays = Math.floor(diffInHours / 24);
     return `${diffInDays}d ago`;
+  };
+
+  const getSelectedLabels = (val) => {
+    if (!val) return [];
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      return Object.keys(val)
+        .filter(key => val[key])
+        .map(key => key.charAt(0).toUpperCase() + key.slice(1));
+    }
+    if (Array.isArray(val)) return val;
+    return [val];
   };
 
   const formatDisplay = (val) => {
@@ -82,13 +69,31 @@ const PostJobPreview = () => {
     }, 1000);
   };
 
+  // const suggestions = useMemo(() => {
+  //   if (!state || !getSuggestedJobs) return [];
+  //   return getSuggestedJobs(state.jobTitle, state.category);
+  // }, [state?.jobTitle, state?.category, getSuggestedJobs, jobs]);
+
+  if (!state) {
+    return (
+      <>
+        <EHeader />
+        <div className="jobpost-previous-error-screen" style={{ padding: "50px", textAlign: "center" }}>
+          <h2>No job data found</h2>
+          <button className="jobpost-previous-btn-cancel" onClick={() => navigate(-1)}>Go Back</button>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+
   if (step === 'loading' || step === 'success') {
     return (
       <>
         <EHeader />
         <div className="jobpost-previous-status-container">
           {step === 'loading' ? (
-            /* FIXED BLOCK BELOW */
             <div className="jobpost-previous-success-msg">
               <div className="jobpost-previous-loader"></div>
               <p className="jobpost-previous-success-title">Posting your job...</p>
@@ -120,7 +125,77 @@ const PostJobPreview = () => {
         <main className="jobpost-overview-main">
           <div className="jobpost-job-main">
             <section className="jobpost-previous-card jobpost-previous-main-info">
-              <div className="jobpost-previous-card-top-row">
+              <div className="opp-job-main">
+                <div className="opp-overview-job-card">
+                  <div className="Opportunities-job-header">
+                    <div>
+                      <h2 className="opp-topcard-job-title">{state.jobTitle || "Job Title"}</h2>
+                      <h5 className="Opportunities-job-company">
+                        {companyProfile?.companyName || "Company Name"}{" "}
+                        <span className="Opportunities-divider">|</span>
+                        <span className="star">
+                          <img src={starIcon} alt="star" style={{ width: '14px', marginRight: '4px' }} />
+                        </span>{" "}
+                        {companyProfile?.ratings || "4.3"}
+                        <span className="Opportunities-divider">|</span>
+                        <span className="opp-reviews"> {companyProfile?.reviewNo || "0"} Reviews</span>
+                      </h5>
+                    </div>
+                    {companyProfile?.logo ? (
+                      <img src={companyProfile.logo} alt="logo" className="Opportunities-job-logo" />
+                    ) : (
+                      <div className="Opportunities-job-logo-placeholder">
+                        {(companyProfile?.companyName || "C").charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="Opportunities-job-details">
+                    <p className='Opportunities-detail-line'>
+                      <img src={ClockIcon} className='card-icons' alt="time" />
+                      {state.workDuration || "Not specified"}
+                      <span className="Opportunities-divider">|</span>
+                      ₹ {state.salary || "0"} Lpa
+                    </p>
+                    <p className='Opportunities-detail-line'>
+                      <img src={experienceIcon} className='card-icons' alt="exp" />
+                      {state.experience || "0"} years of experience
+                    </p>
+                    <p className='Opportunities-detail-line'>
+                      <img src={placeIcon} className='card-icons' alt="loc" />
+                      {state.location || "Remote / Not specified"}
+                    </p>
+                  </div>
+
+                  <div className='Opportunities-details-bottom'>
+                    <div className="Opportunities-job-tags">
+                      {getSelectedLabels(state.jobCategory).map((tag, index) => (
+                        <span key={index} className={`Opportunities-job-tag ${tag.toLowerCase()}`}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="Opportunities-job-type">
+                      {getSelectedLabels(state.workType).join(', ')}
+                    </div>
+                  </div>
+
+                  <hr className="Opportunities-separator" />
+
+                  <div className="Opportunities-job-footer">
+                    <div className="Opportunities-job-meta1">
+                      <p>
+                        {formatPostedDate(state.createdAt)}{" "}
+                        <span className="Opportunities-divider">|</span>
+                        Openings: {state.openings || 1}{" "}
+                        <span className="Opportunities-divider">|</span>
+                        Applicants: 0
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="jobpost-previous-card-top-row">
                 <div className="jobpost-previous-title-area">
                   <h2 className="jobpost-previous-job-title-text">{state.jobTitle || "Job Title Not Specified"}</h2>
                   <h5 className="overview-job-company">
@@ -157,7 +232,7 @@ const PostJobPreview = () => {
                 <div className="jobpost-previous-info-item">
                   <img src={experienceIcon} alt="experience" className="jobpost-previous-icon" />
                   <span className="experience-text">
-                    {state.experience ? `${state.experience} of experience` : "Fresher / Not specified"}
+                    {state.experience ? `${state.experience} years of experience` : "Fresher / Not specified"}
                   </span>
                 </div>
 
@@ -171,12 +246,12 @@ const PostJobPreview = () => {
                 {getSelectedLabels(state.jobCategory).map((cat, index) => (
                   <span key={`cat-${index}`} className="jobpost-previous-job-type-tag">{cat}</span>
                 ))}
-                {getSelectedLabels(state.shift).map((s, index) => (
+                {/* {getSelectedLabels(state.shift).map((s, index) => (
                   <span key={`shift-${index}`} className="jobpost-previous-job-type-tag" >
                     {s} Shift
                   </span>
-                ))} 
-                {getSelectedLabels(state.workType).map((type, index) => (
+                ))}  */}
+              {/* {getSelectedLabels(state.workType).map((type, index) => (
                   <span key={index} className="jobpost-previous-job-type-tag1">{type}</span>
                 ))}
               </div>
@@ -193,7 +268,7 @@ const PostJobPreview = () => {
                 <span className="meta-item">
                   <strong>Applicants:</strong> <span className="applicant-count">0</span>
                 </span>
-              </div>
+              </div> */}
             </section>
 
             <section className="jobpost-previous-card jobpost-previous-details-info">
@@ -238,7 +313,7 @@ const PostJobPreview = () => {
                 <p><strong>Education:</strong> {formatDisplay(state.education)}</p>
                 <p><strong>Work Duration:</strong> {formatDisplay(state.workDuration)}</p>
                 <p><strong>Post Active For:</strong> {formatDisplay(state.jobPostDuration)}</p>
-                <p><strong>Experience level:</strong> {state.experience ? `${formatDisplay(state.experience)} of experience` : "Fresher / Not specified"}</p>
+                <p><strong>Experience level:</strong> {state.experience ? `${formatDisplay(state.experience)} years of experience` : "Fresher / Not specified"}</p>
                 <p><strong>Location:</strong> {state.location ? formatDisplay(state.location) : 'Location not specified'}</p>
               </div>
 
