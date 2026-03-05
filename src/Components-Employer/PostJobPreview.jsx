@@ -63,39 +63,61 @@ export const PostJobPreview = () => {
   //   KeySkills: state.skills || []
   // } : null;
 
-  const job = {
-    title: "Software Engineer",
-    company: "Apple",
-    ratings: "4.2",
-    reviewNo: "100+",
-    logo: AppleLogo,
-    duration: "Full-time",
-    salary: "Not disclosed",
-    experience: "2-4 ",
-    location: "Remote",
-    shift: "Day Shift",
-    workType: "On-site",
-    tag: "Engineering",
-    postedAt: "2026-03-04T12:26:32.000Z",
-    openings: 1,
+  // const job = {
+  //   title: "Software Engineer",
+  //   company: "Apple",
+  //   ratings: "4.2",
+  //   reviewNo: "100+",
+  //   logo: AppleLogo,
+  //   duration: "Full-time",
+  //   salary: "Not disclosed",
+  //   experience: "2-4 ",
+  //   location: "Remote",
+  //   shift: "Day Shift",
+  //   workType: "On-site",
+  //   tag: "Engineering",
+  //   postedAt: "2026-03-04T12:26:32.000Z",
+  //   openings: 1,
+  //   applicants: 0,
+  //   highlights: [
+  //     "Work with cutting-edge tech",
+  //     "Competitive benefits",
+  //     "Flexible working hours"
+  //   ],
+  //   responsibilities: [
+  //     "Develop clean, maintainable code",
+  //     "Collaborate with cross-functional teams",
+  //     "Participate in code reviews"
+  //   ],
+  //   skills: [
+  //     "JavaScript",
+  //     "TypeScript",
+  //     "React",
+  //     "Node.js"
+  //   ]
+  // };
+
+   const job = state ? {
+    ...state,
+    title: state.jobTitle || "Job Title",
+    company: state.companyName || "your Company",
+    ratings: "4.2", // Mock value for preview
+    reviewNo: "100+", // Mock value for preview
+    logo: state.companyLogo || null,
+    duration: state.workDuration || state.employmentCategory || "Full-time",
+    salary: state.salary || "Not disclosed",
+    experience: state.experience || "0",
+    location: state.location || "Remote",
+    shift: formatDisplay(state.shift),
+    WorkType: state.workType || "On-site",
+    tags: Array.isArray(state.tags) ? state.tags : [state.employmentCategory || "Full-time"],
+    posted: new Date().toISOString(),
+    openings: state.openings || 1,
     applicants: 0,
-    highlights: [
-      "Work with cutting-edge tech",
-      "Competitive benefits",
-      "Flexible working hours"
-    ],
-    responsibilities: [
-      "Develop clean, maintainable code",
-      "Collaborate with cross-functional teams",
-      "Participate in code reviews"
-    ],
-    skills: [
-      "JavaScript",
-      "TypeScript",
-      "React",
-      "Node.js"
-    ]
-  };
+    JobHighlights: state.jobHighlights || [],
+    Responsibilities: state.responsibilities || [],
+    KeySkills: state.skills || []
+  } : null;
 
 
 

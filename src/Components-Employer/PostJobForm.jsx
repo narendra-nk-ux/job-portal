@@ -32,9 +32,9 @@ export const PostJobForm = () => {
     openings: '',
     jobCategory: '',
     keySkills: '',
-    jobHighlights: [''],
+    jobHighlights: [],
     jobDescription: '',
-    responsibilities: ['']
+    responsibilities: []
   });
 
   const [skillsList, setSkillsList] = useState([]);
