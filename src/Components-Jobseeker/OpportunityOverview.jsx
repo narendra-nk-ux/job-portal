@@ -27,17 +27,17 @@ export const OpportunityOverview = () => {
   const isApplied = appliedJobs.some(j => j.id === id);
 
   if (!job) {
-      return (
-          <>
-            <Header />
-            <div style={{ padding: '100px', textAlign: 'center' }}>
-                <h2>Job not found</h2>
-                <p>This job may have been removed or you have already applied.</p>
-                <button className="back-btn" onClick={() => navigate('/Job-portal/jobseeker/jobs')}>Back to Jobs</button>
-            </div>
-            <Footer />
-          </>
-      );
+    return (
+      <>
+        <Header />
+        <div style={{ padding: '100px', textAlign: 'center' }}>
+          <h2>Job not found</h2>
+          <p>This job may have been removed or you have already applied.</p>
+          <button className="back-btn" onClick={() => navigate('/Job-portal/jobseeker/jobs')}>Back to Jobs</button>
+        </div>
+        <Footer />
+      </>
+    );
   }
 
   const similarJobs = jobs.filter((similarJob) => {
@@ -47,7 +47,7 @@ export const OpportunityOverview = () => {
   const limitedSimilarJob = similarJobs.slice(0, 9);
 
   const [query, setQuery] = useState('');
-  const [loc, setLoc] = useState(''); 
+  const [loc, setLoc] = useState('');
   const [exp, setExp] = useState('');
 
   const handleInitialSearch = () => {
@@ -68,12 +68,12 @@ export const OpportunityOverview = () => {
         <div className='search-backbtn-container'>
           <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
 
-          <SearchBar 
-            searchQuery={query} setSearchQuery={setQuery} 
-            searchLocation={loc} setSearchLocation={setLoc} 
-            searchExp={exp} setSearchExp={setExp} 
-            onSearch={handleInitialSearch} 
-           />
+          <SearchBar
+            searchQuery={query} setSearchQuery={setQuery}
+            searchLocation={loc} setSearchLocation={setLoc}
+            searchExp={exp} setSearchExp={setExp}
+            onSearch={handleInitialSearch}
+          />
         </div>
 
         <div className='opp-overview-main'>
@@ -85,7 +85,7 @@ export const OpportunityOverview = () => {
                   <h2 className="opp-topcard-job-title">{job.title}</h2>
                   <h5 className="Opportunities-job-company">
                     {job.company} <span className="Opportunities-divider">|</span>
-                    <span className="star"><img src={starIcon} alt="star" /></span> {job.ratings} 
+                    <span className="star"><img src={starIcon} alt="star" /></span> {job.ratings}
                     <span className="Opportunities-divider">|</span>
                     <span className="opp-reviews"> {job.reviewNo} Reviews</span>
                   </h5>
@@ -120,21 +120,21 @@ export const OpportunityOverview = () => {
                 </div>
 
                 <div className="Opportunities-job-actions">
-                  <button 
+                  <button
                     className={isSaved ? "Opportunities-apply-btn" : "Opportunities-save-btn"}
                     onClick={() => toggleSaveJob(job)}
                   >
                     {isSaved ? "Saved" : "Save"}
                   </button>
-      
-                  <button 
+
+                  <button
                     className="Opportunities-apply-btn"
-                    onClick={() => navigate (`/Job-portal/jobseeker/jobapplication/${job.id}`)}
+                    onClick={() => navigate(`/Job-portal/jobseeker/jobapplication/${job.id}`)}
                     disabled={isApplied}
-                    style={{ 
-                        opacity: isApplied ? 0.6 : 1, 
-                        cursor: isApplied ? 'not-allowed' : 'pointer',
-                        backgroundColor: isApplied ? '#6c757d' : '' // Optional grey out
+                    style={{
+                      opacity: isApplied ? 0.6 : 1,
+                      cursor: isApplied ? 'not-allowed' : 'pointer',
+                      backgroundColor: isApplied ? '#6c757d' : '' // Optional grey out
                     }}
                   >
                     {isApplied ? "Applied" : "Apply"}
@@ -190,11 +190,16 @@ export const OpportunityOverview = () => {
                     <div><img src={twitter} className='opp-socials-icon' alt="twitter" /></div>
                   </div>
                 </div>
-                <button className="opp-report-btn">Report this job</button>
+                <button
+                  className="opp-report-btn"
+                  onClick={() => navigate('/Job-portal/jobseeker/ReportAJob')}
+                >
+                  Report this job
+                </button>
               </div>
             </div>
           </div>
-          
+
           <div className="opp-job-sidebar">
             <h3>Similar Jobs</h3>
             {limitedSimilarJob.length > 0 ? limitedSimilarJob.map((sim) => (

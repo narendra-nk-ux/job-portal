@@ -12,6 +12,7 @@ import { Esignup } from './Components-EmployerSignup/Esignup'
 import { Eforgotpassword } from './Components-EmployerSignup/Eforgotpassword'
 import { Ecreatepassword } from './Components-EmployerSignup/Ecreatepassword'
 import { OpportunityOverview } from './Components-Jobseeker/OpportunityOverview'
+import { ReportAJob } from './Components-Jobseeker/ReportAJob'
 import { MyJobs } from './Components-Jobseeker/MyJobs'
 import { JobsTab } from './Components-Jobseeker/JobsTab'
 import { CompaniesTab } from './Components-Jobseeker/CompaniesTab'
@@ -96,6 +97,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/jobseeker/OpportunityOverview/:id',
   element: <OpportunityOverview />,
+},
+{
+  path: '/Job-portal/jobseeker/ReportAJob',
+  element: <ReportAJob />,
 },
 {
   path: '/Job-portal/jobseeker/myjobs',
