@@ -175,9 +175,9 @@ export const CompanyVerify = () => {
                 value={formData.officialEmail}
                 onChange={handleChange}
               />
-              <button type="button" className="company-small-verify-btn">
+              {/* <button type="button" className="company-small-verify-btn">
                 verify
-              </button>
+              </button> */}
             </div>
             {errors.officialEmail && <span className="error-text">{errors.officialEmail}</span>}
           </div>
@@ -194,9 +194,9 @@ export const CompanyVerify = () => {
                 value={formData.phoneNumber}
                 onChange={handleChange}
               />
-              <button type="button" className="company-small-verify-btn">
+              {/* <button type="button" className="company-small-verify-btn">
                 verify
-              </button>
+              </button> */}
             </div>
             {errors.phoneNumber && <span className="error-text">{errors.phoneNumber}</span>}
           </div>
