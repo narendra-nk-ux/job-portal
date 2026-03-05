@@ -28,6 +28,8 @@ export const AboutYourCompany = () => {
     const [errors, setErrors] = useState({});
 
     const validateForm = () => {
+
+        
         let newErrors = {};
 
 
@@ -95,14 +97,14 @@ export const AboutYourCompany = () => {
 
         if (validateForm()) {
 
-            setCompanyProfile({
-                companyName: formData.companyName,
-                about: formData.about,
-                website: formData.website,
-                companyLogo: formData.companyLogo,
-                contactNumber: formData.contactNumber,
-                companyMail: formData.companyMail
-            });
+            // setCompanyProfile({
+            //     companyName: formData.companyName,
+            //     about: formData.about,
+            //     website: formData.website,
+            //     companyLogo: formData.companyLogo,
+            //     contactNumber: formData.contactNumber,
+            //     companyMail: formData.companyMail
+            // }); 
 
             console.log("Form Validated. Proceeding to Verification...");
             navigate("/Job-portal/Employer/about-your-company/company-verification");
@@ -283,11 +285,11 @@ export const AboutYourCompany = () => {
                     <div className="aboutcompany-form-buttons">
                         <button type="button" className="aboutcompany-back-btn" onClick={() => navigate(-1)}>Back</button>
                         {/* <button type="submit" className="aboutcompany-next-btn">Next</button> */}
-                        <Link to="/Job-portal/Employer/about-your-company/company-verification">
+                        {/* <Link to="/Job-portal/Employer/about-your-company/company-verification"> */}
                             <button type="submit" className="aboutcompany-next-btn">
                                 Next
                             </button>
-                        </Link>
+                        {/* </Link> */}
                     </div>
 
                 </form>
