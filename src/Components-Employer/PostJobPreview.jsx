@@ -71,7 +71,7 @@ export const PostJobPreview = () => {
     logo: AppleLogo,
     duration: "Full-time",
     salary: "Not disclosed",
-    experience: "2-4 years",
+    experience: "2-4 ",
     location: "Remote",
     shift: "Day Shift",
     workType: "On-site",
