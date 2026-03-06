@@ -111,6 +111,18 @@ export const ReportAJob = () => {
                     </div>
 
                     <div className="report-row">
+                        <label>Mobile number</label>
+                        <div className="report-input-value">
+                            <input
+                                type="text" name="mobile" placeholder="9145******"
+                                value={formValues.mobile} onChange={handleChange}
+                                className={errors.mobile ? "error-field" : ""}
+                            />
+                            {errors.mobile && <span className="error-text">{errors.mobile}</span>}
+                        </div>
+                    </div>
+
+                    <div className="report-row">
                         <label>Mail ID</label>
                         <div className="report-input-value">
                             <input type="email" name="email" placeholder="e.g.,name@gmail.com" value={formValues.email} onChange={handleChange} className={errors.email ? "error-field" : ""} />
