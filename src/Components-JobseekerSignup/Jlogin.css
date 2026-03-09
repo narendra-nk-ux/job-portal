@@ -156,8 +156,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 105%;
+  gap: 15px;
+  width: 100%;
   padding: 10px;
   border: 1px solid #007bff;
   border-radius: 6px;
@@ -166,11 +166,51 @@ body {
   font-size: 14px;
   font-weight: 500;
   color: #333;
+  margin-top: 15px;
 }
-
+.email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 15px;
+}
+.mobile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 15px;
+}
 .google-btn img {
   width: 18px;
   height: 18px;
+}
+.email-btn img {
+  width: 30px;
+  height: 30px;
+}
+.mobile-btn img {
+  width: 30px;
+  height: 30px;
 }
 
 @media screen and (max-width: 768px) {

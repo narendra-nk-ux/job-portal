@@ -1,14 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import workTime from '../assets/WorkTime.png'
 import Google from '../assets/GOOG.png'
 import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
+import emailIcon from '../assets/icon_email_otp.png'
+import mobileIcon from '../assets/icon_mobile_otp.png'
 import './Jsignup.css'
+import './OtpModal.css'
 
 export const Jsignup = () => {
   const [passwordShow, setPasswordShow] = useState(true)
   const [confirmPasswordShow, setConfirmPasswordShow] = useState(true)
+
+  // OTP States
+  const [showEmailOtp, setShowEmailOtp] = useState(false)
+  const [showMobileOtp, setShowMobileOtp] = useState(false)
+  const [isEmailVerified, setIsEmailVerified] = useState(false)
+  const [isMobileVerified, setIsMobileVerified] = useState(false)
+  const [otpValues, setOtpValues] = useState({ emailOtp: "", mobileOtp: "" })
+  const [timer, setTimer] = useState(0);
+
+  // Countdown Timer Logic
+  useEffect(() => {
+    let interval;
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0 && (showEmailOtp || showMobileOtp)) {
+      if (timer === 0 && (showEmailOtp || showMobileOtp))
+        clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [timer, showEmailOtp, showMobileOtp]);
+
+  // Helper to format 60 into 01:00 or 00:59
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const togglePasswordView = () => {
     setPasswordShow((prev) => !prev)
@@ -29,6 +61,29 @@ export const Jsignup = () => {
     setErrors({ ...errors, [name]: "" })
   }
 
+  // Handle OTP Input Changes
+  const handleOtpChange = (e) => {
+    setOtpValues({ ...otpValues, [e.target.name]: e.target.value })
+  }
+
+  // Mock Verification Logic
+  const sendOtp = (type) => {
+    alert(`OTP sent to your ${type}!`);
+    setTimer(10);
+    type === 'email' ? setShowEmailOtp(true) : setShowMobileOtp(true);
+  }
+
+  const verifyOtp = (type) => {
+    // Logic: If OTP is "1234", verify it
+    const code = type === 'email' ? otpValues.emailOtp : otpValues.mobileOtp;
+    if (code === "1234") {
+      type === 'email' ? setIsEmailVerified(true) : setIsMobileVerified(true);
+      type === 'email' ? setShowEmailOtp(false) : setShowMobileOtp(false);
+    } else {
+      alert("Invalid OTP. Try '1234'");
+    }
+  }
+
   const validateForm = () => {
     const newErrors = {}
 
@@ -41,19 +96,23 @@ export const Jsignup = () => {
 
     if (!formValues.username.trim()) {
       newErrors.username = "Username is required"
-    } else if (formValues.username.length < 4 ) {
+    } else if (formValues.username.length < 4) {
       newErrors.username = "Username must be at least 4 characters"
-    } else if (formValues.username.length > 20 ) {
+    } else if (formValues.username.length > 20) {
       newErrors.username = "Username should not exceed 20 characters"
-    } else if (!regexofUserName.test(formValues.username)){
+    } else if (!regexofUserName.test(formValues.username)) {
       newErrors.username = "Invalid username Format"
     }
 
+
     if (!formValues.email.trim()) {
-      newErrors.email = "Email is required"
+      newErrors.email = "Email is required";
     } else if (!regexOfMail.test(formValues.email)) {
-      newErrors.email = "Invalid email format"
+      newErrors.email = "Invalid email format";
+    } else if (!isEmailVerified) {
+      newErrors.email = "Please verify your email via OTP";
     }
+
 
     if (!formValues.password.trim()) {
       newErrors.password = "Password is required"
@@ -73,9 +132,18 @@ export const Jsignup = () => {
       newErrors.confirmpassword = "Passwords do not match"
     }
 
-    if (formValues.phone && !regexofMobile.test(formValues.phone)) {
-      newErrors.phone = "Invalid format";
+    // if (formValues.phone && !regexofMobile.test(formValues.phone)) {
+    //   newErrors.phone = "Invalid format";
+    // }
+    // Mobile validation updates
+    if (!formValues.phone.trim()) {
+      newErrors.phone = "Mobile number is required";
+    } else if (!regexofMobile.test(formValues.phone)) {
+      newErrors.phone = "Invalid mobile number format (10 digits required)";
+    } else if (!isMobileVerified) {
+      newErrors.phone = "Please verify your mobile number via OTP";
     }
+
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -85,11 +153,80 @@ export const Jsignup = () => {
     if (!validateForm()) {
       return false // stops form submit if errors
     }
-    console.log("Signed up successfully") // This Code is removed after backend integration
+    console.log("Signed up successfully", formValues) // This Code is removed after backend integration
+  }
+
+  const renderOtpModal = (type) => {
+    const isEmail = type === 'email';
+    const targetValue = isEmail ? formValues.email : formValues.phone;
+    const otpKey = isEmail ? "emailOtp" : "mobileOtp";
+
+    return (
+      <div className="otp-modal-overlay">
+        <div className="otp-modal-content">
+          <button className="back-arrow" onClick={() => {
+            setTimer(0);
+            isEmail ? setShowEmailOtp(false) : setShowMobileOtp(false);
+          }}>Back</button>
+          <div className="otp-icon-container">
+            <img 
+              src={isEmail ? emailIcon : mobileIcon} 
+              alt={isEmail ? "Email Verification" : "Mobile Verification"}
+              className="otp-status-icon"
+            />
+          </div>
+          <h3>{isEmail ? "Email Verification" : "Mobile Verification"}</h3>
+          {timer > 0 ? (
+            <>
+              <p>We've sent a code to <strong>{targetValue}</strong>. Please enter it below.</p>
+
+              <div className="otp-input-group">
+                <input
+                  type="text"
+                  name={otpKey}
+                  maxLength="4"
+                  placeholder="0000"
+                  value={otpValues[otpKey]}
+                  onChange={handleOtpChange}
+                  autoFocus
+                />
+              </div>
+
+              <div className="resend-timer">Resend Code in <span className="blue-text">{formatTime(timer)}</span></div>
+
+              <button type="button" className="verify-final-btn" onClick={() => verifyOtp(type)}>
+                Verify
+              </button>
+            </>
+          ) : (
+            /* TERMINATED STATE UI */
+            <div className="expired-state">
+              <p className="error-msg">OTP Session Expired</p>
+              <p>The verification code is no longer valid. Please request a new one.</p>
+              <button type="button" className="verify-final-btn" onClick={() => sendOtp(type)}>
+                Resend New OTP
+              </button>
+            </div>
+            )}
+
+
+          <p className="switch-method" onClick={() => {
+            setTimer(0);
+              setShowEmailOtp(!showEmailOtp);
+              setShowMobileOtp(!showMobileOtp);
+          }}>
+            Or verify with {isEmail ? "Mobile" : "Email"}
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="j-sign-up-page">
+      {/* Modals trigger based on state */}
+      {showEmailOtp && renderOtpModal('email')}
+      {showMobileOtp && renderOtpModal('mobile')}
       <header className="j-sign-up-header">
         <Link to="/Job-portal" className="logo">
           <span className="logo-text">job portal</span>
@@ -114,8 +251,21 @@ export const Jsignup = () => {
           <input type="text" name="username" value={formValues.username} onChange={handleForm} placeholder="Create your Username" className={errors.username ? "input-error" : ""} />
           {errors.username && <span className="error-msg">{errors.username}</span>}
 
-          <label>Email ID</label>
+          {/* <label>Email ID</label>
           <input type="text" name="email" value={formValues.email} onChange={handleForm} placeholder="Enter your Email ID" className={errors.email ? "input-error" : ""} />
+          <button type="button" className="jsignup-small-verify-btn">
+            verify
+          </button>
+          {errors.email && <span className="error-msg">{errors.email}</span>} */}
+          {/* EMAIL SECTION */}
+          <label>Email ID</label>
+          <div className="input-container">
+            <input type="text" name="email" value={formValues.email} onChange={handleForm} placeholder="Enter Email" className={errors.email ? "input-error" : ""} disabled={isEmailVerified} />
+            {!isEmailVerified && formValues.email.length > 0 && (
+              <button type="button" className="jsignup-small-verify-btn" onClick={() => sendOtp('email')}>Verify</button>
+            )}
+            {isEmailVerified && <span className="verified-badge">Verified </span>}
+          </div>
           {errors.email && <span className="error-msg">{errors.email}</span>}
 
           <label>Password</label>
@@ -132,11 +282,24 @@ export const Jsignup = () => {
           </div>
           {errors.confirmpassword && <span className="error-msg">{errors.confirmpassword}</span>}
 
-          <label>Mobile number (optional)</label>
+          {/* <label>Mobile number</label>
           <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter your mobile number" className={errors.phone ? "input-error" : ""} />
+          <button type="button" className="jsignup-small-verify-btn">
+            verify
+          </button>
+          {errors.phone && <span className="error-msg">{errors.phone}</span>} */}
+          {/* MOBILE SECTION */}
+          <label>Mobile number</label>
+          <div className="input-container">
+            <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter mobile number" className={errors.phone ? "input-error" : ""} disabled={isMobileVerified} />
+            {!isMobileVerified && formValues.phone.length > 0 && (
+              <button type="button" className="jsignup-small-verify-btn" onClick={() => sendOtp('mobile')}>Verify</button>
+            )}
+            {isMobileVerified && <span className="verified-badge">Verified </span>}
+          </div>
           {errors.phone && <span className="error-msg">{errors.phone}</span>}
 
-          <button className="j-sign-up-submit">Signup</button>
+          <button type="submit" className="j-sign-up-submit">Signup</button>
 
           <div className="divider">Or Continue with</div>
 

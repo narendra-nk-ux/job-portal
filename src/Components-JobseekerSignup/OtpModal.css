@@ -1,0 +1,132 @@
+
+.otp-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.otp-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+}
+
+.otp-modal-content h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.otp-modal-content p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.otp-input-group input {
+    width: 100%;
+    max-width: 200px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.otp-input-group input:focus {
+    border-color: #0081FF;
+}
+
+.resend-timer {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #888;
+}
+
+.blue-text {
+    color: #0081FF;
+    font-weight: 600;
+}
+
+.verify-final-btn {
+    width: 100%;
+    background-color: #0081FF;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.verify-final-btn:hover {
+    background-color: #0069d1;
+}
+
+.switch-method {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+}
+
+.verified-badge {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 10px;
+    align-self: center;
+}
+.otp-icon-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.otp-status-icon {
+  width: 100px; 
+  height: 100px; 
+  object-fit: contain; 
+  display: block; 
+}
+
+.otp-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

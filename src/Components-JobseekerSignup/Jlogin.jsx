@@ -5,6 +5,8 @@ import manSitting from '../assets/Illustration_1.png'
 import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
 import Google from '../assets/GOOG.png'
+import email from '../assets/icon_email_otp.png'
+import mobile from '../assets/icon_mobile_otp.png'
 import './Jlogin.css'
 
 export const Jlogin = () => {
@@ -95,6 +97,14 @@ export const Jlogin = () => {
           <button className="google-btn">
             <img src={Google} alt="Google" />
             Google
+          </button>
+          <button className="email-btn">
+            <img src={email} alt="Email" />
+            Email
+          </button>
+          <button className="mobile-btn">
+            <img src={mobile} alt="mobile" />
+            Mobile number
           </button>
         </form>
       </div>
