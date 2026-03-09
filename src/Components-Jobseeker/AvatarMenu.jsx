@@ -42,7 +42,7 @@ export const AvatarMenu = () => {
             Profile
           </Link>
 
-          <Link to="" className="menu-items">
+          <Link to="/Job-portal/jobseeker/reviews" className="menu-items">
             <img src={reviewIcon} className="menu-icon" alt="reviews" />
             My reviews
           </Link>

@@ -52,6 +52,7 @@ import {EditJob} from './Components-Employer/EditJob'
 import { PostedJobs } from './Components-Employer/PostedJobs'
 import {PostJobPreview } from './Components-Employer/PostJobPreview';
 import {PostJobForm} from './Components-Employer/PostJobForm'
+import {Reviews }from './Components-Jobseeker/Reviews'
 // import ViewApplicants from './Components-Employer/ViewApplicants'
 
 const router = createBrowserRouter([{
@@ -117,6 +118,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/jobseeker/myprofile',
   element: <MyProfile />,
+},
+{
+  path: '/Job-portal/jobseeker/reviews',
+  element: <Reviews />,
 },
 {
   path: '/Job-portal/jobseeker/aboutus',
