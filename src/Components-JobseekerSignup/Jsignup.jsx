@@ -6,6 +6,7 @@ import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
 import emailIcon from '../assets/icon_email_otp.png'
 import mobileIcon from '../assets/icon_mobile_otp.png'
+import Verified from '../assets/verified-otpimage.png'
 import './Jsignup.css'
 import './OtpModal.css'
 
@@ -70,19 +71,29 @@ export const Jsignup = () => {
   const sendOtp = (type) => {
     alert(`OTP sent to your ${type}!`);
     setTimer(10);
+    const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
+    setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
     type === 'email' ? setShowEmailOtp(true) : setShowMobileOtp(true);
   }
 
   const verifyOtp = (type) => {
-    // Logic: If OTP is "1234", verify it
-    const code = type === 'email' ? otpValues.emailOtp : otpValues.mobileOtp;
-    if (code === "1234") {
-      type === 'email' ? setIsEmailVerified(true) : setIsMobileVerified(true);
+  const code = type === 'email' ? otpValues.emailOtp : otpValues.mobileOtp;
+  
+  if (code === "123456") { 
+    type === 'email' ? setIsEmailVerified(true) : setIsMobileVerified(true);
+
+    setTimeout(() => {
       type === 'email' ? setShowEmailOtp(false) : setShowMobileOtp(false);
-    } else {
-      alert("Invalid OTP. Try '1234'");
-    }
+      setTimer(0);
+      // Clear OTP for next time
+      const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
+      setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
+    }, 1500); 
+
+  } else {
+    alert("Invalid OTP. Try '123456'");
   }
+};
 
   const validateForm = () => {
     const newErrors = {}
@@ -160,17 +171,37 @@ export const Jsignup = () => {
     const isEmail = type === 'email';
     const targetValue = isEmail ? formValues.email : formValues.phone;
     const otpKey = isEmail ? "emailOtp" : "mobileOtp";
+    const isCurrentlyVerified = isEmail ? isEmailVerified : isMobileVerified;
+
+   // SUCCESS POPUP VIEW
+  if (isCurrentlyVerified) {
+    return (
+      <div className="otp-modal-overlay">
+        <div className="otp-modal-content success-popup-style">
+          <div className="verified-container">
+            <img 
+              src={Verified} 
+              alt="Verified Success" 
+              className="verified-popup-img" 
+            />
+            {/* <h1 className="verified-text-green">Verified</h1> */}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
     return (
       <div className="otp-modal-overlay">
         <div className="otp-modal-content">
           <button className="back-arrow" onClick={() => {
             setTimer(0);
+            setOtpValues({ ...otpValues, [otpKey]: "" });
             isEmail ? setShowEmailOtp(false) : setShowMobileOtp(false);
           }}>Back</button>
           <div className="otp-icon-container">
-            <img 
-              src={isEmail ? emailIcon : mobileIcon} 
+            <img
+              src={isEmail ? emailIcon : mobileIcon}
               alt={isEmail ? "Email Verification" : "Mobile Verification"}
               className="otp-status-icon"
             />
@@ -181,18 +212,50 @@ export const Jsignup = () => {
               <p>We've sent a code to <strong>{targetValue}</strong>. Please enter it below.</p>
 
               <div className="otp-input-group">
-                <input
-                  type="text"
-                  name={otpKey}
-                  maxLength="4"
-                  placeholder="0000"
-                  value={otpValues[otpKey]}
-                  onChange={handleOtpChange}
-                  autoFocus
-                />
+                {[...Array(6)].map((_, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    id={`otp-${type}-${index}`} // Unique ID for focus targeting
+                    maxLength="1"
+                    value={otpValues[otpKey][index] || ""}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (/^[0-9]$/.test(val) || val === "") {
+                        const newOtp = otpValues[otpKey].split("");
+                        newOtp[index] = val;
+                        const combinedOtp = newOtp.join("");
+
+                        setOtpValues({ ...otpValues, [otpKey]: combinedOtp });
+
+                        // Move focus forward
+                        if (val && index < 5) {
+                          document.getElementById(`otp-${type}-${index + 1}`).focus();
+                        }
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      // Move focus back on backspace
+                      if (e.key === "Backspace" && !otpValues[otpKey][index] && index > 0) {
+                        document.getElementById(`otp-${type}-${index - 1}`).focus();
+                      }
+                    }}
+                    autoFocus={index === 0}
+                  />
+                ))}
               </div>
 
-              <div className="resend-timer">Resend Code in <span className="blue-text">{formatTime(timer)}</span></div>
+              <div className="resend-timer">
+                Did not receive code?{' '}
+                <span
+                  className="resend-link"
+                  style={{ cursor: 'pointer', color: '#0081FF' }}
+                  onClick={() => sendOtp(type)} // This now clears the boxes
+                >
+                  Resend OTP
+                </span>
+                {timer > 0 && <span> in {formatTime(timer)}</span>}
+              </div>
 
               <button type="button" className="verify-final-btn" onClick={() => verifyOtp(type)}>
                 Verify
@@ -201,22 +264,41 @@ export const Jsignup = () => {
           ) : (
             /* TERMINATED STATE UI */
             <div className="expired-state">
-              <p className="error-msg">OTP Session Expired</p>
+              <p className="error-msg-otp">OTP Session Expired</p>
               <p>The verification code is no longer valid. Please request a new one.</p>
               <button type="button" className="verify-final-btn" onClick={() => sendOtp(type)}>
                 Resend New OTP
               </button>
             </div>
-            )}
+          )}
 
+          {/* // switch mothod toggle */}
+          {/* <p
+            className="switch-method"
+            onClick={() => {
+              setTimer(0);
 
-          <p className="switch-method" onClick={() => {
-            setTimer(0);
-              setShowEmailOtp(!showEmailOtp);
-              setShowMobileOtp(!showMobileOtp);
-          }}>
+              if (isEmail) {
+                // switching to mobile
+                if (!formValues.phone) {
+                  alert("Please enter mobile number first");
+                  return;
+                }
+                setShowEmailOtp(false);
+                setShowMobileOtp(true);
+              } else {
+                // switching to email
+                if (!formValues.email) {
+                  alert("Please enter email first");
+                  return;
+                }
+                setShowMobileOtp(false);
+                setShowEmailOtp(true);
+              }
+            }}
+          >
             Or verify with {isEmail ? "Mobile" : "Email"}
-          </p>
+          </p> */}
         </div>
       </div>
     );
@@ -262,7 +344,25 @@ export const Jsignup = () => {
           <div className="input-container">
             <input type="text" name="email" value={formValues.email} onChange={handleForm} placeholder="Enter Email" className={errors.email ? "input-error" : ""} disabled={isEmailVerified} />
             {!isEmailVerified && formValues.email.length > 0 && (
-              <button type="button" className="jsignup-small-verify-btn" onClick={() => sendOtp('email')}>Verify</button>
+              <button
+                type="button"
+                className="jsignup-small-verify-btn"
+                onClick={() => {
+                  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                  if (!emailRegex.test(formValues.email)) {
+                    setErrors({
+                      ...errors,
+                      email: "Enter a valid email address",
+                    });
+                    return;
+                  }
+
+                  sendOtp("email");
+                }}
+              >
+                Verify
+              </button>
             )}
             {isEmailVerified && <span className="verified-badge">Verified </span>}
           </div>
@@ -291,9 +391,37 @@ export const Jsignup = () => {
           {/* MOBILE SECTION */}
           <label>Mobile number</label>
           <div className="input-container">
-            <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter mobile number" className={errors.phone ? "input-error" : ""} disabled={isMobileVerified} />
+            <input
+              type="tel"
+              name="phone"
+              value={formValues.phone}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                setFormValues({ ...formValues, phone: value.slice(0, 10) });
+                setErrors({ ...errors, phone: "" });
+              }}
+              placeholder="Enter mobile number"
+              className={errors.phone ? "input-error" : ""}
+              disabled={isMobileVerified}
+            />
             {!isMobileVerified && formValues.phone.length > 0 && (
-              <button type="button" className="jsignup-small-verify-btn" onClick={() => sendOtp('mobile')}>Verify</button>
+              <button
+                type="button"
+                className="jsignup-small-verify-btn"
+                onClick={() => {
+                  if (!/^\d{10}$/.test(formValues.phone)) {
+                    setErrors({
+                      ...errors,
+                      phone: "Enter a valid 10-digit mobile number",
+                    });
+                    return;
+                  }
+
+                  sendOtp("mobile");
+                }}
+              >
+                Verify
+              </button>
             )}
             {isMobileVerified && <span className="verified-badge">Verified </span>}
           </div>

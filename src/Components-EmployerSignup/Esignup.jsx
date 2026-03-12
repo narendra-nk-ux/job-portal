@@ -6,6 +6,7 @@ import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
 import emailIcon from '../assets/icon_email_otp.png'
 import mobileIcon from '../assets/icon_mobile_otp.png'
+import Verified from '../assets/verified-otpimage.png'
 
 
 export const Esignup = () => {
@@ -64,17 +65,24 @@ export const Esignup = () => {
 
   const sendOtp = (type) => {
     alert(`Employer verification OTP sent to your ${type}!`);
-    setTimer(10); 
+    setTimer(10);
+    const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
+    setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
     type === 'email' ? setShowEmailOtp(true) : setShowMobileOtp(true);
   }
 
   const verifyOtp = (type) => {
     const code = type === 'email' ? otpValues.emailOtp : otpValues.mobileOtp;
-    if (code === "1234") {
+    if (code === "123456") {
       type === 'email' ? setIsEmailVerified(true) : setIsMobileVerified(true);
-      type === 'email' ? setShowEmailOtp(false) : setShowMobileOtp(false);
+      setTimeout(() => {
+        type === 'email' ? setShowEmailOtp(false) : setShowMobileOtp(false);
+        setTimer(0);
+        const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
+        setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
+      }, 1500);
     } else {
-      alert("Invalid OTP. Try '1234'");
+      alert("Invalid OTP. Try '123456'");
     }
   }
 
@@ -135,7 +143,7 @@ export const Esignup = () => {
     // } else if (formValues.phone && !isMobileVerified) {
     //   newErrors.phone = "Please verify mobile number";
     // }
-     if (!formValues.phone.trim()) {
+    if (!formValues.phone.trim()) {
       newErrors.phone = "Mobile number is required";
     } else if (!regexofMobile.test(formValues.phone)) {
       newErrors.phone = "Invalid mobile number format (10 digits required)";
@@ -147,7 +155,7 @@ export const Esignup = () => {
     return Object.keys(newErrors).length === 0
   }
 
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault(); // Prevents the page from reloading or navigating immediately
 
     if (validateForm()) {
@@ -163,6 +171,25 @@ const handleSubmit = (e) => {
     const isEmail = type === 'email';
     const targetValue = isEmail ? formValues.email : formValues.phone;
     const otpKey = isEmail ? "emailOtp" : "mobileOtp";
+    const isCurrentlyVerified = isEmail ? isEmailVerified : isMobileVerified;
+
+    // SUCCESS POPUP VIEW
+    if (isCurrentlyVerified) {
+      return (
+        <div className="otp-modal-overlay">
+          <div className="otp-modal-content success-popup-style">
+            <div className="verified-container">
+              <img
+                src={Verified}
+                alt="Verified Success"
+                className="verified-popup-img"
+              />
+              {/* <h1 className="verified-text-green">Verified</h1> */}
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="e-otp-modal-overlay">
@@ -174,12 +201,57 @@ const handleSubmit = (e) => {
           <h3>{isEmail ? "Employer Email Verification" : "Employer Mobile Verification"}</h3>
           {timer > 0 ? (
             <>
-              <p>Sent to <strong>{targetValue}</strong></p>
-              <div className="e-otp-input-group">
-                <input type="text" name={otpKey} maxLength="4" placeholder="0000" value={otpValues[otpKey]} onChange={handleOtpChange} autoFocus />
+              <p>We've sent a code to <strong>{targetValue}</strong>. Please enter it below.</p>
+
+              <div className="otp-input-group">
+                {[...Array(6)].map((_, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    id={`otp-${type}-${index}`} // Unique ID (otp-email-0, otp-mobile-0, etc.)
+                    maxLength="1"
+                    value={otpValues[otpKey][index] || ""}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (/^[0-9]$/.test(val) || val === "") {
+                        const newOtpArray = otpValues[otpKey].split("");
+                        newOtpArray[index] = val;
+                        const combinedOtp = newOtpArray.join("");
+
+                        setOtpValues({ ...otpValues, [otpKey]: combinedOtp });
+
+                        // Auto-focus next box
+                        if (val && index < 5) {
+                          document.getElementById(`otp-${type}-${index + 1}`).focus();
+                        }
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      // Auto-focus previous box on Backspace
+                      if (e.key === "Backspace" && !otpValues[otpKey][index] && index > 0) {
+                        document.getElementById(`otp-${type}-${index - 1}`).focus();
+                      }
+                    }}
+                    autoFocus={index === 0}
+                  />
+                ))}
               </div>
-              <div className="e-resend-timer">Resend in <span className="blue-text">{formatTime(timer)}</span></div>
-              <button type="button" className="e-verify-final-btn" onClick={() => verifyOtp(type)}>Verify</button>
+
+              <div className="resend-timer">
+                Did not receive code?{' '}
+                <span
+                  className="resend-link"
+                  style={{ cursor: 'pointer', color: '#0081FF', fontWeight: 'bold' }}
+                  onClick={() => sendOtp(type)}
+                >
+                  Resend OTP
+                </span>
+                {timer > 0 && <span> in {formatTime(timer)}</span>}
+              </div>
+
+              <button type="button" className="verify-final-btn" onClick={() => verifyOtp(type)}>
+                Verify
+              </button>
             </>
           ) : (
             <div className="e-expired-state">
@@ -273,10 +345,10 @@ const handleSubmit = (e) => {
           </button> */}
 
 
-            <button type="submit" className="j-sign-up-submit">
-              Create Account
-            </button>
-          
+          <button type="submit" className="j-sign-up-submit">
+            Create Account
+          </button>
+
         </form>
       </div>
     </div>
