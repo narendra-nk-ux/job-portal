@@ -192,8 +192,8 @@
 }
 
 .google-btn-outline img {
-  width: 18px;
-  height: 18px;
+  width: 30px;
+  height: 30px;
 }
 
 .mobile-btn-outline img {
@@ -257,9 +257,10 @@
   height: 18px;
 }
 
+
 .email-btn img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 50px;
 }
 
 .mobile-btn img {

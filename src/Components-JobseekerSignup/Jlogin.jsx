@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import manSitting from '../assets/Illustration_1.png'
 import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
-import Google from '../assets/GOOG.png'
+import Google from '../assets/icon_email_id.png'
 import mobile from '../assets/icon_mobile.png'
 import './Jlogin.css'
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import workTime from '../assets/WorkTime.png'
-import Google from '../assets/GOOG.png'
+import Google from '../assets/icon_email_id.png'
 import eye from '../assets/show_password.png'
 import eyeHide from '../assets/eye-hide.png'
 import emailIcon from '../assets/icon_email_otp.png'
