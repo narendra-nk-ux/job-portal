@@ -158,6 +158,22 @@ body {
   display: block;
 }
 
+.error-list {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.error-msg {
+    color: #d93025;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.input-error {
+    border: 1px solid #d93025 !important;
+}
+
 /* .eye-icon {
   position: absolute;
   right: 12px;

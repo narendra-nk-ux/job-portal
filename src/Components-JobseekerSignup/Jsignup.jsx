@@ -107,7 +107,7 @@ export const Jsignup = () => {
     const newErrors = {}
 
     const regexOfMail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const regexofUppercase = /^(?=.*[A-Z]).+$/
     const regexofNumber = /^(?=.*\d).+$/
     const regexofSpecialChar = /^(?=.*[!@#$%^&*]).+$/
@@ -137,7 +137,7 @@ export const Jsignup = () => {
     if (!formValues.password.trim()) {
       newErrors.password = "Password is required"
     } else if (!strongPasswordRegex.test(formValues.password)) {
-      newErrors.password = "Must be 8+ chars with 1 Uppercase, 1 Number, and 1 Special character";
+      newErrors.password = "Must be 8+ chars with 1 Uppercase, 1 Lowercase, 1 Number, and 1 Special character";
     } else if (formValues.password.length < 8) {
       newErrors.password = "Password must be at least 8 characters"
     } else if (!regexofUppercase.test(formValues.password)) {
