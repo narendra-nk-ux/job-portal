@@ -37,6 +37,10 @@ body {
   align-items: center;
   padding: 40px 60px;
 }
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
 
 .j-sign-up-form {
   max-width: 500px;

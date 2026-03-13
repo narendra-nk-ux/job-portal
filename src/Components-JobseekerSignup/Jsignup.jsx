@@ -58,6 +58,14 @@ export const Jsignup = () => {
 
   const handleForm = (e) => {
     const { name, value } = e.target
+    if (name === "phone") {
+      const onlyNums = value.replace(/[^0-9]/g, '');
+      if (onlyNums.length <= 10) {
+        setFormValues({ ...formValues, [name]: onlyNums });
+        setErrors({ ...errors, [name]: "" });
+      }
+      return;
+    }
     setFormValues({ ...formValues, [name]: value })
     setErrors({ ...errors, [name]: "" })
   }
@@ -77,33 +85,34 @@ export const Jsignup = () => {
   }
 
   const verifyOtp = (type) => {
-  const code = type === 'email' ? otpValues.emailOtp : otpValues.mobileOtp;
-  
-  if (code === "123456") { 
-    type === 'email' ? setIsEmailVerified(true) : setIsMobileVerified(true);
+    const code = type === 'email' ? otpValues.emailOtp : otpValues.mobileOtp;
 
-    setTimeout(() => {
-      type === 'email' ? setShowEmailOtp(false) : setShowMobileOtp(false);
-      setTimer(0);
-      // Clear OTP for next time
-      const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
-      setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
-    }, 1500); 
+    if (code === "123456") {
+      type === 'email' ? setIsEmailVerified(true) : setIsMobileVerified(true);
 
-  } else {
-    alert("Invalid OTP. Try '123456'");
-  }
-};
+      setTimeout(() => {
+        type === 'email' ? setShowEmailOtp(false) : setShowMobileOtp(false);
+        setTimer(0);
+        // Clear OTP for next time
+        const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
+        setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
+      }, 1500);
+
+    } else {
+      alert("Invalid OTP. Try '123456'");
+    }
+  };
 
   const validateForm = () => {
     const newErrors = {}
 
     const regexOfMail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const regexofUppercase = /^(?=.*[A-Z]).+$/
     const regexofNumber = /^(?=.*\d).+$/
     const regexofSpecialChar = /^(?=.*[!@#$%^&*]).+$/
     const regexofUserName = /^(?=[a-zA-Z])\S+$/
-    const regexofMobile = /^\d{10}$/
+    const regexofMobile = /^[6-9]\d{9}$/
 
     if (!formValues.username.trim()) {
       newErrors.username = "Username is required"
@@ -127,6 +136,8 @@ export const Jsignup = () => {
 
     if (!formValues.password.trim()) {
       newErrors.password = "Password is required"
+    } else if (!strongPasswordRegex.test(formValues.password)) {
+      newErrors.password = "Must be 8+ chars with 1 Uppercase, 1 Number, and 1 Special character";
     } else if (formValues.password.length < 8) {
       newErrors.password = "Password must be at least 8 characters"
     } else if (!regexofUppercase.test(formValues.password)) {
@@ -164,6 +175,7 @@ export const Jsignup = () => {
     if (!validateForm()) {
       return false // stops form submit if errors
     }
+    alert("Signup successful!");
     console.log("Signed up successfully", formValues) // This Code is removed after backend integration
   }
 
@@ -173,23 +185,23 @@ export const Jsignup = () => {
     const otpKey = isEmail ? "emailOtp" : "mobileOtp";
     const isCurrentlyVerified = isEmail ? isEmailVerified : isMobileVerified;
 
-   // SUCCESS POPUP VIEW
-  if (isCurrentlyVerified) {
-    return (
-      <div className="otp-modal-overlay">
-        <div className="otp-modal-content success-popup-content">
-          <div className="verified-container">
-            <img 
-              src={Verified} 
-              alt="Verified Success" 
-              className="verified-popup-img" 
-            />
-            {/* <h1 className="verified-text-green">Verified</h1> */}
+    // SUCCESS POPUP VIEW
+    if (isCurrentlyVerified) {
+      return (
+        <div className="otp-modal-overlay">
+          <div className="otp-modal-content success-popup-content">
+            <div className="verified-container">
+              <img
+                src={Verified}
+                alt="Verified Success"
+                className="verified-popup-img"
+              />
+              {/* <h1 className="verified-text-green">Verified</h1> */}
+            </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
     return (
       <div className="otp-modal-overlay">
@@ -235,7 +247,6 @@ export const Jsignup = () => {
                       }
                     }}
                     onKeyDown={(e) => {
-                      // Move focus back on backspace
                       if (e.key === "Backspace" && !otpValues[otpKey][index] && index > 0) {
                         document.getElementById(`otp-${type}-${index - 1}`).focus();
                       }
@@ -348,7 +359,12 @@ export const Jsignup = () => {
                 type="button"
                 className="jsignup-small-verify-btn"
                 onClick={() => {
-                  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                  // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                  const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|outlook|hotmail)\.[a-zA-Z]{2,}$/;
+                  if (!emailRegex.test(formValues.email)) {
+                    setErrors({ ...errors, email: "Please enter a valid @gmail.com address" });
+                    return;
+                  }
 
                   if (!emailRegex.test(formValues.email)) {
                     setErrors({
@@ -404,12 +420,12 @@ export const Jsignup = () => {
               className={errors.phone ? "input-error" : ""}
               disabled={isMobileVerified}
             />
-            {!isMobileVerified && formValues.phone.length > 0 && (
+            {!isMobileVerified && /^[6-9]\d{9}$/.test(formValues.phone) && (
               <button
                 type="button"
                 className="jsignup-small-verify-btn"
                 onClick={() => {
-                  if (!/^\d{10}$/.test(formValues.phone)) {
+                  if (!/^[6-9]\d{9}$/.test(formValues.phone)) {
                     setErrors({
                       ...errors,
                       phone: "Enter a valid 10-digit mobile number",
