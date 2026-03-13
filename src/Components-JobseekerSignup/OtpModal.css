@@ -9,7 +9,19 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
+}
+.success-popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: auto;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    animation: otpSuccessPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .otp-modal-content {
@@ -57,13 +69,18 @@
 .otp-input-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 25px 0;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .otp-input-group input {
-    width: 20px;
-    height: 45px;
+    flex: 1;
+    min-width: 0;
+    max-width: 45px;
+    height: 50px;
     font-size: 20px;
     font-weight: 600;
     text-align: center;
@@ -71,12 +88,13 @@
     border-radius: 10px;
     outline: none;
     transition: all 0.2s ease;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
 }
 
 .otp-input-group input:focus {
     border-color: #0081FF;
-    box-shadow: 0 0 0 1px #0081FF;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px rgba(0, 129, 255, 0.2);
 }
 
 .otp-input-group input::-webkit-outer-spin-button,
@@ -170,9 +188,11 @@
 }
 
 .verified-popup-img {
-    width: 250px;  
-    height: 160px;
-    /* object-fit: contain; */
+    width: 100%;
+    max-width: 400px; 
+    height: auto;
+    display: block;
+    object-fit: contain;
 }
 
 /* .verified-text-green {
@@ -185,4 +205,35 @@
 @keyframes otpSuccessPop {
     0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 400px) {
+    .otp-modal-content {
+        width: 90%;          /* Gives side breathing room */
+        padding: 30px 15px;  /* Reduces internal padding */
+    }
+
+    .otp-input-group {
+        gap: 5px;            /* Tighter gaps to save space */
+    }
+
+    .otp-input-group input {
+        height: 45px;        /* Slightly smaller to fit height-wise */
+        font-size: 16px;
+    }
+    
+    .otp-modal-content h3 {
+        font-size: 18px;     /* Smaller title to prevent wrapping */
+    }
+}
+
+/* Back button positioning fix */
+.back-arrow {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
 }

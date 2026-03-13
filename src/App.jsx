@@ -53,6 +53,7 @@ import { PostedJobs } from './Components-Employer/PostedJobs'
 import {PostJobPreview } from './Components-Employer/PostJobPreview';
 import {PostJobForm} from './Components-Employer/PostJobForm'
 import {Reviews }from './Components-Jobseeker/Reviews'
+import { OtpVerification } from "./Components-JobseekerSignup/OtpVerification";
 // import ViewApplicants from './Components-Employer/ViewApplicants'
 
 const router = createBrowserRouter([{
@@ -70,6 +71,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/jobseeker/signup',
   element: <Jsignup />,
+},
+{
+  path: '/Job-portal/login/otpverification',
+  element: <OtpVerification />,
 },
 {
   path: '/Job-portal/jobseeker/login/forgotpassword/createpassword',

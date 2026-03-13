@@ -65,16 +65,20 @@ body {
 .j-sign-up-form input {
   width: 100%;
   padding: 10px;
+  padding-right: 45px;
   margin-top: 6px;
+  /* margin-top: 6px; */
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
-  position: relative;
+  display: flex;
+  /* position: relative; */
+  box-sizing: border-box;
 }
 
 .j-sign-up-submit {
   margin-top: 20px;
-  width: 105%;
+  width: 100%;
   padding: 12px;
   background-color: #007bff;
   color: white;
@@ -101,21 +105,22 @@ body {
   border-radius: 6px;
   font-size: 14px;
   display: block;
-  
+
 }
 
 .input-container,
 .password-wrapper {
   position: relative;
   width: 100%;
-  margin-top: 6px; 
-  display: block; 
-  
+  margin-top: 6px;
+  display: block;
+
 }
+
 
 .jsignup-small-verify-btn {
   position: absolute;
-  right: 8px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: #1e88e5;
@@ -127,7 +132,7 @@ body {
   font-size: 12px;
   font-weight: 600;
   z-index: 5;
-  line-height: 1; 
+  line-height: 1;
 }
 
 
@@ -139,6 +144,7 @@ body {
   color: #28a745;
   font-weight: bold;
   font-size: 12px;
+  pointer-events: none;
 }
 
 .error-msg {
@@ -147,21 +153,22 @@ body {
   margin-top: 4px;
   display: block;
 }
-.eye-icon {
+
+/* .eye-icon {
   position: absolute;
   right: 12px;
-  top: 50%;
-  transform: translateY(-50%); 
+  top: 10%;
+  transform: translateY(-50%);
   cursor: pointer;
   display: flex;
   align-items: center;
   z-index: 5;
-}
+} */
 
-.eye-icon img {
+/* .eye-icon img {
   width: 20px;
   height: auto;
-}
+} */
 
 @media screen and (max-width: 768px) {
 

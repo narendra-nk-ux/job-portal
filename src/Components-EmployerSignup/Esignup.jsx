@@ -156,11 +156,10 @@ export const Esignup = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the page from reloading or navigating immediately
+    e.preventDefault();
 
     if (validateForm()) {
       console.log("Signed up successfully", formValues);
-      // If validation passes, move to the next page
       navigate("/Job-portal/Employer/about-your-company");
     } else {
       console.log("Validation failed");
@@ -329,11 +328,42 @@ export const Esignup = () => {
           {errors.phone && <span className="error-msg">{errors.phone}</span>} */}
           <label>Mobile number</label>
           <div className="input-container">
-            <input type="tel" name="phone" value={formValues.phone} onChange={handleForm} placeholder="Enter mobile number" className={errors.phone ? "input-error" : ""} disabled={isMobileVerified} />
+            <input
+              type="tel"
+              name="phone"
+              value={formValues.phone}
+              onChange={(e) => {
+                const rawValue = e.target.value.replace(/\D/g, "");
+                const validatedValue = /^[6-9]/.test(rawValue) ? rawValue : "";
+
+                setFormValues({ ...formValues, phone: validatedValue.slice(0, 10) });
+                setErrors({ ...errors, phone: "" });
+              }}
+              placeholder="Enter mobile number"
+              className={errors.phone ? "input-error" : ""}
+              disabled={isMobileVerified}
+            />
+
             {!isMobileVerified && formValues.phone.length > 0 && (
-              <button type="button" className="jsignup-small-verify-btn" onClick={() => sendOtp('mobile')}>Verify</button>
+              <button
+                type="button"
+                className="jsignup-small-verify-btn"
+                onClick={() => {
+                  if (!/^\d{10}$/.test(formValues.phone)) {
+                    setErrors({
+                      ...errors,
+                      phone: "Enter a valid 10-digit mobile number",
+                    });
+                    return;
+                  }
+                  sendOtp("mobile");
+                }}
+              >
+                Verify
+              </button>
             )}
-            {isMobileVerified && <span className="verified-badge">Verified </span>}
+
+            {isMobileVerified && <span className="verified-badge">Verified</span>}
           </div>
           {errors.phone && <span className="error-msg">{errors.phone}</span>}
 

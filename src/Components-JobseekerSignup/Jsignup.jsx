@@ -70,7 +70,7 @@ export const Jsignup = () => {
   // Mock Verification Logic
   const sendOtp = (type) => {
     alert(`OTP sent to your ${type}!`);
-    setTimer(10);
+    setTimer(180);
     const otpKey = type === 'email' ? "emailOtp" : "mobileOtp";
     setOtpValues(prev => ({ ...prev, [otpKey]: "" }));
     type === 'email' ? setShowEmailOtp(true) : setShowMobileOtp(true);
@@ -177,7 +177,7 @@ export const Jsignup = () => {
   if (isCurrentlyVerified) {
     return (
       <div className="otp-modal-overlay">
-        <div className="otp-modal-content success-popup-style">
+        <div className="otp-modal-content success-popup-content">
           <div className="verified-container">
             <img 
               src={Verified} 
