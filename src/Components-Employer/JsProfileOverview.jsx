@@ -10,7 +10,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useJobs } from '../JobContext';
 
 export const JsProfileOverview = () => {
-  const { Alluser, addChatToSidebar } = useJobs(); 
+  const { Alluser, addChatToSidebar } = useJobs();
   const { id } = useParams();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +24,9 @@ export const JsProfileOverview = () => {
 
   const handleConnect = () => {
     if (currentUser) {
-      
+
       addChatToSidebar(id);
-      
+
       navigate(`/Job-portal/employer-chat/${id}`);
     }
   };
@@ -35,11 +35,58 @@ export const JsProfileOverview = () => {
     return <div className="profile-wrapper"><h3>User Profile Not Found</h3></div>;
   }
 
+  // Resume view
+
+  const dummyUsers = [
+  {
+    id: "1",
+    profile: {
+      fullName: "Harshavarthini A",
+      // Using a public sample PDF for testing
+      resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    },
+    uploadDate: "24 Oct, 2023",
+    skills: ["React", "JavaScript"],
+    currentDetails: { experience: "2" },
+    education: { graduations: [{ degree: "B.E Computer Science" }] },
+    languages: [{ name: "English" }],
+    preferences: [{ ready: "Immediate", jobType: "Full-time" }]
+  },
+  // ... more users
+];
+
+  // const handleViewFile = () => {
+  //   // Replace with your actual file URL from currentUser data
+  //   const fileUrl = currentUser.profile?.resumeUrl || "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+  //   window.open(fileUrl, '_blank', 'noopener,noreferrer');
+  // };
+
+  const handleDownloadFile = () => {
+    const fileUrl = currentUser.profile?.resumeUrl || "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+    const fileName = `${currentUser.profile?.fullName || "User"}_Resume.pdf`;
+
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.setAttribute('download', fileName);
+    link.setAttribute('target', '_blank');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
   return (
     <>
       <EHeader />
       <div className="profile-wrapper">
         <div className="profile-container">
+          <button
+            className="back-btn"
+            onClick={() => navigate('/Job-portal/Employer/Dashboard', {
+              state: { targetTab: 'Find a Talent' }
+            })}
+          >
+            <span className="back-icon">←</span> Back to Find Talent
+          </button>
           <div className="page-header">
             <h1>{currentUser.profile?.fullName}'s Profile Overview</h1>
           </div>
@@ -58,7 +105,11 @@ export const JsProfileOverview = () => {
                   <p className="file-meta">Uploaded on: {currentUser.uploadDate || "24 Oct, 2023"}</p>
                 </div>
               </div>
-              <img src={threedots} alt="Menu" className="POverview-icon-more" />
+              <div className="file-actions">
+                {/* <button className="file-btn-view" onClick={handleViewFile}>View</button> */}
+                <button className="file-btn-download" onClick={handleDownloadFile}>Download</button>
+              </div>
+              {/* <img src={threedots} alt="Menu" className="POverview-icon-more" /> */}
             </div>
           </div>
 
@@ -68,10 +119,10 @@ export const JsProfileOverview = () => {
                 <h3>Qualifications</h3>
                 <p className="sub-text">View skills and work experience.</p>
               </div>
-              <img 
-                src={Arrow} 
-                alt="Arrow" 
-                className={`arrow-icon ${isOpen ? '' : 'rotate'}`} 
+              <img
+                src={Arrow}
+                alt="Arrow"
+                className={`arrow-icon ${isOpen ? '' : 'rotate'}`}
               />
             </div>
 
@@ -112,7 +163,7 @@ export const JsProfileOverview = () => {
             </div>
           </div>
           {console.log(currentUser.preferences[0].ready)}
-          
+
           <div className="footer-text">
             <button className='FindTalent-btn-view' onClick={handleConnect}>
               Chat with {currentUser.profile?.fullName}

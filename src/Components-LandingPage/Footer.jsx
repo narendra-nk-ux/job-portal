@@ -22,10 +22,10 @@ export const Footer = () => {
         <div className="footer-link-section">
           <h3>Quick Links</h3>
           <ul>
-            <li onClick={()=>navigate('/Job-portal/jobseeker/aboutus')}>About Us</li>
-            <li onClick={()=>navigate('/Job-portal/jobseeker/Contact_Us')}>Contact Us</li>
-            <li onClick={()=>{navigate('/Job-portal/jobseeker/FAQ')}} >FAQs</li>
-            <li onClick={()=>{navigate('/Job-portal/jobseeker/Blogs')}}>Blog</li>
+            <li onClick={() => navigate('/Job-portal/jobseeker/aboutus')}>About Us</li>
+            <li onClick={() => navigate('/Job-portal/jobseeker/Contact_Us')}>Contact Us</li>
+            <li onClick={() => { navigate('/Job-portal/jobseeker/FAQ') }} >FAQs</li>
+            <li onClick={() => { navigate('/Job-portal/jobseeker/Blogs') }}>Blog</li>
           </ul>
         </div>
 
@@ -43,7 +43,13 @@ export const Footer = () => {
           <h3>Employers</h3>
           <ul>
             <li>Post a Job</li>
-            <li onClick={()=>{navigate('/Job-portal/Employer/FindTalent')}}>Find Talent</li>
+            <li onClick={() => {
+              navigate('/Job-portal/Employer/Dashboard', {
+                state: { fromFooter: true, targetTab: 'Find a Talent' }
+              })
+            }}>
+              Find Talent
+            </li>
             <li>Employer Dashboard</li>
           </ul>
         </div>

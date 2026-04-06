@@ -49,6 +49,10 @@ import { EmployerDashboard } from './Components-Employer/EmployerDashboard'
 import { JMessenger } from './Components-Jobseeker/JMessenger'
 import { EMessenger } from './Components-Employer/EMessenger'
 import { FindTalent } from './Components-Employer/FindTalent'
+import { BillingSec } from './Components-Employer/BillingSec'
+import { MembershipPlans } from './Components-Employer/MembershipPlans'
+import {PlansBilling} from './Components-Employer/PlansBilling'
+import { PaymentMethods } from './Components-Employer/PaymentMethods'
 import { AboutYourCompany } from './Components-Employer/AboutYourCompany'
 import { CompanyVerify } from './Components-Employer/CompanyVerify'
 import { PostJobForm } from './Components-Employer/PostJobForm'
@@ -281,6 +285,22 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/Employer/FindTalent',
   element: <FindTalent/>
+},
+{
+  path: '/Job-portal/Employer/Billing',
+  element: <BillingSec/>
+},
+{
+  path: '/Job-portal/Employer/Membership',
+  element: <MembershipPlans/>
+},
+{
+  path: '/Job-portal/Employer/PlansBilling',
+  element: <PlansBilling/>
+},
+{
+  path: '/Job-portal/Employer/PaymentMethods',
+  element: <PaymentMethods/>
 },
 {
   path: '/Job-portal/Employer/FindTalent/ProfileOverview/:id',

@@ -8,6 +8,52 @@
   color: #334155;
 }
 
+/* Home Icon btn */
+
+.Home-Icon-Group {
+    /* display: flex; */
+    flex-direction: column; 
+    align-items: center;
+    /* justify-content: center; */
+    transition: all 0.2s ease-in-out;
+    padding: 5px;
+}
+
+.Home-Icon-Group:hover {
+    transform: translateY(-2px); 
+}
+
+.Home-Icon-Group:hover .Home-Nav-Text {
+    color: #2563eb; 
+    opacity: 1;  
+    transform: translateY(0);
+}
+
+.Home-Nav-Icon {
+    width: 32px;  
+    height: 32px;
+    object-fit: contain;
+    margin-bottom: 4px;
+}
+
+.Home-Nav-Text {
+    font-size: 11px;
+    font-weight: 800;
+    color: #1a1f71; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    /* Hiding Logic */
+    opacity: 0; 
+    transform: translateY(5px); 
+    transition: all 0.2s ease-in-out;
+    pointer-events: none; 
+}
+
+.Home-Icon-Link {
+    text-decoration: none;
+}
+
+
 /* --- Search Bar Section --- */
 .FindTalent-search-section {
   text-align: center;

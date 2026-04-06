@@ -27,10 +27,10 @@ export const EHeader = () => {
         <header className="header">
             <div className="logo">job portal</div>
 
-            <div className='E-Header-search'>
+            {/* <div className='E-Header-search'>
                 <img className="E-searchicon" src={search} alt="search icon" />
                 <input className="input" type="text" placeholder='Search for jobs and applicants' />
-            </div>
+            </div> */}
 
             <div className="auth-links">
                 {/* Chat Icon */}
