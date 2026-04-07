@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 // import bankLogos from '../assets/Bank_logos.png';
 // import gpayLogo from '../assets/Gpay_upi_logo.png';
 // import paytmLogo from '../assets/Paytm_upi_logo.png';
@@ -95,6 +96,7 @@ export const PaymentMethods = ({ onBack, onSave, onCancel, cardOnlyMode = false,
     // const [cardData, setCardData] = useState({ name: '', number: '', expiry: '', cvc: '' });
     // const [upiId, setUpiId] = useState('');
     // const [bankSearch, setBankSearch] = useState('');
+
     const [cardColor, setCardColor] = useState('#2d3436'); // Default dark color
 
     const [activeTab, setActiveTab] = useState(defaultTab);

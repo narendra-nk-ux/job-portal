@@ -61,6 +61,11 @@ import { PostedJobs } from './Components-Employer/PostedJobs'
 import { EditJob } from './Components-Employer/EditJob'
 import { JsProfileOverview } from './Components-Employer/JsProfileOverview'
 import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
+import { BillingSec } from './Components-Employer/BillingSec'
+import { MembershipPlans } from './Components-Employer/MembershipPlans'
+import { PlansBilling } from './Components-Employer/PlansBilling'
+import { PaymentMethods } from './Components-Employer/PaymentMethods'
+import { ALogin } from './Components-Admin/ALogin'
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -309,8 +314,27 @@ const router = createBrowserRouter([{
 {
   path:'/Job-portal/Employer/about-your-company/company-verification',
   element: <CompanyVerify/>
+},
+{
+  path: '/Job-portal/Employer/Billing',
+  element: <BillingSec/>
+},
+{
+  path: '/Job-portal/Employer/Membership',
+  element: <MembershipPlans/>
+},
+{
+  path: '/Job-portal/Employer/PlansBilling',
+  element: <PlansBilling/>
+},
+{
+  path: '/Job-portal/Employer/PaymentMethods',
+  element: <PaymentMethods/>
+},
+{
+  path:'/Job-portal/admin',
+  element: <ALogin />
 }
-
 ])
 
 function App() {
