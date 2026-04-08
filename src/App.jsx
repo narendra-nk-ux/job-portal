@@ -61,11 +61,8 @@ import { PostedJobs } from './Components-Employer/PostedJobs'
 import { EditJob } from './Components-Employer/EditJob'
 import { JsProfileOverview } from './Components-Employer/JsProfileOverview'
 import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
-import { BillingSec } from './Components-Employer/BillingSec'
-import { MembershipPlans } from './Components-Employer/MembershipPlans'
-import { PlansBilling } from './Components-Employer/PlansBilling'
-import { PaymentMethods } from './Components-Employer/PaymentMethods'
 import { ALogin } from './Components-Admin/ALogin'
+import { AdminDashboard } from './Components-Admin/AdminDashboard'
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -334,6 +331,10 @@ const router = createBrowserRouter([{
 {
   path:'/Job-portal/admin',
   element: <ALogin />
+},
+{
+  path: '/Job-portal/Admin/Dashboard',
+  element: <AdminDashboard />,
 }
 ])
 
