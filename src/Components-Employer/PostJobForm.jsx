@@ -4,8 +4,29 @@ import { EHeader } from './EHeader';
 import { Footer } from '../Components-LandingPage/Footer';
 import './PostJobForm.css';
 
-export const PostJobForm = () => {
+
+const availableSkills = ["UI & UX", "UI/UX Design", "UI Design", "UX Design", "User Interface", "User Experience", "Figma", "Adobe XD", "Sketch", "Photoshop", "Illustrator", "InDesign", "Wireframing", "Prototyping",
+  "HTML", "HTML5", "CSS", "CSS3", "JavaScript", "TypeScript", "React", "React Native", "Angular", "Vue.js", "Next.js", "Nuxt.js", "Svelte", "SASS", "LESS", "Tailwind CSS", "Bootstrap", "Material UI", "Redux", "Webpack", "Babel", "DOM Manipulation", "AJAX", "JSON",
+  "Node.js", "Express.js", "Python", "Django", "Flask", "FastAPI", "Java", "Spring Boot", "Hibernate", "C", "C++", "C#", ".NET", "ASP.NET", "PHP", "Laravel", "Symfony", "Ruby", "Ruby on Rails", "Go", "Rust", "Swift", "Kotlin", "Scala", "Elixir", "Erlang",
+  "SQL", "MySQL", "PostgreSQL", "SQLite", "MongoDB", "Mongoose", "Redis", "Cassandra", "DynamoDB", "Firebase", "Oracle", "Microsoft SQL Server", "GraphQL", "REST API", "Prisma",
+  "AWS", "Azure", "Google Cloud Platform (GCP)", "Docker", "Kubernetes", "Linux", "Unix", "Ubuntu", "CentOS", "Jenkins", "Travis CI", "CircleCI", "GitLab CI/CD", "Terraform", "Ansible", "Puppet", "Chef", "Bash", "Shell Scripting", "Nginx", "Apache",
+  "Data Analysis", "Data Science", "Machine Learning", "Artificial Intelligence", "Deep Learning", "NLP", "Computer Vision", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-Learn", "TensorFlow", "Keras", "PyTorch", "Tableau", "Power BI", "Excel", "R", "Hadoop", "Spark", "Kafka",
+  "Android SDK", "iOS Development", "Flutter", "Dart", "Objective-C", "Xamarin", "Ionic",
+  "Agile", "Scrum", "Kanban", "Jira", "Trello", "Asana", "Git", "GitHub", "GitLab", "Bitbucket", "Postman", "Swagger",
+  "Cybersecurity", "Penetration Testing", "Ethical Hacking", "Cryptography", "Blockchain", "Web3", "Smart Contracts", "Solidity", "QA Testing", "Selenium", "Jest", "Mocha", "Chai", "Cypress", "Puppeteer", "Project Management", "Product Management", "Digital Marketing", "SEO", "SEM", "Content Writing", "Copywriting", "Sales", "Business Development", "Customer Success", "Technical Support"];
+
+export const PostJobForm = ({ onCancel }) => {
   const navigate = useNavigate();
+
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel();
+    } else {
+      navigate(-1);
+    }
+  };
+
+
 
   const [showOtherModal, setShowOtherModal] = useState(false);
   const [customLocation, setCustomLocation] = useState("");
@@ -65,6 +86,8 @@ export const PostJobForm = () => {
   });
   console.log(formData)
 
+  const [skillInput, setSkillInput] = useState(""); // Track what user types
+  const [filteredSkills, setFilteredSkills] = useState([]);
   const [skillsList, setSkillsList] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [errors, setErrors] = useState({});
@@ -72,6 +95,31 @@ export const PostJobForm = () => {
   const toggleDropdown = (name) => {
     setOpenDropdown(openDropdown === name ? null : name);
   };
+
+  // Handle Skill Input Change
+  const handleSkillChange = (e) => {
+    const value = e.target.value;
+    setSkillInput(value);
+
+    if (value.trim()) {
+      const filtered = availableSkills.filter(skill =>
+        skill.toLowerCase().includes(value.toLowerCase()) &&
+        !skillsList.includes(skill)
+      );
+      setFilteredSkills(filtered);
+    } else {
+      setFilteredSkills([]);
+    }
+  };
+
+  // Select Skill from Suggestion
+  const selectSkill = (skill) => {
+    setSkillsList([...skillsList, skill]);
+    setSkillInput("");
+    setFilteredSkills([]);
+    setErrors({ ...errors, keySkills: "" });
+  };
+
 
   const validateForm = () => {
     const newErrors = {};
@@ -134,10 +182,10 @@ export const PostJobForm = () => {
           : [...prev.location, newLocation]
       }));
 
-      setCustomLocation(""); 
-      setShowOtherModal(false); 
-      setErrors(prev => ({ ...prev, location: "" })); 
-      setOpenDropdown('location'); 
+      setCustomLocation("");
+      setShowOtherModal(false);
+      setErrors(prev => ({ ...prev, location: "" }));
+      setOpenDropdown('location');
     }
   };
 
@@ -504,10 +552,20 @@ export const PostJobForm = () => {
                       type="text"
                       name="keySkills"
                       placeholder="Press Enter to add skills  (e.g., Python, AWS, React etc...)"
-                      value={formData.keySkills}
-                      onChange={handleChange}
+                      value={skillInput}
+                      onChange={handleSkillChange}
                       onKeyDown={handleKeyDown}
                     />
+                    {/* SUGGESTIONS LIST */}
+                    {filteredSkills.length > 0 && (
+                      <ul className="skills-suggestions-list">
+                        {filteredSkills.map((skill, index) => (
+                          <li key={index} onClick={() => selectSkill(skill)}>
+                            {skill}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     <div className="jobpost-tags-area" style={errors.keySkills ? { borderColor: '#d93025' } : {}}>
                       {skillsList.map((skill, index) => (
                         <span key={index} className="jobpost-tag">
@@ -573,7 +631,7 @@ export const PostJobForm = () => {
           </div>
 
           <div className="jobpost-actions">
-            <button type="button" className="jobpost-btn-cancel" onClick={() => navigate(-1)}>Cancel</button>
+            <button type="button" className="jobpost-btn-cancel" onClick={handleCancel}>Cancel</button>
             <button type="button" className="jobpost-btn-preview" onClick={handleSubmit}>Preview</button>
           </div>
         </main>

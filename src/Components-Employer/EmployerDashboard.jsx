@@ -89,11 +89,11 @@ export const EmployerDashboard = () => {
         }
     }, [fromVerify]);
     useEffect(() => {
-    // If we redirected from Footer, switch the tab automatically
-    if (location.state?.targetTab) {
-        setActiveTab(location.state.targetTab);
-    }
-}, [location.state]);
+        // If we redirected from Footer, switch the tab automatically
+        if (location.state?.targetTab) {
+            setActiveTab(location.state.targetTab);
+        }
+    }, [location.state]);
 
     const ToggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
@@ -238,7 +238,15 @@ export const EmployerDashboard = () => {
                                             <h2>Hi {currentEmployer?.hrName},</h2>
                                             <p style={{ fontWeight: "600" }}>Here's, What's Going on... </p>
                                         </div>
-                                        <button className='post-job-btn' onClick={() => { setActiveTab('Post a Job') }}>+ Post a Job</button>
+                                        <button
+                                            className='post-job-btn'
+                                            onClick={() => {
+                                                !isVerifying && setActiveTab('Post a Job');
+                                                window.scrollTo(0, 0);
+                                            }}
+                                        >
+                                            + Post a Job
+                                        </button>
                                     </div>
 
                                     <div className='E-DashB-Over-View'>
@@ -328,7 +336,9 @@ export const EmployerDashboard = () => {
                         </>
                     )}
 
-                    {activetab === 'Post a Job' && (<PostJobForm />)}
+                    {activetab === 'Post a Job' && (
+                        <PostJobForm onCancel={() => setActiveTab('Dashboard')} />
+                    )}
 
                     {activetab === 'My job post' && (<PostedJobs onViewApplicants={(job) => { setSelectedJob(job); setActiveTab('ViewApplicants'); }} />)}
 
