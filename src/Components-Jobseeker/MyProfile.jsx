@@ -20,6 +20,66 @@ const EditableListItem = ({ title, onEdit }) => (
     </div>
 );
 
+const nationalityOptions = [
+    "American", "British", "Canadian", "Chinese", "French", "German", 
+    "Indian", "Indonesian", "Italian", "Japanese", "Mexican", "Russian", 
+    "Singaporean", "Spanish", "Swiss"
+];
+
+// Filter drop down skills and languages
+
+const FilterableDropdown = ({ options, selectedValue, onSelect, placeholder }) => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
+
+    const filteredOptions = options.filter(opt =>
+        opt.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+        <div className="jobpost-dropdown" style={{ position: 'relative', width: '100%' }}>
+            <div
+                className="jobpost-dropdown-trigger"
+                onClick={() => setIsOpen(!isOpen)}
+                style={{ height: '44px', border: '1px solid #E5E7EB', borderRadius: '6px', padding: '0 16px', display: 'flex', alignItems: 'center', cursor: 'pointer', background: '#fff' }}
+            >
+                {selectedValue || placeholder}
+                <i className={`fas fa-angle-down jobpost-arrow ${isOpen ? 'open' : ''}`} style={{ marginLeft: 'auto' }}></i>
+            </div>
+
+            {isOpen && (
+                <div className="jobpost-dropdown-panel" style={{ display: 'block', position: 'absolute', top: '100%', left: 0, width: '100%', zIndex: 1000, background: '#fff', border: '1px solid #E5E7EB', borderRadius: '8px', padding: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                    <input
+                        type="text"
+                        className="jobpost-input"
+                        placeholder="Search..."
+                        autoFocus
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ marginBottom: '10px', height: '36px' }}
+                    />
+                    <div className="jobpost-options-grid" style={{ gridTemplateColumns: '1fr', maxHeight: '150px', overflowY: 'auto' }}>
+                        {filteredOptions.length > 0 ? (
+                            filteredOptions.map(opt => (
+                                <div
+                                    key={opt}
+                                    className="jobpost-option-item"
+                                    onClick={() => { onSelect(opt); setIsOpen(false); setSearchTerm(""); }}
+                                    style={{ padding: '8px', cursor: 'pointer' }}
+                                >
+                                    {opt}
+                                </div>
+                            ))
+                        ) : (
+                            <div style={{ padding: '8px', color: '#999' }}>No results found</div>
+                        )}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
 const PopupModal = ({ title, isOpen, onClose, onSave, onDelete, mode, children }) => {
     if (!isOpen) return null;
     return (
@@ -54,6 +114,12 @@ const Profile = ({ data, onChange, onReset, onNext }) => {
     const handleChange = (e) => {
         onChange(e);
         if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: '' });
+    };
+
+    const handleNationalitySelect = (val) => {
+        handleChange({
+            target: { name: 'nationality', value: val }
+        });
     };
 
     const handleSubmit = (e) => {
@@ -197,7 +263,13 @@ const Profile = ({ data, onChange, onReset, onNext }) => {
                     </div>
                     <div className="form-group">
                         <label>Nationality</label>
-                        <input type="text" name="nationality" value={data.nationality || ''} onChange={handleChange} className={errors.nationality ? 'input-error' : ''} placeholder="Enter nationality" />
+                        {/* <input type="text" name="nationality" value={data.nationality || ''} onChange={handleChange} className={errors.nationality ? 'input-error' : ''} placeholder="Enter nationality" /> */}
+                        <FilterableDropdown 
+                        options={nationalityOptions} 
+                        selectedValue={data.nationality} 
+                        onSelect={handleNationalitySelect} 
+                        placeholder="Select Nationality" 
+                    />
                         {errors.nationality && <span className="error-message">{errors.nationality}</span>}
                     </div>
                 </div>
@@ -743,10 +815,28 @@ const KeySkills = ({ skills, onAdd, onUpdate, onDelete, onReset, onNext }) => {
     const [currentSkill, setCurrentSkill] = useState("");
     const [errors, setErrors] = useState({});
 
+    const skillOptions = ["UI & UX", "UI/UX Design", "UI Design", "UX Design", "User Interface", "User Experience", "Figma", "Adobe XD", "Sketch", "Photoshop", "Illustrator", "InDesign", "Wireframing", "Prototyping",
+        "HTML", "HTML5", "CSS", "CSS3", "JavaScript", "TypeScript", "React", "React Native", "Angular", "Vue.js", "Next.js", "Nuxt.js", "Svelte", "SASS", "LESS", "Tailwind CSS", "Bootstrap", "Material UI", "Redux", "Webpack", "Babel", "DOM Manipulation", "AJAX", "JSON",
+        "Node.js", "Express.js", "Python", "Django", "Flask", "FastAPI", "Java", "Spring Boot", "Hibernate", "C", "C++", "C#", ".NET", "ASP.NET", "PHP", "Laravel", "Symfony", "Ruby", "Ruby on Rails", "Go", "Rust", "Swift", "Kotlin", "Scala", "Elixir", "Erlang",
+        "SQL", "MySQL", "PostgreSQL", "SQLite", "MongoDB", "Mongoose", "Redis", "Cassandra", "DynamoDB", "Firebase", "Oracle", "Microsoft SQL Server", "GraphQL", "REST API", "Prisma",
+        "AWS", "Azure", "Google Cloud Platform (GCP)", "Docker", "Kubernetes", "Linux", "Unix", "Ubuntu", "CentOS", "Jenkins", "Travis CI", "CircleCI", "GitLab CI/CD", "Terraform", "Ansible", "Puppet", "Chef", "Bash", "Shell Scripting", "Nginx", "Apache",
+        "Data Analysis", "Data Science", "Machine Learning", "Artificial Intelligence", "Deep Learning", "NLP", "Computer Vision", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-Learn", "TensorFlow", "Keras", "PyTorch", "Tableau", "Power BI", "Excel", "R", "Hadoop", "Spark", "Kafka",
+        "Android SDK", "iOS Development", "Flutter", "Dart", "Objective-C", "Xamarin", "Ionic",
+        "Agile", "Scrum", "Kanban", "Jira", "Trello", "Asana", "Git", "GitHub", "GitLab", "Bitbucket", "Postman", "Swagger",
+        "Cybersecurity", "Penetration Testing", "Ethical Hacking", "Cryptography", "Blockchain", "Web3", "Smart Contracts", "Solidity", "QA Testing", "Selenium", "Jest", "Mocha", "Chai", "Cypress", "Puppeteer", "Project Management", "Product Management", "Digital Marketing", "SEO", "SEM", "Content Writing", "Copywriting", "Sales", "Business Development", "Customer Success", "Technical Support"];
+
     const openAdd = () => { setEditIndex(null); setCurrentSkill(""); setIsModalOpen(true); };
     const openEdit = (index) => { setEditIndex(index); setCurrentSkill(skills[index]); setIsModalOpen(true); };
 
     const handleSave = () => {
+        const isDuplicate = skills.some((skill, index) =>
+            skill.toLowerCase() === currentSkill.toLowerCase() && index !== editIndex
+        );
+
+        if (isDuplicate) {
+            alert("This skill is already in your list.");
+            return;
+        }
         if (currentSkill.trim()) {
             if (editIndex !== null) onUpdate(editIndex, currentSkill);
             else onAdd(currentSkill);
@@ -787,7 +877,16 @@ const KeySkills = ({ skills, onAdd, onUpdate, onDelete, onReset, onNext }) => {
             <button type="button" className="add-link" onClick={openAdd}>+ Add another skill</button>
             <div className="form-actions"><button onClick={handleSubmit} type="submit" className="btn btn-primary">Save & Continue</button></div>
             <PopupModal title={editIndex !== null ? "Edit Skill" : "Add Skill"} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSave} onDelete={handleDelete} mode={editIndex !== null ? 'edit' : 'add'}>
-                <div className="form-group"><label>Skill *</label><input type="text" value={currentSkill} onChange={(e) => setCurrentSkill(e.target.value)} placeholder="Enter Skill" /></div>
+                {/* <div className="form-group"><label>Skill *</label><input type="text" value={currentSkill} onChange={(e) => setCurrentSkill(e.target.value)} placeholder="Enter Skill" /></div> */}
+                <div className="form-group">
+                    <label>Skill *</label>
+                    <FilterableDropdown
+                        options={skillOptions.filter(opt => !skills.includes(opt))}
+                        selectedValue={currentSkill}
+                        onSelect={setCurrentSkill}
+                        placeholder="Select or Search Skill"
+                    />
+                </div>
             </PopupModal>
         </form>
     );
@@ -799,10 +898,41 @@ const LanguagesKnown = ({ languages, onAdd, onUpdate, onDelete, onReset, onNext 
     const [currentLang, setCurrentLang] = useState({ name: "", proficiency: "Select" });
     const [errors, setErrors] = useState({});
 
+    const languageOptions = [
+        "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Assamese",
+        "Azerbaijani", "Basque", "Belarusian", "Bengali", "Bosnian", "Bulgarian",
+        "Burmese", "Catalan", "Cebuano", "Chichewa", "Chinese (Simplified)",
+        "Chinese (Traditional)", "Corsican", "Croatian", "Czech", "Danish",
+        "Dutch", "English", "Esperanto", "Estonian", "Filipino", "Finnish",
+        "French", "Frisian", "Galician", "Georgian", "German", "Greek",
+        "Gujarati", "Haitian Creole", "Hausa", "Hawaiian", "Hebrew", "Hindi",
+        "Hmong", "Hungarian", "Icelandic", "Igbo", "Indonesian", "Irish",
+        "Italian", "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer",
+        "Kinyarwanda", "Korean", "Kurdish", "Kyrgyz", "Lao", "Latin", "Latvian",
+        "Lithuanian", "Luxembourgish", "Macedonian", "Malagasy", "Malay",
+        "Malayalam", "Maltese", "Maori", "Marathi", "Mongolian", "Nepali",
+        "Norwegian", "Odia", "Pashto", "Persian", "Polish", "Portuguese",
+        "Punjabi", "Romanian", "Russian", "Samoan", "Sanskrit", "Serbian",
+        "Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian",
+        "Somali", "Spanish", "Sundanese", "Swahili", "Swedish", "Tajik",
+        "Tamil", "Tatar", "Telugu", "Thai", "Turkish", "Turkmen", "Ukrainian",
+        "Urdu", "Uyghur", "Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yiddish",
+        "Yoruba", "Zulu"
+    ];
+
+
     const openAdd = () => { setEditIndex(null); setCurrentLang({ name: "", proficiency: "Select" }); setIsModalOpen(true); };
     const openEdit = (index) => { setEditIndex(index); setCurrentLang(languages[index]); setIsModalOpen(true); };
 
     const handleSave = () => {
+        const isDuplicate = languages.some((lang, index) =>
+            lang.name.toLowerCase() === currentLang.name.toLowerCase() && index !== editIndex
+        );
+
+        if (isDuplicate) {
+            alert("This language is already in your list.");
+            return;
+        }
         if (currentLang.name.trim()) {
             if (editIndex !== null) onUpdate(editIndex, currentLang);
             else onAdd(currentLang);
@@ -838,8 +968,27 @@ const LanguagesKnown = ({ languages, onAdd, onUpdate, onDelete, onReset, onNext 
             <button type="button" className="add-link" onClick={openAdd}>+ Add another</button>
             <div className="form-actions"><button type="submit" className="btn btn-primary" onClick={handleSubmit}>Save & Continue</button></div>
             <PopupModal title={editIndex !== null ? "Edit Language" : "Add Language"} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSave} onDelete={handleDelete} mode={editIndex !== null ? 'edit' : 'add'}>
-                <div className="form-group" style={{ marginBottom: '1rem' }}><label>Language Name *</label><input type="text" value={currentLang.name} onChange={(e) => setCurrentLang({ ...currentLang, name: e.target.value })} placeholder="e.g., English" /></div>
-                <div className="form-group"><label>Proficiency</label><select value={currentLang.proficiency} onChange={(e) => setCurrentLang({ ...currentLang, proficiency: e.target.value })}><option value="Select">Select</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Fluent">Fluent</option><option value="Native">Native</option></select></div>
+                {/* <div className="form-group" style={{ marginBottom: '1rem' }}><label>Language Name *</label><input type="text" value={currentLang.name} onChange={(e) => setCurrentLang({ ...currentLang, name: e.target.value })} placeholder="e.g., English" /></div>
+                <div className="form-group"><label>Proficiency</label><select value={currentLang.proficiency} onChange={(e) => setCurrentLang({ ...currentLang, proficiency: e.target.value })}><option value="Select">Select</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Fluent">Fluent</option><option value="Native">Native</option></select></div> */}
+                <div className="form-group" style={{ marginBottom: '1rem' }}>
+                    <label>Language Name *</label>
+                    <FilterableDropdown
+                        options={languageOptions.filter(opt => !languages.some(l => l.name === opt))}
+                        selectedValue={currentLang.name}
+                        onSelect={(val) => setCurrentLang({ ...currentLang, name: val })}
+                        placeholder="Select Language"
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Proficiency</label>
+                    <select value={currentLang.proficiency} onChange={(e) => setCurrentLang({ ...currentLang, proficiency: e.target.value })}>
+                        <option value="Select">Select</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Fluent">Fluent</option>
+                        <option value="Native">Native</option>
+                    </select>
+                </div>
             </PopupModal>
         </form>
     );
@@ -995,7 +1144,7 @@ const Certifications = ({ certs, onAdd, onUpdate, onDelete, onReset, onNext }) =
 
 // --- FINAL SUBMIT BUTTON SECTION ---
 const Preferences = ({ data, onChange, onReset, onSubmitFinal }) => {
-    const {setAlluser,allData}=useJobs()
+    const { setAlluser, allData } = useJobs()
     const NumRegix = /[^0-9]/;
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -1013,27 +1162,27 @@ const Preferences = ({ data, onChange, onReset, onSubmitFinal }) => {
 
 
         setErrors(newErrors);
-       if (Object.keys(newErrors).length === 0) {
-    onSubmitFinal();
+        if (Object.keys(newErrors).length === 0) {
+            onSubmitFinal();
 
-    setAlluser((prevUsers) => {
-        const nextId = (prevUsers.length + 1).toString();
+            setAlluser((prevUsers) => {
+                const nextId = (prevUsers.length + 1).toString();
 
-        const newUser = {
-            id: nextId,
-            ...allData,
-            appliedJobs: allData.appliedJobs || [], 
-            savedJobs: allData.savedJobs || []
-        };
-        console.log(newUser)
+                const newUser = {
+                    id: nextId,
+                    ...allData,
+                    appliedJobs: allData.appliedJobs || [],
+                    savedJobs: allData.savedJobs || []
+                };
+                console.log(newUser)
 
-        console.log("New User Created with appliedJobs key:", newUser);
-        return [...prevUsers, newUser];
-    });
-        console.log(newUser)
+                console.log("New User Created with appliedJobs key:", newUser);
+                return [...prevUsers, newUser];
+            });
+            console.log(newUser)
         }
         alert("Profile Created and Added to User List!");
-        navigate ('/Job-portal/jobseeker')
+        navigate('/Job-portal/jobseeker')
     }
 
 
@@ -1091,7 +1240,7 @@ const Preferences = ({ data, onChange, onReset, onSubmitFinal }) => {
 export const MyProfile = () => {
     const [openDropdown, setOpenDropdown] = useState('Basic Details');
     const [activeItem, setActiveItem] = useState('Profile');
-    const {setAlluser} = useJobs();
+    const { setAlluser } = useJobs();
     // ORDER of Steps for Navigation
     const steps = [
         'Profile',
@@ -1120,7 +1269,7 @@ export const MyProfile = () => {
     });
 
     // --- NAVIGATION LOGIC ---
-    
+
     const handleNextStep = () => {
         const currentIndex = steps.indexOf(activeItem);
         if (currentIndex < steps.length - 1) {
@@ -1230,20 +1379,20 @@ export const MyProfile = () => {
         if (isProfileValid && isSslcValid && isHscValid && isWorkValid) {
             console.log("FINAL SUBMISSION DATA:", allData);
 
-        setAlluser((prevUsers) => {
-        const nextId = (prevUsers.length + 1).toString();
+            setAlluser((prevUsers) => {
+                const nextId = (prevUsers.length + 1).toString();
 
-        const newUser = {
-            id: nextId,
-            ...allData,
-            appliedJobs: allData.appliedJobs || [], 
-            savedJobs: allData.savedJobs || []
-        };
-        console.log(newUser)
+                const newUser = {
+                    id: nextId,
+                    ...allData,
+                    appliedJobs: allData.appliedJobs || [],
+                    savedJobs: allData.savedJobs || []
+                };
+                console.log(newUser)
 
-        console.log("New User Created with appliedJobs key:", newUser);
-        return [...prevUsers, newUser];
-    });
+                console.log("New User Created with appliedJobs key:", newUser);
+                return [...prevUsers, newUser];
+            });
 
             alert("Your profile has been saved successfully!");
         }
