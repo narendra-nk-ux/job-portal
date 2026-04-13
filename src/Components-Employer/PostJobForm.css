@@ -510,3 +510,57 @@
 .jobpost-top-align .jobpost-label {
     padding-top: 12px;
 }
+
+.custom-modal-overlay {
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.custom-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 10px 24px; 
+  border-radius: 8px; 
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px; 
+}
+
+.jobpost-btn-cancel-modal {
+  background-color: #f3f4f6; 
+  color: #374151;            
+  border: 1px solid #d1d5db; 
+}
+
+.jobpost-btn-cancel-modal:hover {
+  background-color: #e5e7eb;
+}

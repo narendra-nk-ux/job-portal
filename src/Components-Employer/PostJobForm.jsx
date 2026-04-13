@@ -7,6 +7,9 @@ import './PostJobForm.css';
 export const PostJobForm = () => {
   const navigate = useNavigate();
 
+  const [showOtherModal, setShowOtherModal] = useState(false);
+  const [customLocation, setCustomLocation] = useState("");
+
   const categoryOptions = ["Aerospace & Defense", "Ai/MI", "Analytics", "Artificial Intelligence", "Automotive", "Big Data", "Biotechnology", "Business Consulting", "Business Intelligence", "Cloud Computing", "Cloud Services", "Construction", "Consulting", "Consumer Goods", "Consumer Tech", "Corporate", "Corporate Functions", "Customer Support", "Cybersecurity", "Data Infrastructure", "Data Science", "Design", "Digital Marketing", "Digital Media", "E-Commerce", "Ed-Tech", "Energy", "Enterprise Software", "Entertainment", "Finance", "Financial Services", "Fintech", "Fmcg", "Healthcare", "Hospital", "Hr Services", "Human Resources", "Internet", "It Consulting", "It Networking", "IT Services", "Logistics", "Marketing", "Marketing & Advertising", "Martech", "Mobile App Development", "Mobile Development", "Pharmaceutical", "Pharma", "Product Development", "Project Management", "Real Estate", "Recruitment", "Regional Sales", "Renewable Power", "Research", "Retail", "Retail Tech", "Saas", "Sales", "Site Reliability Engineering", "Software Development", "Software Product", "Software Testing", "Subscription Service", "Supply Chain", "Technology", "Telecommunications"];
   const educationOptions = [
     "BS", "B.A", "CA", "B.Ed", "M.Com", "B.Sc", "MCA", "BCA", "LLM", "MS/M.Sc", "Diploma", "B.Com", "M.Tech", "MBA/PGDM", "PG Diploma", "B.B.A/ B.M.S", "Medical-MS/MD", "B.Tech/B.E.", "Any Graduate", "Other Post Graduate", "ITI Certification", "Any Postgraduate", "Graduation Not Required", "Post Graduation Not Required", "Bachelor Of Science", "Business Economics"
@@ -37,7 +40,8 @@ export const PostJobForm = () => {
     "Patna",
     "Vadodara",
     "Ludhiana",
-    "Agra"
+    "Agra",
+    "others"
   ];
 
   const [formData, setFormData] = useState({
@@ -80,7 +84,7 @@ export const PostJobForm = () => {
     if (!formData.workDuration.trim()) newErrors.workDuration = "Work duration is required";
     if (!formData.salary.trim()) newErrors.salary = "Salary is required";
     if (!formData.experience.trim()) newErrors.experience = "Experience is required";
-    if (!formData.location.trim()) newErrors.location = "Location is required";
+    if (formData.location.length === 0) newErrors.location = "Location is required";
     if (!formData.openings.trim()) newErrors.openings = "Openings are required";
     if (!formData.jobCategory) newErrors.jobCategory = "Job category is required";
     if (formData.education.length === 0) newErrors.education = "Education is required";
@@ -95,8 +99,16 @@ export const PostJobForm = () => {
 
   const handleCheckboxChange = (name, value, allOptions = []) => {
     setErrors({ ...errors, [name]: "" });
+
+    // Check if the user clicked "others" in the location section
+    if (name === 'location' && value === 'others') {
+      setShowOtherModal(true);
+      setOpenDropdown(null);
+      return;
+    }
     setFormData(prev => {
       const currentList = prev[name] || [];
+
       if (value === "all") {
         const isAllSelected = currentList.length === allOptions.length;
         return { ...prev, [name]: isAllSelected ? [] : allOptions };
@@ -106,6 +118,27 @@ export const PostJobForm = () => {
         : [...currentList, value];
       return { ...prev, [name]: newList };
     });
+  };
+
+  //  Logic to handle the Custom Location submission
+  const handleCustomLocationSubmit = (e) => {
+    if (e) e.preventDefault();
+
+    if (customLocation.trim()) {
+      const newLocation = customLocation.trim();
+
+      setFormData(prev => ({
+        ...prev,
+        location: prev.location.includes(newLocation)
+          ? prev.location
+          : [...prev.location, newLocation]
+      }));
+
+      setCustomLocation(""); 
+      setShowOtherModal(false); 
+      setErrors(prev => ({ ...prev, location: "" })); 
+      setOpenDropdown('location'); 
+    }
   };
 
   const handleChange = (e) => {
@@ -202,6 +235,43 @@ export const PostJobForm = () => {
                   {errors.jobTitle && <span className="error-msg">{errors.jobTitle}</span>}
                 </div>
               </div>
+
+              {/*  MODAL POPUP  */}
+              {showOtherModal && (
+                <div className="custom-modal-overlay">
+                  <div className="custom-modal-content">
+                    <h3>Add Custom Location</h3>
+
+                    <input
+                      type="text"
+                      className="jobpost-input"
+                      placeholder="Enter city name"
+                      autoFocus
+                      value={customLocation}
+                      onChange={(e) => setCustomLocation(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleCustomLocationSubmit();
+                        }
+                      }}
+                    />
+
+                    <div className="modal-buttons">
+                      <button type="button" onClick={() => setShowOtherModal(false)}>
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        className="jobpost-btn-preview"
+                        onClick={handleCustomLocationSubmit}
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className="jobpost-form-row jobpost-top-align">
                 <label className="jobpost-label">Industrial type</label>
@@ -355,11 +425,23 @@ export const PostJobForm = () => {
                           <label key={loc} className="jobpost-option-item">
                             <input
                               type="checkbox"
-                              checked={formData.location.includes(loc)}
+                              checked={loc === 'others' ? false : formData.location.includes(loc)}
                               onChange={() => handleCheckboxChange('location', loc)}
                             /> {loc}
                           </label>
                         ))}
+                        {formData.location
+                          .filter(loc => !locationOptions.includes(loc))
+                          .map(customLoc => (
+                            <label key={customLoc} className="jobpost-option-item">
+                              <input
+                                type="checkbox"
+                                checked={true}
+                                onChange={() => handleCheckboxChange('location', customLoc)}
+                              /> {customLoc} (Custom)
+                            </label>
+                          ))
+                        }
                       </div>
                     </div>
                   </div>

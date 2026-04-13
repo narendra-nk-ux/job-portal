@@ -63,6 +63,8 @@ import { JsProfileOverview } from './Components-Employer/JsProfileOverview'
 import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
 import { ALogin } from './Components-Admin/ALogin'
 import { AdminDashboard } from './Components-Admin/AdminDashboard'
+import { RoleManagement } from './Components-Admin/Rolemanagement'
+
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -335,6 +337,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/Admin/Dashboard',
   element: <AdminDashboard />,
+},
+{
+  path: '/Job-portal/Admin/RoleManagement',
+  element: <RoleManagement />,
 }
 ])
 
