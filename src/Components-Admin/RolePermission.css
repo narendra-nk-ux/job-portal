@@ -1,0 +1,72 @@
+.rolepermission {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.details-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.central-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #1a3353;
+}
+
+.top-right-filter select {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.search-bar-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.main-search-input {
+    width: 100%;
+    padding: 12px 40px;
+    background-color: #eeeeee;
+    border: none;
+    border-radius: 8px;
+}
+
+.pill-status {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+}
+
+.sub-green { background-color: #00ff73; }
+.sub-red { background-color: #ff0000; }
+
+.flex-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.icon-wrapper {
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.blue-bg { background-color: #e0e7ff; color: #4f46e5; }
+.red-bg { background-color: #fee2e2; color: #ef4444; }
+
+.divider {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
