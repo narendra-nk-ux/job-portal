@@ -65,6 +65,8 @@ import { ALogin } from './Components-Admin/ALogin'
 import { AdminDashboard } from './Components-Admin/AdminDashboard'
 import { RoleManagement } from './Components-Admin/RoleManagement'
 import {RolePermission} from './Components-Admin/RolePermission'
+import { JobMonitoring } from './Components-Admin/JobMonitoring'
+import {Tickets} from './Components-Admin/Tickets'
 
 
 
@@ -341,12 +343,20 @@ const router = createBrowserRouter([{
   element: <AdminDashboard />,
 },
 {
+  path: '/Job-portal/Admin/JobMonitoring',
+  element: <JobMonitoring />,
+},
+{
   path: '/Job-portal/Admin/RoleManagement',
   element: <RoleManagement />,
 },
 {
   path: '/Job-portal/Admin/RolePermission',
   element: <RolePermission />,
+},
+{
+  path: '/Job-portal/Admin/Tickets',
+  element: <Tickets />,
 }
 ])
 
